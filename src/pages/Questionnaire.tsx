@@ -135,7 +135,7 @@ const Questionnaire = () => {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -40 }}
               transition={{ duration: 0.3 }}
-              className="bg-card rounded-2xl p-8 md:p-10 shadow-card border border-border"
+              className="bg-card rounded-2xl p-5 md:p-10 shadow-card border border-border"
             >
               <h2 className="font-heading font-bold text-2xl text-foreground mb-2">
                 {steps[currentStep].title}
