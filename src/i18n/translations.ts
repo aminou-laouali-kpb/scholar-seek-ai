@@ -315,6 +315,8 @@ export const translations: Record<Language, Record<string, any>> = {
       cta: "Log In",
       noAccount: "Don't have an account?",
       signupLink: "Create one here",
+      google: "Continue with Google",
+      or: "or continue with email",
     },
     signup: {
       title: "Create Your Account",
@@ -379,6 +381,15 @@ export const translations: Record<Language, Record<string, any>> = {
       loginLink: "Log in here",
       selectCountry: "Select a country",
       selectLevel: "Select your level",
+      google: "Sign up with Google",
+      or: "or sign up with email",
+      confirmEmail: "Check your email to confirm your account!",
+      passwordMismatch: "Passwords don't match",
+    },
+    completeProfile: {
+      title: "Complete Your Profile",
+      subtitle: "Tell us a bit more about yourself to personalize your experience.",
+      cta: "Save & Continue",
     },
     dashboard: {
       title: "Welcome to Your Student Space",
@@ -988,6 +999,8 @@ export const translations: Record<Language, Record<string, any>> = {
       cta: "Se Connecter",
       noAccount: "Vous n'avez pas de compte ?",
       signupLink: "Créez-en un ici",
+      google: "Continuer avec Google",
+      or: "ou continuer avec email",
     },
     signup: {
       title: "Créer Votre Compte",
@@ -1052,6 +1065,15 @@ export const translations: Record<Language, Record<string, any>> = {
       loginLink: "Connectez-vous ici",
       selectCountry: "Sélectionner un pays",
       selectLevel: "Sélectionner votre niveau",
+      google: "S'inscrire avec Google",
+      or: "ou s'inscrire avec email",
+      confirmEmail: "Vérifiez votre email pour confirmer votre compte !",
+      passwordMismatch: "Les mots de passe ne correspondent pas",
+    },
+    completeProfile: {
+      title: "Complétez Votre Profil",
+      subtitle: "Dites-nous en un peu plus sur vous pour personnaliser votre expérience.",
+      cta: "Enregistrer & Continuer",
     },
     dashboard: {
       title: "Bienvenue dans Votre Espace Étudiant",
