@@ -975,7 +975,7 @@ export const translations: Record<Language, Record<string, any>> = {
       },
       desiredProgram: "Programme / filière souhaitée",
       desiredProgramPlaceholder: "ex. Informatique, Gestion...",
-      dontKnowProgram: "Je ne connais pas encore mon programme",
+      dontKnowProgram: "Je ne sais pas encore quelle filière choisir",
       orientationNote: "Après inscription, vous serez guidé(e) vers notre outil d'orientation pour découvrir le meilleur programme pour vous.",
       password: "Mot de Passe",
       confirmPassword: "Confirmer le Mot de Passe",
