@@ -1202,6 +1202,46 @@ export const translations: Record<Language, Record<string, any>> = {
         },
       },
     },
+    usaFinder: {
+      step: "Question",
+      prev: "Retour",
+      next: "Continuer",
+      finish: "Voir Mes Résultats",
+      steps: [
+        { title: "Quel est votre niveau d'études actuel ?", subtitle: "Cela nous aide à vous orienter vers les bonnes institutions.", options: [
+          { value: "high-school", label: "Lycée / Terminale" },
+          { value: "bachelor", label: "Licence" },
+          { value: "master", label: "Master" },
+          { value: "other", label: "Autre" },
+        ]},
+        { title: "Quel domaine souhaitez-vous étudier ?", subtitle: "Choisissez le domaine qui vous intéresse le plus.", options: [
+          { value: "stem", label: "STEM (Sciences, Tech, Ingénierie, Maths)" },
+          { value: "business", label: "Commerce & Économie" },
+          { value: "arts", label: "Arts, Lettres & Sciences Sociales" },
+          { value: "health", label: "Santé & Médecine" },
+        ]},
+        { title: "Quelle est votre sensibilité au budget ?", subtitle: "Cela nous aide à recommander le bon parcours.", options: [
+          { value: "low", label: "Budget limité — J'ai besoin de l'option la plus abordable" },
+          { value: "medium", label: "Moyen — Je peux investir modérément" },
+          { value: "high", label: "Élevé — Le budget n'est pas ma préoccupation principale" },
+        ]},
+        { title: "Quel type d'institution vous intéresse ?", subtitle: "Chacun a des avantages différents.", options: [
+          { value: "university", label: "Université (diplôme de 4 ans)" },
+          { value: "community-college", label: "Community College (2 ans + transfert)" },
+          { value: "both", label: "Les deux — Je suis ouvert(e)" },
+        ]},
+        { title: "Êtes-vous intéressé(e) par les bourses ?", subtitle: "De nombreuses institutions US offrent des aides aux étudiants internationaux.", options: [
+          { value: "yes", label: "Oui, les bourses sont essentielles pour moi" },
+          { value: "maybe", label: "Peut-être — J'aimerais explorer les options" },
+          { value: "no", label: "Pas vraiment — Je prévois d'autofinancer" },
+        ]},
+        { title: "Quel est votre niveau d'anglais ?", subtitle: "Certains parcours incluent une préparation en anglais.", options: [
+          { value: "fluent", label: "Courant — Je peux étudier entièrement en anglais" },
+          { value: "intermediate", label: "Intermédiaire — J'aurai peut-être besoin de soutien" },
+          { value: "beginner", label: "Débutant — J'aurais besoin d'une préparation" },
+        ]},
+      ],
+    },
     whatsappTooltip: "Discutez avec nous sur WhatsApp",
     countries: {
       cameroon: "Cameroun", congo: "Congo", drc: "RD Congo", senegal: "Sénégal",
