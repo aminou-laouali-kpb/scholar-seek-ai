@@ -238,6 +238,7 @@ export const translations: Record<Language, Record<string, any>> = {
         spain: { name: "Spain", desc: "Affordable living, sunny climate, and growing international program offerings." },
         turkey: { name: "Turkey", desc: "Generous scholarships, modern campuses, and a bridge between Europe and Asia." },
         uae: { name: "UAE / Dubai", desc: "World-class campuses, tax-free environment, and rapidly growing international education hub." },
+        china: { name: "China", desc: "Affordable tuition, CSC scholarships, and rapidly growing international programs in Asia's largest economy." },
       },
     },
     scholarshipsPage: {
