@@ -105,6 +105,7 @@ const PhonePrefixCombobox = ({
 
 const CompleteProfile = () => {
   const { t, language } = useLanguage();
+  const isEn = language === "en";
   const { user, refreshProfile } = useAuth();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
