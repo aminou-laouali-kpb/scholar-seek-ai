@@ -323,7 +323,7 @@ export const translations: Record<Language, Record<string, any>> = {
       lastNamePassport: "Last Name (as on passport)",
       email: "Email Address",
       whatsapp: "WhatsApp Number",
-      whatsappPlaceholder: "+233 XX XXX XXXX",
+      whatsappPlaceholder: "6XX XXX XXX",
       countryOfBirth: "Country of Birth",
       countryOfResidence: "Country of Residence",
       studyLevel: "Current Study Level",
