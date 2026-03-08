@@ -575,6 +575,53 @@ export const translations: Record<Language, Record<string, any>> = {
         },
       },
     },
+    usaFinder: {
+      step: "Question",
+      prev: "Back",
+      next: "Continue",
+      finish: "See My Results",
+      steps: [
+        { title: "What is your current study level?", subtitle: "This helps us match you with the right institutions.", options: [
+          { value: "high-school", label: "High School / Secondary" },
+          { value: "bachelor", label: "Bachelor's Degree" },
+          { value: "master", label: "Master's Degree" },
+          { value: "other", label: "Other" },
+        ]},
+        { title: "What field do you want to study?", subtitle: "Choose the area that interests you most.", options: [
+          { value: "stem", label: "STEM (Science, Tech, Engineering, Math)" },
+          { value: "business", label: "Business & Economics" },
+          { value: "arts", label: "Arts, Humanities & Social Sciences" },
+          { value: "health", label: "Health & Medicine" },
+        ]},
+        { title: "What is your budget sensitivity?", subtitle: "This helps us recommend the right pathway.", options: [
+          { value: "low", label: "Low budget — I need the most affordable option" },
+          { value: "medium", label: "Medium — I can invest moderately" },
+          { value: "high", label: "High — Budget is not my main concern" },
+        ]},
+        { title: "What type of institution interests you?", subtitle: "Each has different advantages.", options: [
+          { value: "university", label: "University (4-year degree)" },
+          { value: "community-college", label: "Community College (2-year + transfer)" },
+          { value: "both", label: "Both — I'm open to either" },
+        ]},
+        { title: "Are you interested in scholarships?", subtitle: "Many US institutions offer aid to international students.", options: [
+          { value: "yes", label: "Yes, scholarships are essential for me" },
+          { value: "maybe", label: "Maybe — I'd like to explore options" },
+          { value: "no", label: "Not really — I plan to self-fund" },
+        ]},
+        { title: "How confident are you in English?", subtitle: "Some pathways include English preparation.", options: [
+          { value: "fluent", label: "Fluent — I can study fully in English" },
+          { value: "intermediate", label: "Intermediate — I may need some support" },
+          { value: "beginner", label: "Beginner — I'd need English preparation" },
+        ]},
+      ],
+    },
+    destinationsPage: {
+      ...undefined,
+      countries: {
+        ...undefined,
+        china: { name: "China", desc: "Affordable tuition, CSC scholarships, and rapidly growing international programs in Asia's largest economy." },
+      },
+    },
     whatsappTooltip: "Chat with us on WhatsApp",
     countries: {
       cameroon: "Cameroon", congo: "Congo", drc: "DR Congo", senegal: "Senegal",
