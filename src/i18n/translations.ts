@@ -999,6 +999,8 @@ export const translations: Record<Language, Record<string, any>> = {
       cta: "Se Connecter",
       noAccount: "Vous n'avez pas de compte ?",
       signupLink: "Créez-en un ici",
+      google: "Continuer avec Google",
+      or: "ou continuer avec email",
     },
     signup: {
       title: "Créer Votre Compte",
