@@ -315,6 +315,8 @@ export const translations: Record<Language, Record<string, any>> = {
       cta: "Log In",
       noAccount: "Don't have an account?",
       signupLink: "Create one here",
+      google: "Continue with Google",
+      or: "or continue with email",
     },
     signup: {
       title: "Create Your Account",
