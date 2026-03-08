@@ -120,6 +120,8 @@ const CompleteProfile = () => {
     countryOfResidence: "",
     studyLevel: "",
     desiredProgram: "",
+    budgetSensitivity: "",
+    preferredDestinations: [] as string[],
   });
 
   const update = (key: string, value: string) => setForm((prev) => ({ ...prev, [key]: value }));
