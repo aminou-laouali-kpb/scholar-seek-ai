@@ -257,8 +257,8 @@ const Index = () => {
       {/* ===== FINAL CTA ===== */}
       <section className="gradient-accent section-padding">
         <div className="container-narrow mx-auto text-center">
-          <h2 className="font-heading font-extrabold text-3xl md:text-4xl text-accent-foreground">{t("finalCTA.title")}</h2>
-          <p className="mt-4 text-accent-foreground/80 text-lg max-w-xl mx-auto">{t("finalCTA.subtitle")}</p>
+          <h2 className="font-heading font-extrabold text-2xl sm:text-3xl md:text-4xl text-accent-foreground">{t("finalCTA.title")}</h2>
+          <p className="mt-3 md:mt-4 text-accent-foreground/80 text-base md:text-lg max-w-xl mx-auto">{t("finalCTA.subtitle")}</p>
           <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/questionnaire"><Button variant="default" size="xl">{t("finalCTA.cta1")} <ArrowRight className="w-5 h-5" /></Button></Link>
             <Link to="/contact"><Button variant="heroOutline" size="xl">{t("finalCTA.cta2")}</Button></Link>
