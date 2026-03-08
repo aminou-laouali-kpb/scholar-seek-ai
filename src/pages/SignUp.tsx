@@ -1,39 +1,193 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import { motion } from "framer-motion";
-import { Info } from "lucide-react";
-
-const COUNTRY_KEYS = [
-  "cameroon", "congo", "drc", "senegal", "ivoryCoast", "gabon", "chad", "togo",
-  "benin", "mali", "guinea", "burkinaFaso", "niger", "madagascar", "rwanda", "burundi",
-  "morocco", "tunisia", "algeria", "nigeria", "ghana", "kenya", "southAfrica", "tanzania",
-  "uganda", "ethiopia", "other",
-];
+import { Info, Check, ChevronsUpDown } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { countries, STUDY_PROGRAMS } from "@/data/countries";
 
 const STUDY_LEVEL_KEYS = ["highSchool", "bachelor", "master", "phd", "other"];
 
+const CountryCombobox = ({
+  value,
+  onValueChange,
+  placeholder,
+  language,
+}: {
+  value: string;
+  onValueChange: (v: string) => void;
+  placeholder: string;
+  language: string;
+}) => {
+  const [open, setOpen] = useState(false);
+
+  const sorted = useMemo(
+    () =>
+      [...countries].sort((a, b) => {
+        const nameA = language === "fr" ? a.nameFr : a.nameEn;
+        const nameB = language === "fr" ? b.nameFr : b.nameEn;
+        return nameA.localeCompare(nameB, language);
+      }),
+    [language]
+  );
+
+  const selected = countries.find((c) => c.code === value);
+  const label = selected
+    ? `${selected.flag} ${language === "fr" ? selected.nameFr : selected.nameEn}`
+    : placeholder;
+
+  return (
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <Button
+          variant="outline"
+          role="combobox"
+          aria-expanded={open}
+          className="w-full justify-between font-normal h-10 text-left"
+        >
+          <span className={cn("truncate", !selected && "text-muted-foreground")}>{label}</span>
+          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-[--radix-popover-trigger-width] p-0" align="start">
+        <Command>
+          <CommandInput placeholder={placeholder} />
+          <CommandList>
+            <CommandEmpty>—</CommandEmpty>
+            <CommandGroup>
+              {sorted.map((c) => {
+                const name = language === "fr" ? c.nameFr : c.nameEn;
+                return (
+                  <CommandItem
+                    key={c.code}
+                    value={`${name} ${c.code}`}
+                    onSelect={() => {
+                      onValueChange(c.code);
+                      setOpen(false);
+                    }}
+                  >
+                    <Check className={cn("mr-2 h-4 w-4", value === c.code ? "opacity-100" : "opacity-0")} />
+                    <span className="mr-2">{c.flag}</span>
+                    {name}
+                  </CommandItem>
+                );
+              })}
+            </CommandGroup>
+          </CommandList>
+        </Command>
+      </PopoverContent>
+    </Popover>
+  );
+};
+
+const PhonePrefixCombobox = ({
+  value,
+  onValueChange,
+  language,
+}: {
+  value: string;
+  onValueChange: (v: string) => void;
+  language: string;
+}) => {
+  const [open, setOpen] = useState(false);
+
+  const sorted = useMemo(
+    () =>
+      [...countries].sort((a, b) => {
+        const nameA = language === "fr" ? a.nameFr : a.nameEn;
+        const nameB = language === "fr" ? b.nameFr : b.nameEn;
+        return nameA.localeCompare(nameB, language);
+      }),
+    [language]
+  );
+
+  const selected = countries.find((c) => c.code === value);
+
+  return (
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <Button
+          variant="outline"
+          role="combobox"
+          aria-expanded={open}
+          className="w-[110px] shrink-0 justify-between font-normal h-10 px-2"
+        >
+          <span className="truncate text-sm">
+            {selected ? `${selected.flag} ${selected.dialCode}` : "🌍"}
+          </span>
+          <ChevronsUpDown className="ml-1 h-3 w-3 shrink-0 opacity-50" />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-[280px] p-0" align="start">
+        <Command>
+          <CommandInput placeholder="Search..." />
+          <CommandList>
+            <CommandEmpty>—</CommandEmpty>
+            <CommandGroup>
+              {sorted.map((c) => {
+                const name = language === "fr" ? c.nameFr : c.nameEn;
+                return (
+                  <CommandItem
+                    key={c.code}
+                    value={`${name} ${c.dialCode} ${c.code}`}
+                    onSelect={() => {
+                      onValueChange(c.code);
+                      setOpen(false);
+                    }}
+                  >
+                    <Check className={cn("mr-2 h-4 w-4", value === c.code ? "opacity-100" : "opacity-0")} />
+                    <span className="mr-1.5">{c.flag}</span>
+                    <span className="flex-1 truncate">{name}</span>
+                    <span className="ml-auto text-muted-foreground text-xs">{c.dialCode}</span>
+                  </CommandItem>
+                );
+              })}
+            </CommandGroup>
+          </CommandList>
+        </Command>
+      </PopoverContent>
+    </Popover>
+  );
+};
+
 const SignUp = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const navigate = useNavigate();
   const [dontKnowProgram, setDontKnowProgram] = useState(false);
+  const [otherProgram, setOtherProgram] = useState("");
 
   const [form, setForm] = useState({
-    firstName: "", lastName: "", email: "", whatsapp: "",
-    countryOfBirth: "", countryOfResidence: "", studyLevel: "",
-    desiredProgram: "", password: "", confirmPassword: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+    phoneCountry: "CM",
+    whatsapp: "",
+    countryOfBirth: "",
+    countryOfResidence: "",
+    studyLevel: "",
+    desiredProgram: "",
+    password: "",
+    confirmPassword: "",
   });
 
-  const update = (key: string, value: string) => setForm(prev => ({ ...prev, [key]: value }));
+  const update = (key: string, value: string) => setForm((prev) => ({ ...prev, [key]: value }));
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Store in localStorage for now (Phase 2 — no backend yet)
-    const profile = { ...form, dontKnowProgram, orientationResult: null };
+    const phonePrefix = countries.find((c) => c.code === form.phoneCountry)?.dialCode || "+237";
+    const profile = {
+      ...form,
+      whatsapp: `${phonePrefix}${form.whatsapp}`,
+      desiredProgram: form.desiredProgram === "other" ? otherProgram : form.desiredProgram,
+      dontKnowProgram,
+      orientationResult: null,
+    };
     localStorage.setItem("kpb-student-profile", JSON.stringify(profile));
 
     if (dontKnowProgram) {
@@ -44,7 +198,7 @@ const SignUp = () => {
   };
 
   const studyLevels = t("signup.studyLevels") as Record<string, string>;
-  const countriesMap = t("countries") as Record<string, string>;
+  const programs = t("signup.programs") as Record<string, string>;
 
   return (
     <div className="min-h-screen bg-secondary/30 flex items-center justify-center px-4 py-16">
@@ -59,23 +213,37 @@ const SignUp = () => {
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="text-sm font-medium text-foreground mb-1.5 block">{t("signup.firstNamePassport")}</label>
-                <Input value={form.firstName} onChange={e => update("firstName", e.target.value)} required />
+                <Input value={form.firstName} onChange={(e) => update("firstName", e.target.value)} required />
               </div>
               <div>
                 <label className="text-sm font-medium text-foreground mb-1.5 block">{t("signup.lastNamePassport")}</label>
-                <Input value={form.lastName} onChange={e => update("lastName", e.target.value)} required />
+                <Input value={form.lastName} onChange={(e) => update("lastName", e.target.value)} required />
               </div>
             </div>
 
-            {/* Email & WhatsApp */}
-            <div className="grid sm:grid-cols-2 gap-4">
-              <div>
-                <label className="text-sm font-medium text-foreground mb-1.5 block">{t("signup.email")}</label>
-                <Input type="email" value={form.email} onChange={e => update("email", e.target.value)} required />
-              </div>
-              <div>
-                <label className="text-sm font-medium text-foreground mb-1.5 block">{t("signup.whatsapp")}</label>
-                <Input type="tel" placeholder={t("signup.whatsappPlaceholder")} value={form.whatsapp} onChange={e => update("whatsapp", e.target.value)} required />
+            {/* Email */}
+            <div>
+              <label className="text-sm font-medium text-foreground mb-1.5 block">{t("signup.email")}</label>
+              <Input type="email" value={form.email} onChange={(e) => update("email", e.target.value)} required />
+            </div>
+
+            {/* WhatsApp with prefix */}
+            <div>
+              <label className="text-sm font-medium text-foreground mb-1.5 block">{t("signup.whatsapp")}</label>
+              <div className="flex gap-2">
+                <PhonePrefixCombobox
+                  value={form.phoneCountry}
+                  onValueChange={(v) => update("phoneCountry", v)}
+                  language={language}
+                />
+                <Input
+                  type="tel"
+                  placeholder={t("signup.whatsappPlaceholder")}
+                  value={form.whatsapp}
+                  onChange={(e) => update("whatsapp", e.target.value)}
+                  className="flex-1"
+                  required
+                />
               </div>
             </div>
 
@@ -83,35 +251,31 @@ const SignUp = () => {
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
                 <label className="text-sm font-medium text-foreground mb-1.5 block">{t("signup.countryOfBirth")}</label>
-                <Select value={form.countryOfBirth} onValueChange={v => update("countryOfBirth", v)}>
-                  <SelectTrigger><SelectValue placeholder={t("signup.selectCountry")} /></SelectTrigger>
-                  <SelectContent>
-                    {COUNTRY_KEYS.map(key => (
-                      <SelectItem key={key} value={key}>{countriesMap[key]}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <CountryCombobox
+                  value={form.countryOfBirth}
+                  onValueChange={(v) => update("countryOfBirth", v)}
+                  placeholder={t("signup.selectCountry")}
+                  language={language}
+                />
               </div>
               <div>
                 <label className="text-sm font-medium text-foreground mb-1.5 block">{t("signup.countryOfResidence")}</label>
-                <Select value={form.countryOfResidence} onValueChange={v => update("countryOfResidence", v)}>
-                  <SelectTrigger><SelectValue placeholder={t("signup.selectCountry")} /></SelectTrigger>
-                  <SelectContent>
-                    {COUNTRY_KEYS.map(key => (
-                      <SelectItem key={key} value={key}>{countriesMap[key]}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <CountryCombobox
+                  value={form.countryOfResidence}
+                  onValueChange={(v) => update("countryOfResidence", v)}
+                  placeholder={t("signup.selectCountry")}
+                  language={language}
+                />
               </div>
             </div>
 
             {/* Study Level */}
             <div>
               <label className="text-sm font-medium text-foreground mb-1.5 block">{t("signup.studyLevel")}</label>
-              <Select value={form.studyLevel} onValueChange={v => update("studyLevel", v)}>
+              <Select value={form.studyLevel} onValueChange={(v) => update("studyLevel", v)}>
                 <SelectTrigger><SelectValue placeholder={t("signup.selectLevel")} /></SelectTrigger>
                 <SelectContent>
-                  {STUDY_LEVEL_KEYS.map(key => (
+                  {STUDY_LEVEL_KEYS.map((key) => (
                     <SelectItem key={key} value={key}>{studyLevels[key]}</SelectItem>
                   ))}
                 </SelectContent>
@@ -122,11 +286,25 @@ const SignUp = () => {
             <div>
               <label className="text-sm font-medium text-foreground mb-1.5 block">{t("signup.desiredProgram")}</label>
               {!dontKnowProgram && (
-                <Input
-                  placeholder={t("signup.desiredProgramPlaceholder")}
-                  value={form.desiredProgram}
-                  onChange={e => update("desiredProgram", e.target.value)}
-                />
+                <>
+                  <Select value={form.desiredProgram} onValueChange={(v) => update("desiredProgram", v)}>
+                    <SelectTrigger><SelectValue placeholder={t("signup.selectProgram")} /></SelectTrigger>
+                    <SelectContent>
+                      {STUDY_PROGRAMS.map((key) => (
+                        <SelectItem key={key} value={key}>{programs[key]}</SelectItem>
+                      ))}
+                      <SelectItem value="other">{t("signup.otherProgram")}</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  {form.desiredProgram === "other" && (
+                    <Input
+                      className="mt-2"
+                      placeholder={t("signup.otherProgramPlaceholder")}
+                      value={otherProgram}
+                      onChange={(e) => setOtherProgram(e.target.value)}
+                    />
+                  )}
+                </>
               )}
               <div className="flex items-center gap-2 mt-2">
                 <Checkbox
@@ -134,7 +312,10 @@ const SignUp = () => {
                   checked={dontKnowProgram}
                   onCheckedChange={(checked) => {
                     setDontKnowProgram(!!checked);
-                    if (checked) update("desiredProgram", "");
+                    if (checked) {
+                      update("desiredProgram", "");
+                      setOtherProgram("");
+                    }
                   }}
                 />
                 <label htmlFor="dont-know" className="text-sm text-muted-foreground cursor-pointer">
@@ -153,11 +334,11 @@ const SignUp = () => {
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
                 <label className="text-sm font-medium text-foreground mb-1.5 block">{t("signup.password")}</label>
-                <Input type="password" value={form.password} onChange={e => update("password", e.target.value)} required />
+                <Input type="password" value={form.password} onChange={(e) => update("password", e.target.value)} required />
               </div>
               <div>
                 <label className="text-sm font-medium text-foreground mb-1.5 block">{t("signup.confirmPassword")}</label>
-                <Input type="password" value={form.confirmPassword} onChange={e => update("confirmPassword", e.target.value)} required />
+                <Input type="password" value={form.confirmPassword} onChange={(e) => update("confirmPassword", e.target.value)} required />
               </div>
             </div>
 
