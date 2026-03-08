@@ -52,7 +52,7 @@ const Contact = () => {
               </motion.form>
             </div>
             <div className="space-y-4">
-              <a href="https://wa.me/1234567890" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 bg-success/10 p-4 rounded-xl border border-success/20 hover:bg-success/20 transition-colors">
+              <a href="https://wa.me/33768674292" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 bg-success/10 p-4 rounded-xl border border-success/20 hover:bg-success/20 transition-colors">
                 <MessageCircle className="w-6 h-6 text-success" />
                 <span className="font-semibold text-foreground text-sm">{t("contactPage.whatsapp")}</span>
               </a>
