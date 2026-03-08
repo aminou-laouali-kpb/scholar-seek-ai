@@ -381,6 +381,15 @@ export const translations: Record<Language, Record<string, any>> = {
       loginLink: "Log in here",
       selectCountry: "Select a country",
       selectLevel: "Select your level",
+      google: "Sign up with Google",
+      or: "or sign up with email",
+      confirmEmail: "Check your email to confirm your account!",
+      passwordMismatch: "Passwords don't match",
+    },
+    completeProfile: {
+      title: "Complete Your Profile",
+      subtitle: "Tell us a bit more about yourself to personalize your experience.",
+      cta: "Save & Continue",
     },
     dashboard: {
       title: "Welcome to Your Student Space",
