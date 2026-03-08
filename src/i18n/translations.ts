@@ -1213,6 +1213,19 @@ export const translations: Record<Language, Record<string, any>> = {
           admissions: "Candidature directe aux universités. Exigences : relevés de notes, compétence en anglais (IELTS/TOEFL), lettre de motivation et lettres de recommandation. Admissions continues.",
           studentLife: "Les EAU offrent un style de vie cosmopolite avec une architecture époustouflante, une gastronomie mondiale et un environnement sûr et multiculturel. Dubaï et Abu Dhabi proposent des stages avec des entreprises mondiales.",
         },
+        china: {
+          tagline: "Excellence abordable dans la superpuissance montante d'Asie",
+          whyPoints: [
+            "La bourse CSC couvre les frais de scolarité, le logement et une allocation mensuelle",
+            "Nombre croissant de programmes enseignés en anglais",
+            "Coût de la vie très abordable",
+            "Économie en plein essor avec de fortes perspectives de carrière",
+          ],
+          stats: { universities: "2 900+", avgTuition: "2 000 $ – 10 000 $", language: "Chinois, Anglais", popularFields: "Ingénierie, Médecine, Commerce, IT" },
+          topUnis: ["Université Tsinghua", "Université de Pékin", "Université Fudan", "Université du Zhejiang", "Shanghai Jiao Tong University"],
+          admissions: "Candidature via le portail CSC pour les bourses gouvernementales ou directement aux universités. Exigences : relevés de notes, certificats de langue (HSK pour le chinois, IELTS pour les programmes en anglais), examen médical et lettres de recommandation.",
+          studentLife: "La Chine offre un mélange fascinant de culture ancienne et de villes ultra-modernes. Les étudiants profitent d'une nourriture abordable, de transports efficaces et d'une vie de campus dynamique.",
+        },
       },
     },
     usaFinder: {
