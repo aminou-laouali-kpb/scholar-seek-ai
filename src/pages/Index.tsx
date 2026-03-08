@@ -42,7 +42,7 @@ const Index = () => {
                 {t("hero.subtitle")}
               </motion.p>
               <motion.div variants={fadeUp} custom={2} className="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <Link to="/tools">
+                <Link to="/questionnaire">
                   <Button variant="hero" size="xl">{t("hero.cta1")} <ArrowRight className="w-5 h-5" /></Button>
                 </Link>
                 <Link to="/contact">
