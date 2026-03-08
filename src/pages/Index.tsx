@@ -34,7 +34,7 @@ const Index = () => {
         <div className="container-narrow mx-auto px-4 sm:px-6 lg:px-8 py-14 md:py-32 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div initial="hidden" animate="visible" className="text-center lg:text-left">
-              <motion.h1 variants={fadeUp} custom={0} className="font-heading font-extrabold text-4xl sm:text-5xl lg:text-6xl text-primary-foreground leading-tight">
+              <motion.h1 variants={fadeUp} custom={0} className="font-heading font-extrabold text-3xl sm:text-4xl lg:text-6xl text-primary-foreground leading-tight">
                 {t("hero.title")}{" "}
                 <span className="text-gradient-accent inline-block">{t("hero.titleHighlight")}</span>
               </motion.h1>
