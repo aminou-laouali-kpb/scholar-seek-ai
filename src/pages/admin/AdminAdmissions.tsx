@@ -3,9 +3,10 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Plus, Search, Pencil, Trash2, Eye, EyeOff } from "lucide-react";
+import { Plus, Search, Pencil, Trash2, Eye, EyeOff, Download, Upload } from "lucide-react";
 import AdmissionForm from "@/components/admin/AdmissionForm";
 import { useToast } from "@/hooks/use-toast";
+import { exportToCsv, parseCsv } from "@/lib/csv";
 
 export interface AdminAdmission {
   id: string;
@@ -62,6 +63,48 @@ const AdminAdmissions = () => {
     fetchData();
   };
 
+  const handleExport = () => {
+    const dataToExport = filtered.map(({ created_at, updated_at, ...rest }) => rest);
+    exportToCsv("admissions.csv", dataToExport);
+  };
+
+  const handleImport = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = async (event) => {
+      try {
+        const csvData = event.target?.result as string;
+        const parsedData = parseCsv(csvData);
+        
+        if (parsedData.length === 0) {
+          toast({ title: "Error", description: "Empty or invalid CSV file.", variant: "destructive" });
+          return;
+        }
+
+        const formattedData = parsedData.map(item => ({
+          ...item,
+          programs: Array.isArray(item.programs) ? item.programs : (item.programs ? [item.programs] : []),
+          levels: Array.isArray(item.levels) ? item.levels : (item.levels ? [item.levels] : []),
+          relevance_tags: Array.isArray(item.relevance_tags) ? item.relevance_tags : (item.relevance_tags ? [item.relevance_tags] : [])
+        }));
+
+        const { error } = await supabase.from("admin_admissions").upsert(formattedData);
+        
+        if (error) throw error;
+        
+        toast({ title: "Success", description: `Imported ${formattedData.length} records.` });
+        fetchData();
+      } catch (err: any) {
+        console.error(err);
+        toast({ title: "Import failed", description: err.message, variant: "destructive" });
+      }
+      if (e.target) e.target.value = '';
+    };
+    reader.readAsText(file);
+  };
+
   const filtered = items.filter((i) => {
     if (search && !i.institution_name.toLowerCase().includes(search.toLowerCase())) return false;
     if (filterCountry && i.country !== filterCountry) return false;
@@ -75,9 +118,18 @@ const AdminAdmissions = () => {
     <div>
       <div className="flex items-center justify-between mb-6">
         <h1 className="font-heading font-bold text-2xl text-foreground">Admissions</h1>
-        <Button variant="accent" onClick={() => { setEditing(null); setFormOpen(true); }}>
-          <Plus className="w-4 h-4" /> Add Admission
-        </Button>
+        <div className="flex gap-2">
+          <input type="file" id="csv-upload-admissions" accept=".csv" className="hidden" onChange={handleImport} />
+          <Button variant="outline" onClick={() => document.getElementById('csv-upload-admissions')?.click()}>
+            <Upload className="w-4 h-4 sm:mr-2" /> <span className="hidden sm:inline">Import CSV</span>
+          </Button>
+          <Button variant="outline" onClick={handleExport}>
+            <Download className="w-4 h-4 sm:mr-2" /> <span className="hidden sm:inline">Export CSV</span>
+          </Button>
+          <Button variant="accent" onClick={() => { setEditing(null); setFormOpen(true); }}>
+            <Plus className="w-4 h-4 sm:mr-2" /> <span className="hidden sm:inline">Add Admission</span>
+          </Button>
+        </div>
       </div>
 
       <div className="flex flex-wrap gap-3 mb-4">
