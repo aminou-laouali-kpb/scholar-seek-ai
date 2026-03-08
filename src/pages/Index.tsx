@@ -45,9 +45,9 @@ const Index = () => {
                 <Link to="/questionnaire" className="w-full sm:w-auto">
                   <Button variant="hero" size="xl" className="w-full sm:w-auto">{t("hero.cta1")} <ArrowRight className="w-5 h-5" /></Button>
                 </Link>
-                <Link to="/contact" className="w-full sm:w-auto">
+                <a href="https://wa.me/33768674292" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
                   <Button variant="heroOutline" size="xl" className="w-full sm:w-auto">{t("hero.cta2")}</Button>
-                </Link>
+                </a>
               </motion.div>
               <motion.div variants={fadeUp} custom={3} className="mt-6 md:mt-10 flex flex-wrap gap-4 md:gap-6 justify-center lg:justify-start">
                 {Object.values(t("hero.stats") as Record<string, string>).map((stat, i) => (

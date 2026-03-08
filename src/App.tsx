@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LanguageProvider } from "@/i18n/LanguageContext";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import WhatsAppButton from "@/components/WhatsAppButton";
 import Index from "./pages/Index";
 import Tools from "./pages/Tools";
 import BelgiumFinder from "./pages/BelgiumFinder";
@@ -13,6 +14,7 @@ import FranceFinder from "./pages/FranceFinder";
 import ScholarshipTest from "./pages/ScholarshipTest";
 import Services from "./pages/Services";
 import Destinations from "./pages/Destinations";
+import CountryDetail from "./pages/CountryDetail";
 import Scholarships from "./pages/Scholarships";
 import Blog from "./pages/Blog";
 import Testimonials from "./pages/Testimonials";
@@ -24,6 +26,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Dashboard from "./pages/Dashboard";
 import Questionnaire from "./pages/Questionnaire";
+import Orientation from "./pages/Orientation";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -44,6 +47,7 @@ const App = () => (
             <Route path="/tools/scholarship-test" element={<ScholarshipTest />} />
             <Route path="/services" element={<Services />} />
             <Route path="/destinations" element={<Destinations />} />
+            <Route path="/destinations/:country" element={<CountryDetail />} />
             <Route path="/scholarships" element={<Scholarships />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/testimonials" element={<Testimonials />} />
@@ -55,9 +59,11 @@ const App = () => (
             <Route path="/signup" element={<SignUp />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/questionnaire" element={<Questionnaire />} />
+            <Route path="/orientation" element={<Orientation />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
           <Footer />
+          <WhatsAppButton />
         </BrowserRouter>
       </TooltipProvider>
     </LanguageProvider>
