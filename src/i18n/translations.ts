@@ -864,6 +864,7 @@ export const translations: Record<Language, Record<string, any>> = {
         spain: { name: "Espagne", desc: "Coût de la vie abordable, climat ensoleillé et offre croissante de programmes internationaux." },
         turkey: { name: "Turquie", desc: "Bourses généreuses, campus modernes et pont entre l'Europe et l'Asie." },
         uae: { name: "EAU / Dubaï", desc: "Campus de classe mondiale, environnement sans impôts et hub éducatif international en pleine croissance." },
+        china: { name: "Chine", desc: "Frais de scolarité abordables, bourses CSC et programmes internationaux en pleine croissance dans la plus grande économie d'Asie." },
       },
     },
     scholarshipsPage: {
