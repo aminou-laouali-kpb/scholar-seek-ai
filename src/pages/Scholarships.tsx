@@ -2,7 +2,9 @@ import { Link } from "react-router-dom";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { Award, ArrowRight, CheckCircle2 } from "lucide-react";
+import { Award, ArrowRight, MessageCircle } from "lucide-react";
+
+const WA_LINK = "https://wa.me/33768674292";
 
 const Scholarships = () => {
   const { t, language } = useLanguage();
@@ -36,8 +38,12 @@ const Scholarships = () => {
       <section className="gradient-accent section-padding">
         <div className="container-narrow mx-auto text-center">
           <h2 className="font-heading font-bold text-3xl text-accent-foreground">{isEn ? "Need Scholarship Guidance?" : "Besoin d'Aide pour les Bourses ?"}</h2>
-          <p className="mt-3 text-accent-foreground/80 max-w-xl mx-auto">{isEn ? "Our advisors can help you find and apply to the right scholarships" : "Nos conseillers peuvent vous aider à trouver et postuler aux bonnes bourses"}</p>
-          <div className="mt-6"><Link to="/contact"><Button variant="default" size="lg">{t("hero.cta2")}</Button></Link></div>
+          <p className="mt-3 text-accent-foreground/80 max-w-xl mx-auto">{isEn ? "Our advisors can help you find and apply to the right scholarships." : "Nos conseillers peuvent vous aider à trouver et postuler aux bonnes bourses."}</p>
+          <div className="mt-6">
+            <a href={WA_LINK} target="_blank" rel="noopener noreferrer">
+              <Button variant="default" size="lg"><MessageCircle className="w-4 h-4" /> {t("hero.cta2")}</Button>
+            </a>
+          </div>
         </div>
       </section>
     </div>
