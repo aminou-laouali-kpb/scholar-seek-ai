@@ -51,6 +51,24 @@ export const translations: Record<Language, Record<string, any>> = {
         benefit: "Know your chances instantly",
         cta: "Test Your Eligibility",
       },
+      usa: {
+        title: "USA University & College Finder",
+        description: "Find the best university or community college in the USA for your profile. Compare pathways, costs, and scholarship options.",
+        benefit: "Discover your ideal US pathway",
+        cta: "Find My Match",
+      },
+      canada: {
+        title: "Canada University Finder",
+        description: "Discover the best Canadian university for your profile. Compare programs, costs, and immigration pathways.",
+        benefit: "Find your perfect match in Canada",
+        cta: "Explore Canada",
+      },
+      china: {
+        title: "China University Finder",
+        description: "Find the best Chinese university for your profile. Explore CSC scholarships and English-taught programs.",
+        benefit: "Discover opportunities in China",
+        cta: "Explore China",
+      },
     },
     howItWorks: {
       title: "3 Steps to Your Future",
