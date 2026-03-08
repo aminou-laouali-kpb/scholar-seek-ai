@@ -15,6 +15,9 @@ const countryFlags: Record<string, string> = {
 const countryToolRoutes: Record<string, string> = {
   belgium: "/tools/belgium",
   france: "/tools/france",
+  usa: "/tools/usa",
+  canada: "/tools/canada",
+  china: "/tools/china",
 };
 
 const CountryDetail = () => {
