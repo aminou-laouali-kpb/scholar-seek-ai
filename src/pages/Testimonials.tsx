@@ -2,12 +2,14 @@ import { Link } from "react-router-dom";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { Star, ArrowRight } from "lucide-react";
+import { Star, ArrowRight, MessageCircle } from "lucide-react";
+
+const WA_LINK = "https://wa.me/33768674292";
 
 const Testimonials = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const isEn = language === "en";
   const items = t("testimonials.items") as Array<{ name: string; country: string; quote: string }>;
-  // Repeat for fuller page
   const allItems = [...items, ...items];
 
   return (
@@ -35,7 +37,13 @@ const Testimonials = () => {
       <section className="gradient-accent section-padding">
         <div className="container-narrow mx-auto text-center">
           <h2 className="font-heading font-bold text-3xl text-accent-foreground">{t("finalCTA.title")}</h2>
-          <div className="mt-6"><Link to="/tools"><Button variant="default" size="lg">{t("finalCTA.cta1")} <ArrowRight className="w-4 h-4" /></Button></Link></div>
+          <p className="mt-3 text-accent-foreground/80 max-w-xl mx-auto">{t("finalCTA.subtitle")}</p>
+          <div className="mt-6 flex flex-col sm:flex-row gap-4 justify-center">
+            <Link to="/questionnaire"><Button variant="default" size="lg">{t("finalCTA.cta1")} <ArrowRight className="w-4 h-4" /></Button></Link>
+            <a href={WA_LINK} target="_blank" rel="noopener noreferrer">
+              <Button variant="heroOutline" size="lg"><MessageCircle className="w-4 h-4" /> {t("hero.cta2")}</Button>
+            </a>
+          </div>
         </div>
       </section>
     </div>

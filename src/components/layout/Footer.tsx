@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { MessageCircle } from "lucide-react";
+
+const WA_LINK = "https://wa.me/33768674292";
 
 const Footer = () => {
   const { t } = useLanguage();
@@ -12,7 +14,10 @@ const Footer = () => {
           {/* Brand */}
           <div className="col-span-2 lg:col-span-1">
             <h3 className="font-heading font-bold text-xl mb-3">KPB Education</h3>
-            <p className="text-primary-foreground/70 text-sm leading-relaxed">{t("footer.description")}</p>
+            <p className="text-primary-foreground/70 text-sm leading-relaxed mb-4">{t("footer.description")}</p>
+            <a href={WA_LINK} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">
+              <MessageCircle className="w-4 h-4" /> +33 7 68 67 42 92
+            </a>
           </div>
 
           {/* Tools */}
@@ -21,6 +26,9 @@ const Footer = () => {
             <ul className="space-y-2.5">
               <li><Link to="/tools/belgium" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">{t("tools.belgium.title")}</Link></li>
               <li><Link to="/tools/france" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">{t("tools.france.title")}</Link></li>
+              <li><Link to="/tools/usa" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">{t("tools.usa.title")}</Link></li>
+              <li><Link to="/tools/canada" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">{t("tools.canada.title")}</Link></li>
+              <li><Link to="/tools/china" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">{t("tools.china.title")}</Link></li>
               <li><Link to="/tools/scholarship-test" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">{t("tools.scholarship.title")}</Link></li>
             </ul>
           </div>
@@ -31,6 +39,7 @@ const Footer = () => {
             <ul className="space-y-2.5">
               <li><Link to="/about" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">{t("nav.about")}</Link></li>
               <li><Link to="/services" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">{t("nav.services")}</Link></li>
+              <li><Link to="/destinations" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">{t("nav.destinations")}</Link></li>
               <li><Link to="/blog" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">{t("nav.blog")}</Link></li>
               <li><Link to="/testimonials" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">{t("nav.testimonials")}</Link></li>
             </ul>
@@ -42,6 +51,7 @@ const Footer = () => {
             <ul className="space-y-2.5">
               <li><Link to="/contact" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">{t("nav.contact")}</Link></li>
               <li><Link to="/faq" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">{t("nav.faq")}</Link></li>
+              <li><Link to="/scholarships" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">{t("nav.scholarships")}</Link></li>
               <li><Link to="/student-platform" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">{t("nav.studentSpace")}</Link></li>
             </ul>
           </div>

@@ -1,8 +1,9 @@
-import { Link } from "react-router-dom";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { Target, Eye, BookOpen, Heart, ArrowRight } from "lucide-react";
+import { Target, Eye, BookOpen, MessageCircle, ArrowRight } from "lucide-react";
+
+const WA_LINK = "https://wa.me/33768674292";
 
 const About = () => {
   const { t } = useLanguage();
@@ -17,7 +18,6 @@ const About = () => {
       </section>
       <section className="section-padding bg-background">
         <div className="container-narrow mx-auto max-w-4xl space-y-16">
-          {/* Mission & Vision */}
           <div className="grid md:grid-cols-2 gap-8">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="bg-card rounded-2xl p-8 shadow-card border border-border">
               <Target className="w-10 h-10 text-accent mb-4" />
@@ -30,16 +30,15 @@ const About = () => {
               <p className="text-muted-foreground leading-relaxed">{t("aboutPage.visionText")}</p>
             </motion.div>
           </div>
-
-          {/* Story */}
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="bg-secondary/50 rounded-2xl p-8 md:p-12">
             <BookOpen className="w-10 h-10 text-accent mb-4" />
             <h2 className="font-heading font-bold text-2xl text-foreground mb-4">{t("aboutPage.story")}</h2>
             <p className="text-muted-foreground leading-relaxed text-lg">{t("aboutPage.storyText")}</p>
           </motion.div>
-
           <div className="text-center">
-            <Link to="/contact"><Button variant="accent" size="xl">{t("hero.cta2")} <ArrowRight className="w-5 h-5" /></Button></Link>
+            <a href={WA_LINK} target="_blank" rel="noopener noreferrer">
+              <Button variant="accent" size="xl"><MessageCircle className="w-5 h-5" /> {t("hero.cta2")} <ArrowRight className="w-5 h-5" /></Button>
+            </a>
           </div>
         </div>
       </section>

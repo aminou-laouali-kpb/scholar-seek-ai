@@ -1,9 +1,10 @@
-import { Link } from "react-router-dom";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { Search, ArrowRight, CheckCircle2, Users, BookOpen, Globe2, HelpCircle } from "lucide-react";
+import { Search, ArrowRight, CheckCircle2, MessageCircle } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+
+const WA_LINK = "https://wa.me/33768674292";
 
 const BelgiumFinder = () => {
   const { t, language } = useLanguage();
@@ -74,9 +75,11 @@ const BelgiumFinder = () => {
       <section className="gradient-accent section-padding">
         <div className="container-narrow mx-auto text-center">
           <h2 className="font-heading font-bold text-3xl text-accent-foreground">{isEn ? "Need Personalized Help?" : "Besoin d'Aide Personnalisée ?"}</h2>
-          <p className="mt-3 text-accent-foreground/80">{isEn ? "Our advisors can help you choose the right program" : "Nos conseillers peuvent vous aider à choisir le bon programme"}</p>
+          <p className="mt-3 text-accent-foreground/80">{isEn ? "Our advisors can help you choose the right program in Belgium." : "Nos conseillers peuvent vous aider à choisir le bon programme en Belgique."}</p>
           <div className="mt-6">
-            <Link to="/contact"><Button variant="default" size="lg">{t("hero.cta2")} <ArrowRight className="w-4 h-4" /></Button></Link>
+            <a href={WA_LINK} target="_blank" rel="noopener noreferrer">
+              <Button variant="default" size="lg"><MessageCircle className="w-4 h-4" /> {isEn ? "Chat with an Advisor" : "Discuter avec un Conseiller"}</Button>
+            </a>
           </div>
         </div>
       </section>

@@ -11,6 +11,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
+const WA_LINK = "https://wa.me/33768674292";
+
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
   visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.1, duration: 0.5 } }),
@@ -19,9 +21,9 @@ const fadeUp = {
 const Index = () => {
   const { t } = useLanguage();
 
-  const toolIcons = [Search, Globe2, Award];
-  const toolKeys = ["belgium", "france", "scholarship"];
-  const toolRoutes = ["/tools/belgium", "/tools/france", "/tools/scholarship-test"];
+  const toolIcons = [Search, Globe2, GraduationCap, MapPin, Globe2, Award];
+  const toolKeys = ["belgium", "france", "usa", "canada", "china", "scholarship"];
+  const toolRoutes = ["/tools/belgium", "/tools/france", "/tools/usa", "/tools/canada", "/tools/china", "/tools/scholarship-test"];
 
   const serviceIcons = [Compass, GraduationCap, Award, FileText, ClipboardCheck, Users];
   const whyIcons = [MapPin, Search, CheckCircle2, MessageCircle];
@@ -45,8 +47,8 @@ const Index = () => {
                 <Link to="/questionnaire" className="w-full sm:w-auto">
                   <Button variant="hero" size="xl" className="w-full sm:w-auto">{t("hero.cta1")} <ArrowRight className="w-5 h-5" /></Button>
                 </Link>
-                <a href="https://wa.me/33768674292" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
-                  <Button variant="heroOutline" size="xl" className="w-full sm:w-auto">{t("hero.cta2")}</Button>
+                <a href={WA_LINK} target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
+                  <Button variant="heroOutline" size="xl" className="w-full sm:w-auto"><MessageCircle className="w-5 h-5" /> {t("hero.cta2")}</Button>
                 </a>
               </motion.div>
               <motion.div variants={fadeUp} custom={3} className="mt-6 md:mt-10 flex flex-wrap gap-4 md:gap-6 justify-center lg:justify-start">
@@ -86,7 +88,7 @@ const Index = () => {
             <h2 className="font-heading font-bold text-3xl md:text-4xl text-foreground">{t("tools.sectionTitle")}</h2>
             <p className="mt-4 text-muted-foreground text-lg">{t("tools.sectionSubtitle")}</p>
           </div>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {toolKeys.map((key, i) => {
               const Icon = toolIcons[i];
               return (
@@ -95,15 +97,15 @@ const Index = () => {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: i * 0.15 }}
-                  className="group bg-card rounded-2xl p-8 shadow-card hover:shadow-card-hover transition-all duration-300 border border-border hover:border-accent/30"
+                  transition={{ delay: i * 0.1 }}
+                  className="group bg-card rounded-2xl p-6 shadow-card hover:shadow-card-hover transition-all duration-300 border border-border hover:border-accent/30"
                 >
-                  <div className="w-14 h-14 rounded-xl gradient-accent flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
-                    <Icon className="w-7 h-7 text-accent-foreground" />
+                  <div className="w-12 h-12 rounded-xl gradient-accent flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                    <Icon className="w-6 h-6 text-accent-foreground" />
                   </div>
-                  <h3 className="font-heading font-bold text-xl text-foreground mb-2">{t(`tools.${key}.title`)}</h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed mb-3">{t(`tools.${key}.description`)}</p>
-                  <p className="text-sm font-semibold text-accent mb-5">{t(`tools.${key}.benefit`)}</p>
+                  <h3 className="font-heading font-bold text-lg text-foreground mb-2">{t(`tools.${key}.title`)}</h3>
+                  <p className="text-muted-foreground text-sm leading-relaxed mb-2">{t(`tools.${key}.description`)}</p>
+                  <p className="text-sm font-semibold text-accent mb-4">{t(`tools.${key}.benefit`)}</p>
                   <Link to={toolRoutes[i]}>
                     <Button variant="default" size="sm" className="w-full">{t(`tools.${key}.cta`)} <ArrowRight className="w-4 h-4" /></Button>
                   </Link>
@@ -261,7 +263,9 @@ const Index = () => {
           <p className="mt-3 md:mt-4 text-accent-foreground/80 text-base md:text-lg max-w-xl mx-auto">{t("finalCTA.subtitle")}</p>
           <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/questionnaire"><Button variant="default" size="xl">{t("finalCTA.cta1")} <ArrowRight className="w-5 h-5" /></Button></Link>
-            <Link to="/contact"><Button variant="heroOutline" size="xl">{t("finalCTA.cta2")}</Button></Link>
+            <a href={WA_LINK} target="_blank" rel="noopener noreferrer">
+              <Button variant="heroOutline" size="xl"><MessageCircle className="w-5 h-5" /> {t("finalCTA.cta2")}</Button>
+            </a>
           </div>
         </div>
       </section>
