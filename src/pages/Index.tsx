@@ -41,12 +41,12 @@ const Index = () => {
               <motion.p variants={fadeUp} custom={1} className="mt-4 md:mt-6 text-base sm:text-lg md:text-xl text-primary-foreground/80 max-w-xl mx-auto lg:mx-0 leading-relaxed">
                 {t("hero.subtitle")}
               </motion.p>
-              <motion.div variants={fadeUp} custom={2} className="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <Link to="/questionnaire">
-                  <Button variant="hero" size="xl">{t("hero.cta1")} <ArrowRight className="w-5 h-5" /></Button>
+              <motion.div variants={fadeUp} custom={2} className="mt-6 md:mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start">
+                <Link to="/questionnaire" className="w-full sm:w-auto">
+                  <Button variant="hero" size="xl" className="w-full sm:w-auto">{t("hero.cta1")} <ArrowRight className="w-5 h-5" /></Button>
                 </Link>
-                <Link to="/contact">
-                  <Button variant="heroOutline" size="xl">{t("hero.cta2")}</Button>
+                <Link to="/contact" className="w-full sm:w-auto">
+                  <Button variant="heroOutline" size="xl" className="w-full sm:w-auto">{t("hero.cta2")}</Button>
                 </Link>
               </motion.div>
               <motion.div variants={fadeUp} custom={3} className="mt-10 flex flex-wrap gap-6 justify-center lg:justify-start">
