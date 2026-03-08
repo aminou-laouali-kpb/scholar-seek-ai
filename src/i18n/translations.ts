@@ -1065,6 +1065,15 @@ export const translations: Record<Language, Record<string, any>> = {
       loginLink: "Connectez-vous ici",
       selectCountry: "Sélectionner un pays",
       selectLevel: "Sélectionner votre niveau",
+      google: "S'inscrire avec Google",
+      or: "ou s'inscrire avec email",
+      confirmEmail: "Vérifiez votre email pour confirmer votre compte !",
+      passwordMismatch: "Les mots de passe ne correspondent pas",
+    },
+    completeProfile: {
+      title: "Complétez Votre Profil",
+      subtitle: "Dites-nous en un peu plus sur vous pour personnaliser votre expérience.",
+      cta: "Enregistrer & Continuer",
     },
     dashboard: {
       title: "Bienvenue dans Votre Espace Étudiant",
