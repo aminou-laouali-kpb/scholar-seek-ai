@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Globe, ChevronDown } from "lucide-react";
+import { Menu, X, Globe } from "lucide-react";
 import kpbLogo from "@/assets/kpb-logo.png";
 
 const Header = () => {
@@ -15,10 +15,7 @@ const Header = () => {
     { path: "/tools", label: t("nav.tools") },
     { path: "/services", label: t("nav.services") },
     { path: "/destinations", label: t("nav.destinations") },
-    { path: "/scholarships", label: t("nav.scholarships") },
     { path: "/blog", label: t("nav.blog") },
-    { path: "/testimonials", label: t("nav.testimonials") },
-    { path: "/about", label: t("nav.about") },
     { path: "/contact", label: t("nav.contact") },
   ];
 
@@ -29,9 +26,8 @@ const Header = () => {
       <div className="container-narrow mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 shrink-0">
-            <img src={kpbLogo} alt="KPB Education" className="h-10 w-10 object-contain" />
-            <span className="font-heading font-bold text-lg text-foreground hidden sm:block">KPB Education</span>
+          <Link to="/" className="flex items-center shrink-0">
+            <img src={kpbLogo} alt="KPB Education" className="h-12 md:h-14 w-auto object-contain" />
           </Link>
 
           {/* Desktop Nav */}
