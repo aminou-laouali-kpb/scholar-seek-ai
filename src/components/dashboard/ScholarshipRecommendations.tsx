@@ -1,11 +1,13 @@
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useAuth } from "@/contexts/AuthContext";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Award, Bookmark, BookmarkCheck, ArrowRight, Star } from "lucide-react";
+import { Bookmark, BookmarkCheck, ArrowRight, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { scholarships } from "@/data/scholarships";
+import { supabase } from "@/integrations/supabase/client";
 import { matchScholarships } from "@/lib/matching";
 import { useSavedItems } from "@/hooks/useSavedItems";
+import type { Scholarship } from "@/data/scholarships";
 
 interface Props {
   onApply: (itemType: string, itemId: string, itemName: string) => void;
@@ -16,8 +18,36 @@ const ScholarshipRecommendations = ({ onApply }: Props) => {
   const isEn = language === "en";
   const { profile } = useAuth();
   const { isSaved, toggleSave } = useSavedItems();
+  const [dbScholarships, setDbScholarships] = useState<Scholarship[]>([]);
 
-  const results = matchScholarships(scholarships, profile || {}).slice(0, 6);
+  useEffect(() => {
+    const fetch = async () => {
+      const { data } = await supabase
+        .from("admin_scholarships")
+        .select("*")
+        .eq("is_published", true);
+      if (data) {
+        setDbScholarships(
+          data.map((d: any) => ({
+            id: d.id,
+            name: d.name,
+            country: d.country,
+            countryFlag: d.country_flag,
+            programs: d.programs,
+            levels: d.levels,
+            description: { en: d.description_en, fr: d.description_fr },
+            eligibility: { en: d.eligibility_en, fr: d.eligibility_fr },
+            deadline: d.deadline,
+            fundingType: d.funding_type,
+            budgetFriendly: d.budget_friendly,
+          }))
+        );
+      }
+    };
+    fetch();
+  }, []);
+
+  const results = matchScholarships(dbScholarships, profile || {}).slice(0, 6);
 
   return (
     <div id="scholarships-section">
@@ -41,7 +71,6 @@ const ScholarshipRecommendations = ({ onApply }: Props) => {
             transition={{ delay: i * 0.06 }}
             className="bg-card rounded-2xl p-5 shadow-card border border-border hover:shadow-card-hover transition-all group relative"
           >
-            {/* Match badge */}
             <div className="absolute top-4 right-4">
               <span className="text-xs font-bold bg-accent/15 text-accent px-2 py-0.5 rounded-full">
                 {r.percentage}% {isEn ? "match" : "compatibilité"}
@@ -66,7 +95,6 @@ const ScholarshipRecommendations = ({ onApply }: Props) => {
               {isEn ? r.item.description.en : r.item.description.fr}
             </p>
 
-            {/* Why it matches */}
             {r.reasons.length > 0 && (
               <div className="bg-accent/5 border border-accent/10 rounded-lg px-3 py-2 mb-3">
                 <p className="text-xs font-semibold text-accent mb-1">
@@ -88,25 +116,12 @@ const ScholarshipRecommendations = ({ onApply }: Props) => {
             </p>
 
             <div className="flex gap-2">
-              <Button
-                variant="accent"
-                size="sm"
-                className="flex-1"
-                onClick={() => onApply("scholarship", r.item.id, r.item.name)}
-              >
+              <Button variant="accent" size="sm" className="flex-1" onClick={() => onApply("scholarship", r.item.id, r.item.name)}>
                 {isEn ? "Start Application" : "Postuler"}
                 <ArrowRight className="w-3 h-3" />
               </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => toggleSave("scholarship", r.item.id)}
-              >
-                {isSaved("scholarship", r.item.id) ? (
-                  <BookmarkCheck className="w-4 h-4 text-accent" />
-                ) : (
-                  <Bookmark className="w-4 h-4" />
-                )}
+              <Button variant="outline" size="sm" onClick={() => toggleSave("scholarship", r.item.id)}>
+                {isSaved("scholarship", r.item.id) ? <BookmarkCheck className="w-4 h-4 text-accent" /> : <Bookmark className="w-4 h-4" />}
               </Button>
             </div>
           </motion.div>

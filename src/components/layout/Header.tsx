@@ -1,14 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useAuth } from "@/contexts/AuthContext";
+import { useAdminRole } from "@/hooks/useAdminRole";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Globe, LogOut } from "lucide-react";
+import { Menu, X, Globe, LogOut, Shield } from "lucide-react";
 import kpbLogo from "@/assets/kpb-logo.png";
 
 const Header = () => {
   const { language, setLanguage, t } = useLanguage();
   const { user, signOut } = useAuth();
+  const { isAdmin } = useAdminRole();
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
 
@@ -61,6 +63,14 @@ const Header = () => {
 
             {user ? (
               <>
+                {isAdmin && (
+                  <Link to="/admin" className="hidden md:block">
+                    <Button variant="outline" size="sm">
+                      <Shield className="w-4 h-4" />
+                      Admin
+                    </Button>
+                  </Link>
+                )}
                 <Link to="/dashboard" className="hidden md:block">
                   <Button variant="accent" size="sm">{t("nav.dashboard")}</Button>
                 </Link>
@@ -96,6 +106,11 @@ const Header = () => {
               <div className="flex gap-2 mt-3 px-4">
                 {user ? (
                   <>
+                    {isAdmin && (
+                      <Link to="/admin" onClick={() => setMobileOpen(false)} className="flex-1">
+                        <Button variant="outline" size="sm" className="w-full"><Shield className="w-4 h-4" /> Admin</Button>
+                      </Link>
+                    )}
                     <Link to="/dashboard" onClick={() => setMobileOpen(false)} className="flex-1">
                       <Button variant="accent" size="sm" className="w-full">{t("nav.dashboard")}</Button>
                     </Link>
