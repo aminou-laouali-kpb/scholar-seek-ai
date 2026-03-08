@@ -14,6 +14,150 @@ export type Database = {
   }
   public: {
     Tables: {
+      admin_admissions: {
+        Row: {
+          admin_notes: string | null
+          budget_level: string
+          country: string
+          country_flag: string
+          created_at: string
+          description_en: string
+          description_fr: string
+          external_link: string | null
+          id: string
+          institution_name: string
+          institution_type: string
+          intake: string
+          is_featured: boolean
+          is_published: boolean
+          levels: string[]
+          programs: string[]
+          relevance_tags: string[]
+          status: string
+          updated_at: string
+          why_fit_en: string
+          why_fit_fr: string
+        }
+        Insert: {
+          admin_notes?: string | null
+          budget_level?: string
+          country: string
+          country_flag?: string
+          created_at?: string
+          description_en?: string
+          description_fr?: string
+          external_link?: string | null
+          id?: string
+          institution_name: string
+          institution_type?: string
+          intake?: string
+          is_featured?: boolean
+          is_published?: boolean
+          levels?: string[]
+          programs?: string[]
+          relevance_tags?: string[]
+          status?: string
+          updated_at?: string
+          why_fit_en?: string
+          why_fit_fr?: string
+        }
+        Update: {
+          admin_notes?: string | null
+          budget_level?: string
+          country?: string
+          country_flag?: string
+          created_at?: string
+          description_en?: string
+          description_fr?: string
+          external_link?: string | null
+          id?: string
+          institution_name?: string
+          institution_type?: string
+          intake?: string
+          is_featured?: boolean
+          is_published?: boolean
+          levels?: string[]
+          programs?: string[]
+          relevance_tags?: string[]
+          status?: string
+          updated_at?: string
+          why_fit_en?: string
+          why_fit_fr?: string
+        }
+        Relationships: []
+      }
+      admin_scholarships: {
+        Row: {
+          admin_notes: string | null
+          budget_friendly: boolean
+          country: string
+          country_flag: string
+          created_at: string
+          deadline: string
+          description_en: string
+          description_fr: string
+          eligibility_en: string
+          eligibility_fr: string
+          external_link: string | null
+          funding_type: string
+          id: string
+          is_featured: boolean
+          is_published: boolean
+          levels: string[]
+          name: string
+          programs: string[]
+          relevance_tags: string[]
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          admin_notes?: string | null
+          budget_friendly?: boolean
+          country: string
+          country_flag?: string
+          created_at?: string
+          deadline?: string
+          description_en?: string
+          description_fr?: string
+          eligibility_en?: string
+          eligibility_fr?: string
+          external_link?: string | null
+          funding_type?: string
+          id?: string
+          is_featured?: boolean
+          is_published?: boolean
+          levels?: string[]
+          name: string
+          programs?: string[]
+          relevance_tags?: string[]
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          admin_notes?: string | null
+          budget_friendly?: boolean
+          country?: string
+          country_flag?: string
+          created_at?: string
+          deadline?: string
+          description_en?: string
+          description_fr?: string
+          eligibility_en?: string
+          eligibility_fr?: string
+          external_link?: string | null
+          funding_type?: string
+          id?: string
+          is_featured?: boolean
+          is_published?: boolean
+          levels?: string[]
+          name?: string
+          programs?: string[]
+          relevance_tags?: string[]
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       application_intents: {
         Row: {
           created_at: string

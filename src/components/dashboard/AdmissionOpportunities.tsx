@@ -1,11 +1,13 @@
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useAuth } from "@/contexts/AuthContext";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { GraduationCap, Bookmark, BookmarkCheck, ArrowRight, Star, MessageCircle } from "lucide-react";
+import { Bookmark, BookmarkCheck, ArrowRight, Star, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { admissions } from "@/data/admissions";
+import { supabase } from "@/integrations/supabase/client";
 import { matchAdmissions } from "@/lib/matching";
 import { useSavedItems } from "@/hooks/useSavedItems";
+import type { AdmissionOpportunity } from "@/data/admissions";
 
 const WA_LINK = "https://wa.me/33768674292";
 
@@ -18,8 +20,36 @@ const AdmissionOpportunities = ({ onApply }: Props) => {
   const isEn = language === "en";
   const { profile } = useAuth();
   const { isSaved, toggleSave } = useSavedItems();
+  const [dbAdmissions, setDbAdmissions] = useState<AdmissionOpportunity[]>([]);
 
-  const results = matchAdmissions(admissions, profile || {}).slice(0, 6);
+  useEffect(() => {
+    const fetch = async () => {
+      const { data } = await supabase
+        .from("admin_admissions")
+        .select("*")
+        .eq("is_published", true);
+      if (data) {
+        setDbAdmissions(
+          data.map((d: any) => ({
+            id: d.id,
+            country: d.country,
+            countryFlag: d.country_flag,
+            institutionName: d.institution_name,
+            institutionType: d.institution_type,
+            programs: d.programs,
+            levels: d.levels,
+            intake: d.intake,
+            description: { en: d.description_en, fr: d.description_fr },
+            whyFit: { en: d.why_fit_en, fr: d.why_fit_fr },
+            budgetLevel: d.budget_level,
+          }))
+        );
+      }
+    };
+    fetch();
+  }, []);
+
+  const results = matchAdmissions(dbAdmissions, profile || {}).slice(0, 6);
 
   return (
     <div>
@@ -41,7 +71,6 @@ const AdmissionOpportunities = ({ onApply }: Props) => {
             transition={{ delay: i * 0.06 }}
             className="bg-card rounded-2xl p-5 shadow-card border border-border hover:shadow-card-hover transition-all group relative"
           >
-            {/* Fit badge */}
             <div className="absolute top-4 right-4">
               <span className="text-xs font-bold bg-primary/10 text-primary px-2 py-0.5 rounded-full">
                 {r.percentage}% {isEn ? "fit" : "compatibilité"}
@@ -68,7 +97,6 @@ const AdmissionOpportunities = ({ onApply }: Props) => {
               {isEn ? r.item.description.en : r.item.description.fr}
             </p>
 
-            {/* Why it fits */}
             {r.reasons.length > 0 && (
               <div className="bg-primary/5 border border-primary/10 rounded-lg px-3 py-2 mb-3">
                 <p className="text-xs font-semibold text-primary mb-1">
@@ -90,25 +118,12 @@ const AdmissionOpportunities = ({ onApply }: Props) => {
             </p>
 
             <div className="flex gap-2">
-              <Button
-                variant="default"
-                size="sm"
-                className="flex-1"
-                onClick={() => onApply("admission", r.item.id, r.item.institutionName)}
-              >
+              <Button variant="default" size="sm" className="flex-1" onClick={() => onApply("admission", r.item.id, r.item.institutionName)}>
                 {isEn ? "Start Application" : "Postuler"}
                 <ArrowRight className="w-3 h-3" />
               </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => toggleSave("admission", r.item.id)}
-              >
-                {isSaved("admission", r.item.id) ? (
-                  <BookmarkCheck className="w-4 h-4 text-accent" />
-                ) : (
-                  <Bookmark className="w-4 h-4" />
-                )}
+              <Button variant="outline" size="sm" onClick={() => toggleSave("admission", r.item.id)}>
+                {isSaved("admission", r.item.id) ? <BookmarkCheck className="w-4 h-4 text-accent" /> : <Bookmark className="w-4 h-4" />}
               </Button>
             </div>
 
