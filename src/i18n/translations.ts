@@ -616,13 +616,6 @@ export const translations: Record<Language, Record<string, any>> = {
         ]},
       ],
     },
-    destinationsPage: {
-      ...undefined,
-      countries: {
-        ...undefined,
-        china: { name: "China", desc: "Affordable tuition, CSC scholarships, and rapidly growing international programs in Asia's largest economy." },
-      },
-    },
     whatsappTooltip: "Chat with us on WhatsApp",
     countries: {
       cameroon: "Cameroon", congo: "Congo", drc: "DR Congo", senegal: "Senegal",
