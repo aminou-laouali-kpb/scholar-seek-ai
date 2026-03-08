@@ -14,8 +14,75 @@ export type Database = {
   }
   public: {
     Tables: {
+      application_intents: {
+        Row: {
+          created_at: string
+          id: string
+          item_id: string
+          item_name: string | null
+          item_type: string
+          status: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          item_id: string
+          item_name?: string | null
+          item_type: string
+          status?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          item_id?: string
+          item_name?: string | null
+          item_type?: string
+          status?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      consultation_requests: {
+        Row: {
+          created_at: string
+          id: string
+          item_id: string | null
+          item_name: string | null
+          item_type: string | null
+          message: string | null
+          request_type: string
+          status: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          item_id?: string | null
+          item_name?: string | null
+          item_type?: string | null
+          message?: string | null
+          request_type?: string
+          status?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          item_id?: string | null
+          item_name?: string | null
+          item_type?: string | null
+          message?: string | null
+          request_type?: string
+          status?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
+          budget_sensitivity: string | null
           country_of_birth: string | null
           country_of_residence: string | null
           created_at: string
@@ -27,13 +94,16 @@ export type Database = {
           last_name: string | null
           orientation_result: string | null
           phone_country: string | null
+          preferred_destinations: string[] | null
           profile_completed: boolean | null
+          scholarship_interest: boolean | null
           study_level: string | null
           updated_at: string
           user_id: string
           whatsapp: string | null
         }
         Insert: {
+          budget_sensitivity?: string | null
           country_of_birth?: string | null
           country_of_residence?: string | null
           created_at?: string
@@ -45,13 +115,16 @@ export type Database = {
           last_name?: string | null
           orientation_result?: string | null
           phone_country?: string | null
+          preferred_destinations?: string[] | null
           profile_completed?: boolean | null
+          scholarship_interest?: boolean | null
           study_level?: string | null
           updated_at?: string
           user_id: string
           whatsapp?: string | null
         }
         Update: {
+          budget_sensitivity?: string | null
           country_of_birth?: string | null
           country_of_residence?: string | null
           created_at?: string
@@ -63,11 +136,40 @@ export type Database = {
           last_name?: string | null
           orientation_result?: string | null
           phone_country?: string | null
+          preferred_destinations?: string[] | null
           profile_completed?: boolean | null
+          scholarship_interest?: boolean | null
           study_level?: string | null
           updated_at?: string
           user_id?: string
           whatsapp?: string | null
+        }
+        Relationships: []
+      }
+      saved_items: {
+        Row: {
+          created_at: string
+          id: string
+          is_priority: boolean
+          item_id: string
+          item_type: Database["public"]["Enums"]["saved_item_type"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_priority?: boolean
+          item_id: string
+          item_type: Database["public"]["Enums"]["saved_item_type"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_priority?: boolean
+          item_id?: string
+          item_type?: Database["public"]["Enums"]["saved_item_type"]
+          user_id?: string
         }
         Relationships: []
       }
@@ -104,6 +206,7 @@ export type Database = {
     }
     Enums: {
       app_role: "admin" | "moderator" | "user"
+      saved_item_type: "scholarship" | "admission" | "destination"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -232,6 +335,7 @@ export const Constants = {
   public: {
     Enums: {
       app_role: ["admin", "moderator", "user"],
+      saved_item_type: ["scholarship", "admission", "destination"],
     },
   },
 } as const

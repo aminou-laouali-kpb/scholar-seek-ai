@@ -1,0 +1,358 @@
+export interface Scholarship {
+  id: string;
+  name: string;
+  country: string;
+  countryFlag: string;
+  programs: string[];
+  levels: string[];
+  description: { en: string; fr: string };
+  eligibility: { en: string; fr: string };
+  deadline: string;
+  fundingType: string;
+  budgetFriendly: boolean;
+}
+
+export const scholarships: Scholarship[] = [
+  {
+    id: "eiffel-excellence",
+    name: "Eiffel Excellence Scholarship",
+    country: "FR",
+    countryFlag: "🇫🇷",
+    programs: ["engineering", "sciences", "law", "economics", "business", "politicalScience"],
+    levels: ["master", "phd"],
+    description: {
+      en: "Prestigious French government scholarship for outstanding international students pursuing Master's or PhD programs in France.",
+      fr: "Bourse prestigieuse du gouvernement français pour les étudiants internationaux exceptionnels poursuivant un Master ou un Doctorat en France.",
+    },
+    eligibility: {
+      en: "Non-French nationals, under 25 (Master) or 30 (PhD), strong academic record required.",
+      fr: "Non-français, moins de 25 ans (Master) ou 30 ans (PhD), excellent dossier académique requis.",
+    },
+    deadline: "January 2026",
+    fundingType: "full",
+    budgetFriendly: true,
+  },
+  {
+    id: "campus-france-bgf",
+    name: "Campus France BGF Scholarship",
+    country: "FR",
+    countryFlag: "🇫🇷",
+    programs: ["businessAdmin", "computerScience", "civilEngineering", "medicine", "agriculture"],
+    levels: ["bachelor", "master"],
+    description: {
+      en: "French government scholarship managed by Campus France for students from partner countries in Africa.",
+      fr: "Bourse du gouvernement français gérée par Campus France pour les étudiants des pays partenaires en Afrique.",
+    },
+    eligibility: {
+      en: "Citizens of eligible African countries, enrolled in French higher education institutions.",
+      fr: "Ressortissants de pays africains éligibles, inscrits dans des établissements d'enseignement supérieur français.",
+    },
+    deadline: "March 2026",
+    fundingType: "partial",
+    budgetFriendly: true,
+  },
+  {
+    id: "ares-belgium",
+    name: "ARES Scholarship Belgium",
+    country: "BE",
+    countryFlag: "🇧🇪",
+    programs: ["agriculture", "engineering", "health", "environmentalScience", "education"],
+    levels: ["master", "phd"],
+    description: {
+      en: "Belgian development cooperation scholarship for students from developing countries pursuing studies in French-speaking Belgian universities.",
+      fr: "Bourse de coopération belge pour les étudiants de pays en développement dans les universités francophones de Belgique.",
+    },
+    eligibility: {
+      en: "Citizens of eligible developing countries, under 35 (Master) or 40 (PhD), relevant work experience preferred.",
+      fr: "Ressortissants de pays en développement éligibles, moins de 35 ans (Master) ou 40 ans (PhD), expérience professionnelle pertinente souhaitée.",
+    },
+    deadline: "February 2026",
+    fundingType: "full",
+    budgetFriendly: true,
+  },
+  {
+    id: "vlir-uos",
+    name: "VLIR-UOS Scholarship",
+    country: "BE",
+    countryFlag: "🇧🇪",
+    programs: ["computerScience", "civilEngineering", "biology", "environmentalScience"],
+    levels: ["master"],
+    description: {
+      en: "Scholarship from Flemish universities for students from developing countries to study English-taught Master's programs in Belgium.",
+      fr: "Bourse des universités flamandes pour les étudiants de pays en développement pour des programmes de Master en anglais en Belgique.",
+    },
+    eligibility: {
+      en: "Citizens of VLIR-UOS partner countries, relevant Bachelor's degree, maximum 35 years old.",
+      fr: "Ressortissants de pays partenaires VLIR-UOS, licence pertinente, maximum 35 ans.",
+    },
+    deadline: "February 2026",
+    fundingType: "full",
+    budgetFriendly: true,
+  },
+  {
+    id: "vanier-canada",
+    name: "Vanier Canada Graduate Scholarship",
+    country: "CA",
+    countryFlag: "🇨🇦",
+    programs: ["sciences", "engineering", "health", "socialSciences"],
+    levels: ["phd"],
+    description: {
+      en: "Canada's most prestigious doctoral scholarship, worth $50,000/year for 3 years, open to international students.",
+      fr: "La bourse doctorale la plus prestigieuse du Canada, d'une valeur de 50 000$/an pendant 3 ans, ouverte aux étudiants internationaux.",
+    },
+    eligibility: {
+      en: "Nominated by a Canadian university, strong research record, leadership qualities.",
+      fr: "Nominé par une université canadienne, solide dossier de recherche, qualités de leadership.",
+    },
+    deadline: "November 2025",
+    fundingType: "full",
+    budgetFriendly: true,
+  },
+  {
+    id: "csc-china",
+    name: "CSC Chinese Government Scholarship",
+    country: "CN",
+    countryFlag: "🇨🇳",
+    programs: ["engineering", "computerScience", "medicine", "economics", "languages", "agriculture"],
+    levels: ["bachelor", "master", "phd"],
+    description: {
+      en: "Full scholarship from the Chinese government covering tuition, accommodation, living stipend, and health insurance.",
+      fr: "Bourse complète du gouvernement chinois couvrant les frais de scolarité, l'hébergement, une allocation de vie et l'assurance maladie.",
+    },
+    eligibility: {
+      en: "Non-Chinese citizens, good health, academic requirements vary by program level.",
+      fr: "Non-chinois, bonne santé, les exigences académiques varient selon le niveau du programme.",
+    },
+    deadline: "April 2026",
+    fundingType: "full",
+    budgetFriendly: true,
+  },
+  {
+    id: "confucius-institute",
+    name: "Confucius Institute Scholarship",
+    country: "CN",
+    countryFlag: "🇨🇳",
+    programs: ["languages", "education", "arts"],
+    levels: ["bachelor", "master"],
+    description: {
+      en: "Scholarship for students interested in Chinese language and culture studies at designated Chinese universities.",
+      fr: "Bourse pour les étudiants intéressés par les études de langue et culture chinoises dans des universités chinoises désignées.",
+    },
+    eligibility: {
+      en: "Non-Chinese nationals, HSK test results may be required, age limits vary by program.",
+      fr: "Non-chinois, résultats HSK éventuellement requis, limites d'âge variables selon le programme.",
+    },
+    deadline: "May 2026",
+    fundingType: "full",
+    budgetFriendly: true,
+  },
+  {
+    id: "fulbright-usa",
+    name: "Fulbright Foreign Student Program",
+    country: "US",
+    countryFlag: "🇺🇸",
+    programs: ["sciences", "arts", "socialSciences", "engineering", "business"],
+    levels: ["master", "phd"],
+    description: {
+      en: "One of the world's most prestigious scholarship programs, funding graduate study and research in the United States.",
+      fr: "L'un des programmes de bourses les plus prestigieux au monde, finançant les études supérieures et la recherche aux États-Unis.",
+    },
+    eligibility: {
+      en: "Applicants from eligible countries, Bachelor's degree required, strong academic and leadership record.",
+      fr: "Candidats de pays éligibles, licence requise, excellent dossier académique et de leadership.",
+    },
+    deadline: "October 2025",
+    fundingType: "full",
+    budgetFriendly: true,
+  },
+  {
+    id: "canada-lester-pearson",
+    name: "Lester B. Pearson International Scholarship",
+    country: "CA",
+    countryFlag: "🇨🇦",
+    programs: ["sciences", "arts", "business", "engineering", "health"],
+    levels: ["bachelor"],
+    description: {
+      en: "University of Toronto's most prestigious scholarship for exceptional international students, covering 4 years of tuition and living expenses.",
+      fr: "La bourse la plus prestigieuse de l'Université de Toronto pour les étudiants internationaux exceptionnels, couvrant 4 ans de frais de scolarité et de subsistance.",
+    },
+    eligibility: {
+      en: "Nominated by high school, outstanding academic achievement and leadership.",
+      fr: "Nominé par le lycée, résultats académiques exceptionnels et leadership.",
+    },
+    deadline: "January 2026",
+    fundingType: "full",
+    budgetFriendly: true,
+  },
+  {
+    id: "mastercard-foundation",
+    name: "Mastercard Foundation Scholars Program",
+    country: "CA",
+    countryFlag: "🇨🇦",
+    programs: ["business", "engineering", "health", "agriculture", "education"],
+    levels: ["bachelor", "master"],
+    description: {
+      en: "Full scholarship for talented yet economically disadvantaged students from Africa, at partner universities in Canada.",
+      fr: "Bourse complète pour les étudiants talentueux mais économiquement défavorisés d'Afrique, dans des universités partenaires au Canada.",
+    },
+    eligibility: {
+      en: "African citizens, demonstrated financial need, strong academic record, commitment to giving back.",
+      fr: "Citoyens africains, besoin financier démontré, excellent dossier académique, engagement à redonner.",
+    },
+    deadline: "December 2025",
+    fundingType: "full",
+    budgetFriendly: true,
+  },
+  {
+    id: "france-excellence-major",
+    name: "Bourse Excellence-Major",
+    country: "FR",
+    countryFlag: "🇫🇷",
+    programs: ["sciences", "engineering", "business", "arts", "law"],
+    levels: ["bachelor", "master"],
+    description: {
+      en: "Scholarship for top students from French high schools abroad who wish to continue studies in France.",
+      fr: "Bourse pour les meilleurs élèves des lycées français à l'étranger souhaitant poursuivre leurs études en France.",
+    },
+    eligibility: {
+      en: "Non-French students from AEFE network schools, excellent baccalaureate results.",
+      fr: "Étudiants non-français des établissements du réseau AEFE, excellents résultats au baccalauréat.",
+    },
+    deadline: "April 2026",
+    fundingType: "full",
+    budgetFriendly: true,
+  },
+  {
+    id: "belgium-wbi",
+    name: "WBI Excellence Scholarship",
+    country: "BE",
+    countryFlag: "🇧🇪",
+    programs: ["arts", "sciences", "engineering", "agriculture"],
+    levels: ["master", "phd"],
+    description: {
+      en: "Wallonia-Brussels International scholarship for students from partner countries pursuing advanced studies in Wallonia or Brussels.",
+      fr: "Bourse Wallonie-Bruxelles International pour les étudiants de pays partenaires poursuivant des études avancées en Wallonie ou à Bruxelles.",
+    },
+    eligibility: {
+      en: "Citizens of eligible partner countries, strong academic record, relevant professional experience.",
+      fr: "Ressortissants de pays partenaires éligibles, excellent dossier académique, expérience professionnelle pertinente.",
+    },
+    deadline: "March 2026",
+    fundingType: "partial",
+    budgetFriendly: true,
+  },
+  {
+    id: "usa-community-college",
+    name: "Community Colleges for International Development",
+    country: "US",
+    countryFlag: "🇺🇸",
+    programs: ["business", "computerScience", "engineering", "nursing", "hospitalityTourism"],
+    levels: ["bachelor"],
+    description: {
+      en: "Affordable pathway scholarships at US community colleges with guaranteed transfer to 4-year universities.",
+      fr: "Bourses de parcours abordables dans les community colleges américains avec transfert garanti vers des universités de 4 ans.",
+    },
+    eligibility: {
+      en: "International students, high school diploma, English proficiency (TOEFL/IELTS).",
+      fr: "Étudiants internationaux, diplôme de fin d'études secondaires, maîtrise de l'anglais (TOEFL/IELTS).",
+    },
+    deadline: "Rolling admissions",
+    fundingType: "partial",
+    budgetFriendly: true,
+  },
+  {
+    id: "china-provincial",
+    name: "Chinese Provincial Government Scholarships",
+    country: "CN",
+    countryFlag: "🇨🇳",
+    programs: ["medicine", "engineering", "economics", "computerScience", "agriculture"],
+    levels: ["bachelor", "master"],
+    description: {
+      en: "Regional scholarships offered by Chinese provinces covering partial or full tuition for international students.",
+      fr: "Bourses régionales offertes par les provinces chinoises couvrant partiellement ou totalement les frais de scolarité pour les étudiants internationaux.",
+    },
+    eligibility: {
+      en: "Non-Chinese citizens, enrolled in a university in the sponsoring province.",
+      fr: "Non-chinois, inscrits dans une université de la province sponsor.",
+    },
+    deadline: "June 2026",
+    fundingType: "partial",
+    budgetFriendly: true,
+  },
+  {
+    id: "canada-quebec-merit",
+    name: "Québec Merit Scholarship for Foreign Students",
+    country: "CA",
+    countryFlag: "🇨🇦",
+    programs: ["sciences", "arts", "engineering", "business", "health"],
+    levels: ["master", "phd"],
+    description: {
+      en: "Quebec government scholarship exempting international students from higher tuition fees and providing a living stipend.",
+      fr: "Bourse du gouvernement du Québec exemptant les étudiants internationaux des frais de scolarité majorés et offrant une allocation de vie.",
+    },
+    eligibility: {
+      en: "Admitted to a Quebec university, strong academic record, research project alignment.",
+      fr: "Admis dans une université québécoise, excellent dossier académique, alignement du projet de recherche.",
+    },
+    deadline: "November 2025",
+    fundingType: "partial",
+    budgetFriendly: true,
+  },
+  {
+    id: "france-emile-boutmy",
+    name: "Emile Boutmy Scholarship – Sciences Po",
+    country: "FR",
+    countryFlag: "🇫🇷",
+    programs: ["politicalScience", "internationalRelations", "economics", "law"],
+    levels: ["bachelor", "master"],
+    description: {
+      en: "Scholarship at Sciences Po Paris for talented international students from outside the EU, based on academic excellence.",
+      fr: "Bourse à Sciences Po Paris pour les étudiants internationaux talentueux hors UE, basée sur l'excellence académique.",
+    },
+    eligibility: {
+      en: "Non-EU students admitted to Sciences Po, demonstrated financial need, strong academic record.",
+      fr: "Étudiants non-UE admis à Sciences Po, besoin financier démontré, excellent dossier académique.",
+    },
+    deadline: "May 2026",
+    fundingType: "partial",
+    budgetFriendly: true,
+  },
+  {
+    id: "usa-aga-khan",
+    name: "Aga Khan Foundation International Scholarship",
+    country: "US",
+    countryFlag: "🇺🇸",
+    programs: ["health", "education", "agriculture", "engineering", "business"],
+    levels: ["master"],
+    description: {
+      en: "Need-based scholarship for outstanding students from developing countries pursuing graduate studies.",
+      fr: "Bourse basée sur le besoin pour les étudiants exceptionnels des pays en développement poursuivant des études supérieures.",
+    },
+    eligibility: {
+      en: "Citizens of eligible developing countries, admitted to a reputable university, demonstrated financial need.",
+      fr: "Ressortissants de pays en développement éligibles, admis dans une université réputée, besoin financier démontré.",
+    },
+    deadline: "March 2026",
+    fundingType: "partial",
+    budgetFriendly: true,
+  },
+  {
+    id: "belgium-kul",
+    name: "KU Leuven Science & Technology Scholarship",
+    country: "BE",
+    countryFlag: "🇧🇪",
+    programs: ["sciences", "engineering", "computerScience", "biology"],
+    levels: ["master"],
+    description: {
+      en: "Merit-based scholarship at one of Belgium's top universities for international students in STEM fields.",
+      fr: "Bourse au mérite dans l'une des meilleures universités belges pour les étudiants internationaux en STEM.",
+    },
+    eligibility: {
+      en: "International students admitted to a Science & Technology Master's, strong academic record.",
+      fr: "Étudiants internationaux admis en Master Sciences & Technologies, excellent dossier académique.",
+    },
+    deadline: "February 2026",
+    fundingType: "partial",
+    budgetFriendly: true,
+  },
+];

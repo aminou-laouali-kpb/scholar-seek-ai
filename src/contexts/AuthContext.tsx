@@ -17,6 +17,9 @@ interface Profile {
   dont_know_program: boolean | null;
   orientation_result: string | null;
   profile_completed: boolean | null;
+  preferred_destinations: string[] | null;
+  budget_sensitivity: string | null;
+  scholarship_interest: boolean | null;
 }
 
 interface AuthContextType {
