@@ -574,6 +574,19 @@ export const translations: Record<Language, Record<string, any>> = {
           admissions: "Apply directly to universities. Requirements include academic transcripts, English proficiency (IELTS/TOEFL), personal statement, and recommendation letters. Some programs require SAT/EmSAT scores. Rolling admissions with deadlines typically 3–6 months before semester start.",
           studentLife: "The UAE offers a cosmopolitan lifestyle with stunning architecture, world-class dining, and a safe, multicultural environment. Dubai and Abu Dhabi provide internship opportunities with global companies, desert adventures, and a year-round sunny climate.",
         },
+        china: {
+          tagline: "Affordable excellence in Asia's rising superpower",
+          whyPoints: [
+            "CSC Scholarship covers tuition, accommodation, and monthly stipend",
+            "Rapidly growing number of English-taught programs",
+            "Very affordable cost of living",
+            "Booming economy with strong career prospects",
+          ],
+          stats: { universities: "2,900+", avgTuition: "$2,000 – $10,000", language: "Chinese, English", popularFields: "Engineering, Medicine, Business, IT" },
+          topUnis: ["Tsinghua University", "Peking University", "Fudan University", "Zhejiang University", "Shanghai Jiao Tong University"],
+          admissions: "Apply through the CSC portal for government scholarships or directly to universities. Requirements include academic transcripts, language certificates (HSK for Chinese, IELTS for English programs), medical exam, and recommendation letters.",
+          studentLife: "China offers a fascinating blend of ancient culture and ultra-modern cities. Students enjoy affordable food, efficient transportation, and vibrant campus life. Cities like Beijing, Shanghai, and Hangzhou offer world-class experiences.",
+        },
       },
     },
     usaFinder: {
