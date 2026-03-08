@@ -7,8 +7,8 @@ import { ArrowRight, MessageCircle, GraduationCap, MapPin, BookOpen, Users, Buil
 const WA_LINK = "https://wa.me/33768674292";
 
 const countryFlags: Record<string, string> = {
-  belgium: "🇧🇪", france: "🇫🇷", canada: "🇨🇦", uk: "🇬🇧", usa: "🇺🇸",
-  germany: "🇩🇪", spain: "🇪🇸", turkey: "🇹🇷", uae: "🇦🇪",
+  belgium: "🇧🇪", france: "🇫🇷", canada: "🇨🇦", usa: "🇺🇸", china: "🇨🇳",
+  uk: "🇬🇧", germany: "🇩🇪", spain: "🇪🇸", turkey: "🇹🇷", uae: "🇦🇪",
 };
 
 // Countries with dedicated app tools

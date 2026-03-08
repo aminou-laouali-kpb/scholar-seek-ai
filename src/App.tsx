@@ -47,6 +47,9 @@ const App = () => (
             <Route path="/tools" element={<Tools />} />
             <Route path="/tools/belgium" element={<BelgiumFinder />} />
             <Route path="/tools/france" element={<FranceFinder />} />
+            <Route path="/tools/usa" element={<USAFinder />} />
+            <Route path="/tools/canada" element={<CanadaFinder />} />
+            <Route path="/tools/china" element={<ChinaFinder />} />
             <Route path="/tools/scholarship-test" element={<ScholarshipTest />} />
             <Route path="/services" element={<Services />} />
             <Route path="/destinations" element={<Destinations />} />
