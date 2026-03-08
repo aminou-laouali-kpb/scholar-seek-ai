@@ -996,7 +996,7 @@ export const translations: Record<Language, Record<string, any>> = {
       lastNamePassport: "Nom de famille (tel que sur le passeport)",
       email: "Adresse Email",
       whatsapp: "Numéro WhatsApp",
-      whatsappPlaceholder: "+237 6XX XX XX XX",
+      whatsappPlaceholder: "6XX XX XX XX",
       countryOfBirth: "Pays de naissance",
       countryOfResidence: "Pays de résidence",
       studyLevel: "Niveau d'études actuel",
