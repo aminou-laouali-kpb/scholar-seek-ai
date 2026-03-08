@@ -31,25 +31,25 @@ const Index = () => {
       {/* ===== HERO ===== */}
       <section className="relative gradient-hero overflow-hidden">
         <div className="absolute inset-0 bg-[url('/placeholder.svg')] opacity-5" />
-        <div className="container-narrow mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32 relative z-10">
+        <div className="container-narrow mx-auto px-4 sm:px-6 lg:px-8 py-14 md:py-32 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div initial="hidden" animate="visible" className="text-center lg:text-left">
-              <motion.h1 variants={fadeUp} custom={0} className="font-heading font-extrabold text-4xl sm:text-5xl lg:text-6xl text-primary-foreground leading-tight">
+              <motion.h1 variants={fadeUp} custom={0} className="font-heading font-extrabold text-3xl sm:text-4xl lg:text-6xl text-primary-foreground leading-tight">
                 {t("hero.title")}{" "}
                 <span className="text-gradient-accent inline-block">{t("hero.titleHighlight")}</span>
               </motion.h1>
-              <motion.p variants={fadeUp} custom={1} className="mt-6 text-lg sm:text-xl text-primary-foreground/80 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+              <motion.p variants={fadeUp} custom={1} className="mt-4 md:mt-6 text-base sm:text-lg md:text-xl text-primary-foreground/80 max-w-xl mx-auto lg:mx-0 leading-relaxed">
                 {t("hero.subtitle")}
               </motion.p>
-              <motion.div variants={fadeUp} custom={2} className="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <Link to="/questionnaire">
-                  <Button variant="hero" size="xl">{t("hero.cta1")} <ArrowRight className="w-5 h-5" /></Button>
+              <motion.div variants={fadeUp} custom={2} className="mt-6 md:mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start">
+                <Link to="/questionnaire" className="w-full sm:w-auto">
+                  <Button variant="hero" size="xl" className="w-full sm:w-auto">{t("hero.cta1")} <ArrowRight className="w-5 h-5" /></Button>
                 </Link>
-                <Link to="/contact">
-                  <Button variant="heroOutline" size="xl">{t("hero.cta2")}</Button>
+                <Link to="/contact" className="w-full sm:w-auto">
+                  <Button variant="heroOutline" size="xl" className="w-full sm:w-auto">{t("hero.cta2")}</Button>
                 </Link>
               </motion.div>
-              <motion.div variants={fadeUp} custom={3} className="mt-10 flex flex-wrap gap-6 justify-center lg:justify-start">
+              <motion.div variants={fadeUp} custom={3} className="mt-6 md:mt-10 flex flex-wrap gap-4 md:gap-6 justify-center lg:justify-start">
                 {Object.values(t("hero.stats") as Record<string, string>).map((stat, i) => (
                   <div key={i} className="text-primary-foreground/90 text-sm font-semibold">
                     <span className="text-accent">✦</span> {stat}
@@ -219,7 +219,7 @@ const Index = () => {
           <div className="grid md:grid-cols-3 gap-6">
             {(t("blogPreview.articles") as Array<{ title: string; category: string; date: string }>).map((article, i) => (
               <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="bg-card rounded-xl overflow-hidden shadow-card border border-border hover:shadow-card-hover transition-all group">
-                <div className="h-40 gradient-hero flex items-center justify-center">
+                <div className="h-32 md:h-40 gradient-hero flex items-center justify-center">
                   <BookOpen className="w-12 h-12 text-primary-foreground/30" />
                 </div>
                 <div className="p-5">
@@ -257,8 +257,8 @@ const Index = () => {
       {/* ===== FINAL CTA ===== */}
       <section className="gradient-accent section-padding">
         <div className="container-narrow mx-auto text-center">
-          <h2 className="font-heading font-extrabold text-3xl md:text-4xl text-accent-foreground">{t("finalCTA.title")}</h2>
-          <p className="mt-4 text-accent-foreground/80 text-lg max-w-xl mx-auto">{t("finalCTA.subtitle")}</p>
+          <h2 className="font-heading font-extrabold text-2xl sm:text-3xl md:text-4xl text-accent-foreground">{t("finalCTA.title")}</h2>
+          <p className="mt-3 md:mt-4 text-accent-foreground/80 text-base md:text-lg max-w-xl mx-auto">{t("finalCTA.subtitle")}</p>
           <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/questionnaire"><Button variant="default" size="xl">{t("finalCTA.cta1")} <ArrowRight className="w-5 h-5" /></Button></Link>
             <Link to="/contact"><Button variant="heroOutline" size="xl">{t("finalCTA.cta2")}</Button></Link>

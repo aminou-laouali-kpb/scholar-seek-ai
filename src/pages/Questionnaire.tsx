@@ -135,7 +135,7 @@ const Questionnaire = () => {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -40 }}
               transition={{ duration: 0.3 }}
-              className="bg-card rounded-2xl p-8 md:p-10 shadow-card border border-border"
+              className="bg-card rounded-2xl p-5 md:p-10 shadow-card border border-border"
             >
               <h2 className="font-heading font-bold text-2xl text-foreground mb-2">
                 {steps[currentStep].title}
@@ -147,7 +147,7 @@ const Questionnaire = () => {
                   <button
                     key={option.value}
                     onClick={() => selectAnswer(option.value)}
-                    className={`w-full text-left px-5 py-4 rounded-xl border-2 transition-all duration-200 font-medium ${
+                    className={`w-full text-left px-4 py-4 md:px-5 rounded-xl border-2 transition-all duration-200 font-medium text-sm md:text-base ${
                       answers[currentStep] === option.value
                         ? "border-primary bg-primary/5 text-foreground shadow-sm"
                         : "border-border bg-background text-muted-foreground hover:border-primary/30 hover:bg-secondary/50"
