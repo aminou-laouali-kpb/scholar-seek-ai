@@ -38,7 +38,7 @@ const Index = () => {
                 {t("hero.title")}{" "}
                 <span className="text-gradient-accent inline-block">{t("hero.titleHighlight")}</span>
               </motion.h1>
-              <motion.p variants={fadeUp} custom={1} className="mt-6 text-lg sm:text-xl text-primary-foreground/80 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+              <motion.p variants={fadeUp} custom={1} className="mt-4 md:mt-6 text-base sm:text-lg md:text-xl text-primary-foreground/80 max-w-xl mx-auto lg:mx-0 leading-relaxed">
                 {t("hero.subtitle")}
               </motion.p>
               <motion.div variants={fadeUp} custom={2} className="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
