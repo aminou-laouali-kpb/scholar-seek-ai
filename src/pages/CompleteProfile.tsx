@@ -208,6 +208,61 @@ const CompleteProfile = () => {
                     <SelectItem key={key} value={key}>{studyLevels[key]}</SelectItem>
                   ))}
                 </SelectContent>
+            </Select>
+            </div>
+
+            {/* Preferred Destinations */}
+            <div>
+              <label className="text-sm font-medium text-foreground mb-1.5 block">
+                {isEn ? "Preferred Destinations" : "Destinations préférées"}
+              </label>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  { code: "FR", flag: "🇫🇷", en: "France", fr: "France" },
+                  { code: "BE", flag: "🇧🇪", en: "Belgium", fr: "Belgique" },
+                  { code: "CA", flag: "🇨🇦", en: "Canada", fr: "Canada" },
+                  { code: "CN", flag: "🇨🇳", en: "China", fr: "Chine" },
+                  { code: "US", flag: "🇺🇸", en: "USA", fr: "États-Unis" },
+                ].map((d) => {
+                  const selected = form.preferredDestinations.includes(d.code);
+                  return (
+                    <button
+                      key={d.code}
+                      type="button"
+                      onClick={() => {
+                        setForm((prev) => ({
+                          ...prev,
+                          preferredDestinations: selected
+                            ? prev.preferredDestinations.filter((c) => c !== d.code)
+                            : [...prev.preferredDestinations, d.code],
+                        }));
+                      }}
+                      className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium border transition-all ${
+                        selected
+                          ? "bg-primary text-primary-foreground border-primary"
+                          : "bg-secondary text-muted-foreground border-border hover:border-primary/30"
+                      }`}
+                    >
+                      <span>{d.flag}</span>
+                      {isEn ? d.en : d.fr}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Budget Sensitivity */}
+            <div>
+              <label className="text-sm font-medium text-foreground mb-1.5 block">
+                {isEn ? "Budget Sensitivity" : "Sensibilité au budget"}
+              </label>
+              <Select value={form.budgetSensitivity} onValueChange={(v) => update("budgetSensitivity", v)}>
+                <SelectTrigger><SelectValue placeholder={isEn ? "Select your budget level" : "Sélectionnez votre niveau de budget"} /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="low">{isEn ? "Low — I need the most affordable option" : "Faible — J'ai besoin de l'option la plus abordable"}</SelectItem>
+                  <SelectItem value="medium">{isEn ? "Medium — I can invest moderately" : "Moyen — Je peux investir modérément"}</SelectItem>
+                  <SelectItem value="high">{isEn ? "High — Budget is not my main concern" : "Élevé — Le budget n'est pas ma préoccupation principale"}</SelectItem>
+                </SelectContent>
               </Select>
             </div>
 
