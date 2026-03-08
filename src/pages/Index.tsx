@@ -49,7 +49,7 @@ const Index = () => {
                   <Button variant="heroOutline" size="xl" className="w-full sm:w-auto">{t("hero.cta2")}</Button>
                 </Link>
               </motion.div>
-              <motion.div variants={fadeUp} custom={3} className="mt-10 flex flex-wrap gap-6 justify-center lg:justify-start">
+              <motion.div variants={fadeUp} custom={3} className="mt-6 md:mt-10 flex flex-wrap gap-4 md:gap-6 justify-center lg:justify-start">
                 {Object.values(t("hero.stats") as Record<string, string>).map((stat, i) => (
                   <div key={i} className="text-primary-foreground/90 text-sm font-semibold">
                     <span className="text-accent">✦</span> {stat}
