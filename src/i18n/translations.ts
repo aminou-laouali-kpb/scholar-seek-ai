@@ -51,6 +51,24 @@ export const translations: Record<Language, Record<string, any>> = {
         benefit: "Know your chances instantly",
         cta: "Test Your Eligibility",
       },
+      usa: {
+        title: "USA University & College Finder",
+        description: "Find the best university or community college in the USA for your profile. Compare pathways, costs, and scholarship options.",
+        benefit: "Discover your ideal US pathway",
+        cta: "Find My Match",
+      },
+      canada: {
+        title: "Canada University Finder",
+        description: "Discover the best Canadian university for your profile. Compare programs, costs, and immigration pathways.",
+        benefit: "Find your perfect match in Canada",
+        cta: "Explore Canada",
+      },
+      china: {
+        title: "China University Finder",
+        description: "Find the best Chinese university for your profile. Explore CSC scholarships and English-taught programs.",
+        benefit: "Discover opportunities in China",
+        cta: "Explore China",
+      },
     },
     howItWorks: {
       title: "3 Steps to Your Future",
@@ -220,6 +238,7 @@ export const translations: Record<Language, Record<string, any>> = {
         spain: { name: "Spain", desc: "Affordable living, sunny climate, and growing international program offerings." },
         turkey: { name: "Turkey", desc: "Generous scholarships, modern campuses, and a bridge between Europe and Asia." },
         uae: { name: "UAE / Dubai", desc: "World-class campuses, tax-free environment, and rapidly growing international education hub." },
+        china: { name: "China", desc: "Affordable tuition, CSC scholarships, and rapidly growing international programs in Asia's largest economy." },
       },
     },
     scholarshipsPage: {
@@ -555,7 +574,60 @@ export const translations: Record<Language, Record<string, any>> = {
           admissions: "Apply directly to universities. Requirements include academic transcripts, English proficiency (IELTS/TOEFL), personal statement, and recommendation letters. Some programs require SAT/EmSAT scores. Rolling admissions with deadlines typically 3–6 months before semester start.",
           studentLife: "The UAE offers a cosmopolitan lifestyle with stunning architecture, world-class dining, and a safe, multicultural environment. Dubai and Abu Dhabi provide internship opportunities with global companies, desert adventures, and a year-round sunny climate.",
         },
+        china: {
+          tagline: "Affordable excellence in Asia's rising superpower",
+          whyPoints: [
+            "CSC Scholarship covers tuition, accommodation, and monthly stipend",
+            "Rapidly growing number of English-taught programs",
+            "Very affordable cost of living",
+            "Booming economy with strong career prospects",
+          ],
+          stats: { universities: "2,900+", avgTuition: "$2,000 – $10,000", language: "Chinese, English", popularFields: "Engineering, Medicine, Business, IT" },
+          topUnis: ["Tsinghua University", "Peking University", "Fudan University", "Zhejiang University", "Shanghai Jiao Tong University"],
+          admissions: "Apply through the CSC portal for government scholarships or directly to universities. Requirements include academic transcripts, language certificates (HSK for Chinese, IELTS for English programs), medical exam, and recommendation letters.",
+          studentLife: "China offers a fascinating blend of ancient culture and ultra-modern cities. Students enjoy affordable food, efficient transportation, and vibrant campus life. Cities like Beijing, Shanghai, and Hangzhou offer world-class experiences.",
+        },
       },
+    },
+    usaFinder: {
+      step: "Question",
+      prev: "Back",
+      next: "Continue",
+      finish: "See My Results",
+      steps: [
+        { title: "What is your current study level?", subtitle: "This helps us match you with the right institutions.", options: [
+          { value: "high-school", label: "High School / Secondary" },
+          { value: "bachelor", label: "Bachelor's Degree" },
+          { value: "master", label: "Master's Degree" },
+          { value: "other", label: "Other" },
+        ]},
+        { title: "What field do you want to study?", subtitle: "Choose the area that interests you most.", options: [
+          { value: "stem", label: "STEM (Science, Tech, Engineering, Math)" },
+          { value: "business", label: "Business & Economics" },
+          { value: "arts", label: "Arts, Humanities & Social Sciences" },
+          { value: "health", label: "Health & Medicine" },
+        ]},
+        { title: "What is your budget sensitivity?", subtitle: "This helps us recommend the right pathway.", options: [
+          { value: "low", label: "Low budget — I need the most affordable option" },
+          { value: "medium", label: "Medium — I can invest moderately" },
+          { value: "high", label: "High — Budget is not my main concern" },
+        ]},
+        { title: "What type of institution interests you?", subtitle: "Each has different advantages.", options: [
+          { value: "university", label: "University (4-year degree)" },
+          { value: "community-college", label: "Community College (2-year + transfer)" },
+          { value: "both", label: "Both — I'm open to either" },
+        ]},
+        { title: "Are you interested in scholarships?", subtitle: "Many US institutions offer aid to international students.", options: [
+          { value: "yes", label: "Yes, scholarships are essential for me" },
+          { value: "maybe", label: "Maybe — I'd like to explore options" },
+          { value: "no", label: "Not really — I plan to self-fund" },
+        ]},
+        { title: "How confident are you in English?", subtitle: "Some pathways include English preparation.", options: [
+          { value: "fluent", label: "Fluent — I can study fully in English" },
+          { value: "intermediate", label: "Intermediate — I may need some support" },
+          { value: "beginner", label: "Beginner — I'd need English preparation" },
+        ]},
+      ],
     },
     whatsappTooltip: "Chat with us on WhatsApp",
     countries: {
@@ -617,6 +689,24 @@ export const translations: Record<Language, Record<string, any>> = {
         description: "Répondez à quelques questions sur votre profil et découvrez les bourses auxquelles vous pourriez être éligible.",
         benefit: "Connaissez vos chances instantanément",
         cta: "Tester Mon Éligibilité",
+      },
+      usa: {
+        title: "Recherche d'Universités & Colleges aux USA",
+        description: "Trouvez la meilleure université ou community college aux USA selon votre profil. Comparez les parcours, coûts et bourses.",
+        benefit: "Découvrez votre parcours idéal aux USA",
+        cta: "Trouver Mon Match",
+      },
+      canada: {
+        title: "Recherche d'Universités au Canada",
+        description: "Découvrez la meilleure université canadienne pour votre profil. Comparez les programmes, coûts et voies d'immigration.",
+        benefit: "Trouvez votre match parfait au Canada",
+        cta: "Explorer le Canada",
+      },
+      china: {
+        title: "Recherche d'Universités en Chine",
+        description: "Trouvez la meilleure université chinoise pour votre profil. Explorez les bourses CSC et les programmes en anglais.",
+        benefit: "Découvrez les opportunités en Chine",
+        cta: "Explorer la Chine",
       },
     },
     howItWorks: {
@@ -787,6 +877,7 @@ export const translations: Record<Language, Record<string, any>> = {
         spain: { name: "Espagne", desc: "Coût de la vie abordable, climat ensoleillé et offre croissante de programmes internationaux." },
         turkey: { name: "Turquie", desc: "Bourses généreuses, campus modernes et pont entre l'Europe et l'Asie." },
         uae: { name: "EAU / Dubaï", desc: "Campus de classe mondiale, environnement sans impôts et hub éducatif international en pleine croissance." },
+        china: { name: "Chine", desc: "Frais de scolarité abordables, bourses CSC et programmes internationaux en pleine croissance dans la plus grande économie d'Asie." },
       },
     },
     scholarshipsPage: {
@@ -1122,7 +1213,60 @@ export const translations: Record<Language, Record<string, any>> = {
           admissions: "Candidature directe aux universités. Exigences : relevés de notes, compétence en anglais (IELTS/TOEFL), lettre de motivation et lettres de recommandation. Admissions continues.",
           studentLife: "Les EAU offrent un style de vie cosmopolite avec une architecture époustouflante, une gastronomie mondiale et un environnement sûr et multiculturel. Dubaï et Abu Dhabi proposent des stages avec des entreprises mondiales.",
         },
+        china: {
+          tagline: "Excellence abordable dans la superpuissance montante d'Asie",
+          whyPoints: [
+            "La bourse CSC couvre les frais de scolarité, le logement et une allocation mensuelle",
+            "Nombre croissant de programmes enseignés en anglais",
+            "Coût de la vie très abordable",
+            "Économie en plein essor avec de fortes perspectives de carrière",
+          ],
+          stats: { universities: "2 900+", avgTuition: "2 000 $ – 10 000 $", language: "Chinois, Anglais", popularFields: "Ingénierie, Médecine, Commerce, IT" },
+          topUnis: ["Université Tsinghua", "Université de Pékin", "Université Fudan", "Université du Zhejiang", "Shanghai Jiao Tong University"],
+          admissions: "Candidature via le portail CSC pour les bourses gouvernementales ou directement aux universités. Exigences : relevés de notes, certificats de langue (HSK pour le chinois, IELTS pour les programmes en anglais), examen médical et lettres de recommandation.",
+          studentLife: "La Chine offre un mélange fascinant de culture ancienne et de villes ultra-modernes. Les étudiants profitent d'une nourriture abordable, de transports efficaces et d'une vie de campus dynamique.",
+        },
       },
+    },
+    usaFinder: {
+      step: "Question",
+      prev: "Retour",
+      next: "Continuer",
+      finish: "Voir Mes Résultats",
+      steps: [
+        { title: "Quel est votre niveau d'études actuel ?", subtitle: "Cela nous aide à vous orienter vers les bonnes institutions.", options: [
+          { value: "high-school", label: "Lycée / Terminale" },
+          { value: "bachelor", label: "Licence" },
+          { value: "master", label: "Master" },
+          { value: "other", label: "Autre" },
+        ]},
+        { title: "Quel domaine souhaitez-vous étudier ?", subtitle: "Choisissez le domaine qui vous intéresse le plus.", options: [
+          { value: "stem", label: "STEM (Sciences, Tech, Ingénierie, Maths)" },
+          { value: "business", label: "Commerce & Économie" },
+          { value: "arts", label: "Arts, Lettres & Sciences Sociales" },
+          { value: "health", label: "Santé & Médecine" },
+        ]},
+        { title: "Quelle est votre sensibilité au budget ?", subtitle: "Cela nous aide à recommander le bon parcours.", options: [
+          { value: "low", label: "Budget limité — J'ai besoin de l'option la plus abordable" },
+          { value: "medium", label: "Moyen — Je peux investir modérément" },
+          { value: "high", label: "Élevé — Le budget n'est pas ma préoccupation principale" },
+        ]},
+        { title: "Quel type d'institution vous intéresse ?", subtitle: "Chacun a des avantages différents.", options: [
+          { value: "university", label: "Université (diplôme de 4 ans)" },
+          { value: "community-college", label: "Community College (2 ans + transfert)" },
+          { value: "both", label: "Les deux — Je suis ouvert(e)" },
+        ]},
+        { title: "Êtes-vous intéressé(e) par les bourses ?", subtitle: "De nombreuses institutions US offrent des aides aux étudiants internationaux.", options: [
+          { value: "yes", label: "Oui, les bourses sont essentielles pour moi" },
+          { value: "maybe", label: "Peut-être — J'aimerais explorer les options" },
+          { value: "no", label: "Pas vraiment — Je prévois d'autofinancer" },
+        ]},
+        { title: "Quel est votre niveau d'anglais ?", subtitle: "Certains parcours incluent une préparation en anglais.", options: [
+          { value: "fluent", label: "Courant — Je peux étudier entièrement en anglais" },
+          { value: "intermediate", label: "Intermédiaire — J'aurai peut-être besoin de soutien" },
+          { value: "beginner", label: "Débutant — J'aurais besoin d'une préparation" },
+        ]},
+      ],
     },
     whatsappTooltip: "Discutez avec nous sur WhatsApp",
     countries: {

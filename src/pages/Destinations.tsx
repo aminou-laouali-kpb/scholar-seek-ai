@@ -4,8 +4,8 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
 const countryFlags: Record<string, string> = {
-  belgium: "🇧🇪", france: "🇫🇷", canada: "🇨🇦", uk: "🇬🇧", usa: "🇺🇸",
-  germany: "🇩🇪", spain: "🇪🇸", turkey: "🇹🇷", uae: "🇦🇪",
+  belgium: "🇧🇪", france: "🇫🇷", canada: "🇨🇦", usa: "🇺🇸", china: "🇨🇳",
+  uk: "🇬🇧", germany: "🇩🇪", spain: "🇪🇸", turkey: "🇹🇷", uae: "🇦🇪",
 };
 
 const Destinations = () => {

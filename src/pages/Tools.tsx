@@ -2,13 +2,16 @@ import { Link } from "react-router-dom";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { Search, Globe2, Award, ArrowRight, Sparkles } from "lucide-react";
+import { Search, Globe2, Award, ArrowRight, MapPin, GraduationCap } from "lucide-react";
 
 const Tools = () => {
   const { t } = useLanguage();
   const tools = [
     { key: "belgium", icon: Search, route: "/tools/belgium", color: "gradient-hero" },
     { key: "france", icon: Globe2, route: "/tools/france", color: "gradient-hero" },
+    { key: "usa", icon: GraduationCap, route: "/tools/usa", color: "gradient-hero" },
+    { key: "canada", icon: MapPin, route: "/tools/canada", color: "gradient-hero" },
+    { key: "china", icon: Globe2, route: "/tools/china", color: "gradient-hero" },
     { key: "scholarship", icon: Award, route: "/tools/scholarship-test", color: "gradient-accent" },
   ];
 
@@ -26,7 +29,7 @@ const Tools = () => {
             {tools.map((tool, i) => {
               const Icon = tool.icon;
               return (
-                <motion.div key={tool.key} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.15 }} className="bg-card rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all border border-border group">
+                <motion.div key={tool.key} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="bg-card rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover transition-all border border-border group">
                   <div className={`${tool.color} p-8 flex items-center justify-center`}>
                     <Icon className="w-16 h-16 text-primary-foreground/40 group-hover:scale-110 transition-transform" />
                   </div>

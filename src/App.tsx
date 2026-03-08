@@ -11,6 +11,9 @@ import Index from "./pages/Index";
 import Tools from "./pages/Tools";
 import BelgiumFinder from "./pages/BelgiumFinder";
 import FranceFinder from "./pages/FranceFinder";
+import USAFinder from "./pages/USAFinder";
+import CanadaFinder from "./pages/CanadaFinder";
+import ChinaFinder from "./pages/ChinaFinder";
 import ScholarshipTest from "./pages/ScholarshipTest";
 import Services from "./pages/Services";
 import Destinations from "./pages/Destinations";
@@ -44,6 +47,9 @@ const App = () => (
             <Route path="/tools" element={<Tools />} />
             <Route path="/tools/belgium" element={<BelgiumFinder />} />
             <Route path="/tools/france" element={<FranceFinder />} />
+            <Route path="/tools/usa" element={<USAFinder />} />
+            <Route path="/tools/canada" element={<CanadaFinder />} />
+            <Route path="/tools/china" element={<ChinaFinder />} />
             <Route path="/tools/scholarship-test" element={<ScholarshipTest />} />
             <Route path="/services" element={<Services />} />
             <Route path="/destinations" element={<Destinations />} />
