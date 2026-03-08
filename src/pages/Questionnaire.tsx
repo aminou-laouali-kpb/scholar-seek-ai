@@ -147,7 +147,7 @@ const Questionnaire = () => {
                   <button
                     key={option.value}
                     onClick={() => selectAnswer(option.value)}
-                    className={`w-full text-left px-5 py-4 rounded-xl border-2 transition-all duration-200 font-medium ${
+                    className={`w-full text-left px-4 py-4 md:px-5 rounded-xl border-2 transition-all duration-200 font-medium text-sm md:text-base ${
                       answers[currentStep] === option.value
                         ? "border-primary bg-primary/5 text-foreground shadow-sm"
                         : "border-border bg-background text-muted-foreground hover:border-primary/30 hover:bg-secondary/50"

@@ -219,7 +219,7 @@ const Index = () => {
           <div className="grid md:grid-cols-3 gap-6">
             {(t("blogPreview.articles") as Array<{ title: string; category: string; date: string }>).map((article, i) => (
               <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="bg-card rounded-xl overflow-hidden shadow-card border border-border hover:shadow-card-hover transition-all group">
-                <div className="h-40 gradient-hero flex items-center justify-center">
+                <div className="h-32 md:h-40 gradient-hero flex items-center justify-center">
                   <BookOpen className="w-12 h-12 text-primary-foreground/30" />
                 </div>
                 <div className="p-5">
