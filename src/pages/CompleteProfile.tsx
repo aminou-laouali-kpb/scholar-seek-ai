@@ -145,7 +145,10 @@ const CompleteProfile = () => {
       desired_program: program,
       dont_know_program: dontKnowProgram,
       profile_completed: true,
-    }).eq("user_id", user.id);
+      preferred_destinations: form.preferredDestinations,
+      budget_sensitivity: form.budgetSensitivity || null,
+      scholarship_interest: true,
+    } as any).eq("user_id", user.id);
 
     if (!error) {
       await refreshProfile();
