@@ -677,6 +677,24 @@ export const translations: Record<Language, Record<string, any>> = {
         benefit: "Connaissez vos chances instantanément",
         cta: "Tester Mon Éligibilité",
       },
+      usa: {
+        title: "Recherche d'Universités & Colleges aux USA",
+        description: "Trouvez la meilleure université ou community college aux USA selon votre profil. Comparez les parcours, coûts et bourses.",
+        benefit: "Découvrez votre parcours idéal aux USA",
+        cta: "Trouver Mon Match",
+      },
+      canada: {
+        title: "Recherche d'Universités au Canada",
+        description: "Découvrez la meilleure université canadienne pour votre profil. Comparez les programmes, coûts et voies d'immigration.",
+        benefit: "Trouvez votre match parfait au Canada",
+        cta: "Explorer le Canada",
+      },
+      china: {
+        title: "Recherche d'Universités en Chine",
+        description: "Trouvez la meilleure université chinoise pour votre profil. Explorez les bourses CSC et les programmes en anglais.",
+        benefit: "Découvrez les opportunités en Chine",
+        cta: "Explorer la Chine",
+      },
     },
     howItWorks: {
       title: "3 Étapes vers Votre Avenir",
