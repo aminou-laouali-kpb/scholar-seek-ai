@@ -42,7 +42,7 @@ const Index = () => {
                 {t("hero.subtitle")}
               </motion.p>
               <motion.div variants={fadeUp} custom={2} className="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <Link to="/tools">
+                <Link to="/questionnaire">
                   <Button variant="hero" size="xl">{t("hero.cta1")} <ArrowRight className="w-5 h-5" /></Button>
                 </Link>
                 <Link to="/contact">
@@ -260,7 +260,7 @@ const Index = () => {
           <h2 className="font-heading font-extrabold text-3xl md:text-4xl text-accent-foreground">{t("finalCTA.title")}</h2>
           <p className="mt-4 text-accent-foreground/80 text-lg max-w-xl mx-auto">{t("finalCTA.subtitle")}</p>
           <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/tools"><Button variant="default" size="xl">{t("finalCTA.cta1")} <ArrowRight className="w-5 h-5" /></Button></Link>
+            <Link to="/questionnaire"><Button variant="default" size="xl">{t("finalCTA.cta1")} <ArrowRight className="w-5 h-5" /></Button></Link>
             <Link to="/contact"><Button variant="heroOutline" size="xl">{t("finalCTA.cta2")}</Button></Link>
           </div>
         </div>
