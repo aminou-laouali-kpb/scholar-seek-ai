@@ -14,9 +14,15 @@ const navItems = [
 
 const AdminLayout = () => {
   const location = useLocation();
+  const navigate = useNavigate();
 
   const isActive = (path: string, end?: boolean) =>
     end ? location.pathname === path : location.pathname.startsWith(path);
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    navigate("/admin/login");
+  };
 
   return (
     <div className="min-h-screen bg-background flex">
@@ -50,6 +56,16 @@ const AdminLayout = () => {
             );
           })}
         </nav>
+        {/* Logout */}
+        <div className="p-3 border-t border-sidebar-border">
+          <button
+            onClick={handleLogout}
+            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50 transition-colors"
+          >
+            <LogOut className="w-4 h-4" />
+            Sign out
+          </button>
+        </div>
       </aside>
 
       {/* Mobile top nav */}
@@ -76,6 +92,13 @@ const AdminLayout = () => {
             </Link>
           );
         })}
+        <button
+          onClick={handleLogout}
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors shrink-0 text-sidebar-foreground/70 hover:bg-sidebar-accent/50"
+        >
+          <LogOut className="w-3.5 h-3.5" />
+          Sign out
+        </button>
       </div>
 
       {/* Main content */}
