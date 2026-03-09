@@ -1,20 +1,28 @@
-import { Outlet, Link, useLocation } from "react-router-dom";
-import { LayoutDashboard, GraduationCap, Building2, MessageSquare, Settings, ChevronLeft } from "lucide-react";
+import { Outlet, Link, useLocation, useNavigate } from "react-router-dom";
+import { LayoutDashboard, GraduationCap, Building2, MessageSquare, Settings, ChevronLeft, Users, LogOut } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { supabase } from "@/integrations/supabase/client";
 
 const navItems = [
   { path: "/admin", label: "Dashboard", icon: LayoutDashboard, end: true },
   { path: "/admin/scholarships", label: "Scholarships", icon: GraduationCap },
   { path: "/admin/admissions", label: "Admissions", icon: Building2 },
   { path: "/admin/requests", label: "Requests", icon: MessageSquare },
+  { path: "/admin/users", label: "Users", icon: Users },
   { path: "/admin/settings", label: "Settings", icon: Settings },
 ];
 
 const AdminLayout = () => {
   const location = useLocation();
+  const navigate = useNavigate();
 
   const isActive = (path: string, end?: boolean) =>
     end ? location.pathname === path : location.pathname.startsWith(path);
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    navigate("/admin/login");
+  };
 
   return (
     <div className="min-h-screen bg-background flex">
@@ -48,6 +56,16 @@ const AdminLayout = () => {
             );
           })}
         </nav>
+        {/* Logout */}
+        <div className="p-3 border-t border-sidebar-border">
+          <button
+            onClick={handleLogout}
+            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50 transition-colors"
+          >
+            <LogOut className="w-4 h-4" />
+            Sign out
+          </button>
+        </div>
       </aside>
 
       {/* Mobile top nav */}
@@ -74,6 +92,13 @@ const AdminLayout = () => {
             </Link>
           );
         })}
+        <button
+          onClick={handleLogout}
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors shrink-0 text-sidebar-foreground/70 hover:bg-sidebar-accent/50"
+        >
+          <LogOut className="w-3.5 h-3.5" />
+          Sign out
+        </button>
       </div>
 
       {/* Main content */}

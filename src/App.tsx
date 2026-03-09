@@ -35,11 +35,13 @@ import Questionnaire from "./pages/Questionnaire";
 import Orientation from "./pages/Orientation";
 import NotFound from "./pages/NotFound";
 import AdminLayout from "./pages/admin/AdminLayout";
+import AdminLogin from "./pages/admin/AdminLogin";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminScholarships from "./pages/admin/AdminScholarships";
 import AdminAdmissions from "./pages/admin/AdminAdmissions";
 import AdminRequests from "./pages/admin/AdminRequests";
 import AdminSettings from "./pages/admin/AdminSettings";
+import AdminUsers from "./pages/admin/AdminUsers";
 
 const queryClient = new QueryClient();
 
@@ -71,8 +73,8 @@ const AdminRoute = ({ children }: { children: React.ReactNode }) => {
   const { user, loading: authLoading } = useAuth();
   const { isAdmin, loading: roleLoading } = useAdminRole();
   if (authLoading || roleLoading) return null;
-  if (!user) return <Navigate to="/login" replace />;
-  if (!isAdmin) return <Navigate to="/dashboard" replace />;
+  if (!user) return <Navigate to="/admin/login" replace />;
+  if (!isAdmin) return <Navigate to="/admin/login" replace />;
   return <>{children}</>;
 };
 
@@ -85,12 +87,16 @@ const App = () => (
         <BrowserRouter>
           <AuthProvider>
             <Routes>
+              {/* Admin login — public, no Header/Footer */}
+              <Route path="/admin/login" element={<AdminLogin />} />
+
               {/* Admin routes — no Header/Footer */}
               <Route path="/admin" element={<AdminRoute><AdminLayout /></AdminRoute>}>
                 <Route index element={<AdminDashboard />} />
                 <Route path="scholarships" element={<AdminScholarships />} />
                 <Route path="admissions" element={<AdminAdmissions />} />
                 <Route path="requests" element={<AdminRequests />} />
+                <Route path="users" element={<AdminUsers />} />
                 <Route path="settings" element={<AdminSettings />} />
               </Route>
 
