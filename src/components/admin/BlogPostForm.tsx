@@ -123,7 +123,7 @@ const BlogPostForm = ({ open, onOpenChange, post, onSaved }: Props) => {
           <div className="bg-muted rounded-lg p-4 border border-border">
             <p className="text-xs text-muted-foreground mb-2 font-semibold">Aperçu Google</p>
             <p className="text-primary text-lg font-medium leading-tight truncate">{metaTitle}</p>
-            <p className="text-green-700 text-sm">kpb-education.com/blog/{form.slug || "..."}</p>
+            <p className="text-primary/70 text-sm">kpb-education.com/blog/{form.slug || "..."}</p>
             <p className="text-muted-foreground text-sm line-clamp-2">{metaDesc}</p>
           </div>
 

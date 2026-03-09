@@ -47,11 +47,11 @@ const AdminBlog = () => {
     const text = await file.text();
     const rows = parseCsv(text);
     const { error } = await supabase.from("blog_posts").insert(rows.map((r: Record<string, unknown>) => ({
-      slug: r.slug || "", title_fr: r.title_fr || "", title_en: r.title_en || "",
-      content_fr: r.content_fr || "", content_en: r.content_en || "",
-      excerpt_fr: r.excerpt_fr || "", excerpt_en: r.excerpt_en || "",
-      category: r.category || "general", tags: Array.isArray(r.tags) ? r.tags : [],
-      author_name: r.author_name || "KPB Team",
+      slug: String(r.slug || ""), title_fr: String(r.title_fr || ""), title_en: String(r.title_en || ""),
+      content_fr: String(r.content_fr || ""), content_en: String(r.content_en || ""),
+      excerpt_fr: String(r.excerpt_fr || ""), excerpt_en: String(r.excerpt_en || ""),
+      category: String(r.category || "general"), tags: Array.isArray(r.tags) ? r.tags : [],
+      author_name: String(r.author_name || "KPB Team"),
     })));
     if (error) toast({ title: "Erreur import", description: error.message, variant: "destructive" });
     else { toast({ title: "Import réussi" }); fetchData(); }
