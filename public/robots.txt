@@ -12,3 +12,11 @@ Allow: /
 
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /admin/*
+Disallow: /dashboard
+Disallow: /login
+Disallow: /signup
+Disallow: /complete-profile
+
+Sitemap: https://kpb-education.com/sitemap.xml

@@ -212,6 +212,78 @@ export type Database = {
         }
         Relationships: []
       }
+      blog_posts: {
+        Row: {
+          author_name: string
+          category: string
+          content_en: string
+          content_fr: string
+          cover_image_url: string | null
+          created_at: string
+          excerpt_en: string
+          excerpt_fr: string
+          id: string
+          is_published: boolean
+          meta_description_en: string
+          meta_description_fr: string
+          meta_title_en: string
+          meta_title_fr: string
+          published_at: string | null
+          reading_time_minutes: number
+          slug: string
+          tags: string[]
+          title_en: string
+          title_fr: string
+          updated_at: string
+        }
+        Insert: {
+          author_name?: string
+          category?: string
+          content_en?: string
+          content_fr?: string
+          cover_image_url?: string | null
+          created_at?: string
+          excerpt_en?: string
+          excerpt_fr?: string
+          id?: string
+          is_published?: boolean
+          meta_description_en?: string
+          meta_description_fr?: string
+          meta_title_en?: string
+          meta_title_fr?: string
+          published_at?: string | null
+          reading_time_minutes?: number
+          slug: string
+          tags?: string[]
+          title_en?: string
+          title_fr?: string
+          updated_at?: string
+        }
+        Update: {
+          author_name?: string
+          category?: string
+          content_en?: string
+          content_fr?: string
+          cover_image_url?: string | null
+          created_at?: string
+          excerpt_en?: string
+          excerpt_fr?: string
+          id?: string
+          is_published?: boolean
+          meta_description_en?: string
+          meta_description_fr?: string
+          meta_title_en?: string
+          meta_title_fr?: string
+          published_at?: string | null
+          reading_time_minutes?: number
+          slug?: string
+          tags?: string[]
+          title_en?: string
+          title_fr?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       consultation_requests: {
         Row: {
           created_at: string

@@ -43,6 +43,8 @@ import AdminAdmissions from "./pages/admin/AdminAdmissions";
 import AdminRequests from "./pages/admin/AdminRequests";
 import AdminSettings from "./pages/admin/AdminSettings";
 import AdminUsers from "./pages/admin/AdminUsers";
+import AdminBlog from "./pages/admin/AdminBlog";
+import BlogPost from "./pages/BlogPost";
 
 const queryClient = new QueryClient();
 
@@ -99,6 +101,7 @@ const App = () => (
                 <Route path="requests" element={<AdminRequests />} />
                 <Route path="users" element={<AdminUsers />} />
                 <Route path="settings" element={<AdminSettings />} />
+                <Route path="blog" element={<AdminBlog />} />
               </Route>
 
               {/* Public/student routes — with Header/Footer */}
@@ -120,6 +123,7 @@ const App = () => (
                     <Route path="/scholarships" element={<Scholarships />} />
                     <Route path="/partners" element={<Partners />} />
                     <Route path="/blog" element={<Blog />} />
+                    <Route path="/blog/:slug" element={<BlogPost />} />
                     <Route path="/testimonials" element={<Testimonials />} />
                     <Route path="/about" element={<About />} />
                     <Route path="/contact" element={<Contact />} />
