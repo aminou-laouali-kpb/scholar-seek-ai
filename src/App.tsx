@@ -34,6 +34,7 @@ import Dashboard from "./pages/Dashboard";
 import Questionnaire from "./pages/Questionnaire";
 import Orientation from "./pages/Orientation";
 import NotFound from "./pages/NotFound";
+import Partners from "./pages/Partners";
 import AdminLayout from "./pages/admin/AdminLayout";
 import AdminLogin from "./pages/admin/AdminLogin";
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -117,6 +118,7 @@ const App = () => (
                     <Route path="/destinations" element={<Destinations />} />
                     <Route path="/destinations/:country" element={<CountryDetail />} />
                     <Route path="/scholarships" element={<Scholarships />} />
+                    <Route path="/partners" element={<Partners />} />
                     <Route path="/blog" element={<Blog />} />
                     <Route path="/testimonials" element={<Testimonials />} />
                     <Route path="/about" element={<About />} />
