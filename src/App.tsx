@@ -101,6 +101,7 @@ const App = () => (
                 <Route path="requests" element={<AdminRequests />} />
                 <Route path="users" element={<AdminUsers />} />
                 <Route path="settings" element={<AdminSettings />} />
+                <Route path="blog" element={<AdminBlog />} />
               </Route>
 
               {/* Public/student routes — with Header/Footer */}
