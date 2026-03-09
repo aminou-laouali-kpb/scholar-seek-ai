@@ -4,6 +4,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
 } from "@/components/ui/table";
@@ -16,9 +17,9 @@ import {
 } from "@/components/ui/alert-dialog";
 import {
   Users, Search, ShieldCheck, ShieldOff, Eye, CheckCircle2, XCircle,
-  MapPin, GraduationCap, Globe, Download,
+  MapPin, GraduationCap, Globe, Download, Clock, Activity,
 } from "lucide-react";
-import { format } from "date-fns";
+import { format, formatDistanceToNow } from "date-fns";
 import { exportToCsv } from "@/lib/csv";
 
 interface UserRow {
@@ -38,7 +39,69 @@ interface UserRow {
   profile_completed: boolean | null;
   created_at: string;
   role: "admin" | "user" | "moderator";
+  last_active?: string | null;
 }
+
+interface ActivityLog {
+  id: string;
+  action: string;
+  details: Record<string, unknown> | null;
+  created_at: string;
+}
+
+const ACTION_LABELS: Record<string, { label: string; color: string }> = {
+  login: { label: "Logged in", color: "text-blue-600 dark:text-blue-400" },
+  profile_completed: { label: "Profile completed", color: "text-emerald-600 dark:text-emerald-400" },
+  orientation_completed: { label: "Orientation completed", color: "text-purple-600 dark:text-purple-400" },
+};
+
+const ActivityTimeline = ({ userId }: { userId: string }) => {
+  const [logs, setLogs] = useState<ActivityLog[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    supabase
+      .from("activity_logs")
+      .select("id, action, details, created_at")
+      .eq("user_id", userId)
+      .order("created_at", { ascending: false })
+      .limit(50)
+      .then(({ data }) => {
+        setLogs((data as ActivityLog[]) ?? []);
+        setLoading(false);
+      });
+  }, [userId]);
+
+  if (loading) return <p className="text-sm text-muted-foreground py-4 text-center">Loading activity…</p>;
+  if (logs.length === 0) return <p className="text-sm text-muted-foreground py-4 text-center">No activity recorded yet.</p>;
+
+  return (
+    <div className="relative pl-6 space-y-4 py-2">
+      {/* Vertical line */}
+      <div className="absolute left-2.5 top-4 bottom-4 w-px bg-border" />
+      {logs.map((log) => {
+        const meta = ACTION_LABELS[log.action] ?? { label: log.action, color: "text-foreground" };
+        const detailStr = log.details && Object.keys(log.details).length > 0
+          ? Object.entries(log.details).map(([k, v]) => `${k}: ${v}`).join(", ")
+          : null;
+        return (
+          <div key={log.id} className="relative">
+            <div className="absolute -left-6 top-1 w-5 h-5 rounded-full bg-background border-2 border-border flex items-center justify-center">
+              <div className="w-2 h-2 rounded-full bg-primary" />
+            </div>
+            <div>
+              <p className={`text-sm font-medium ${meta.color}`}>{meta.label}</p>
+              {detailStr && <p className="text-xs text-muted-foreground">{detailStr}</p>}
+              <p className="text-xs text-muted-foreground mt-0.5">
+                {format(new Date(log.created_at), "MMM d, yyyy 'at' HH:mm")}
+              </p>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
 
 const AdminUsers = () => {
   const { user: adminUser } = useAuth();
@@ -64,9 +127,19 @@ const AdminUsers = () => {
 
     const { data: roles } = await supabase.from("user_roles").select("user_id, role");
 
+    // Fetch last activity per user
+    const { data: lastActivities } = await supabase
+      .from("activity_logs")
+      .select("user_id, created_at")
+      .order("created_at", { ascending: false });
+
+    const lastActiveMap: Record<string, string> = {};
+    (lastActivities ?? []).forEach((a: any) => {
+      if (!lastActiveMap[a.user_id]) lastActiveMap[a.user_id] = a.created_at;
+    });
+
     const roleMap: Record<string, "admin" | "user" | "moderator"> = {};
     (roles ?? []).forEach((r) => {
-      // Keep highest role: admin > moderator > user
       const current = roleMap[r.user_id];
       const rank = { admin: 3, moderator: 2, user: 1 };
       if (!current || rank[r.role] > rank[current]) roleMap[r.user_id] = r.role;
@@ -75,6 +148,7 @@ const AdminUsers = () => {
     const merged: UserRow[] = profiles.map((p) => ({
       ...p,
       role: roleMap[p.user_id] ?? "user",
+      last_active: lastActiveMap[p.user_id] ?? null,
     }));
 
     setUsers(merged);
@@ -214,7 +288,7 @@ const AdminUsers = () => {
                 <TableHead>Email</TableHead>
                 <TableHead>Role</TableHead>
                 <TableHead>Profile</TableHead>
-                <TableHead>Country</TableHead>
+                <TableHead>Last Active</TableHead>
                 <TableHead>Joined</TableHead>
                 <TableHead className="text-right">Actions</TableHead>
               </TableRow>
@@ -237,7 +311,12 @@ const AdminUsers = () => {
                     )}
                   </TableCell>
                   <TableCell className="text-sm text-muted-foreground">
-                    {u.country_of_residence ?? "—"}
+                    {u.last_active ? (
+                      <span className="flex items-center gap-1 text-xs">
+                        <Clock className="w-3 h-3" />
+                        {formatDistanceToNow(new Date(u.last_active), { addSuffix: true })}
+                      </span>
+                    ) : "—"}
                   </TableCell>
                   <TableCell className="text-sm text-muted-foreground">
                     {format(new Date(u.created_at), "MMM d, yyyy")}
@@ -287,7 +366,7 @@ const AdminUsers = () => {
         )}
       </div>
 
-      {/* Profile detail dialog */}
+      {/* Profile detail dialog with tabs */}
       <Dialog open={!!selectedUser} onOpenChange={() => setSelectedUser(null)}>
         <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto">
           <DialogHeader>
@@ -295,83 +374,73 @@ const AdminUsers = () => {
             <DialogDescription>{selectedUser?.email}</DialogDescription>
           </DialogHeader>
           {selectedUser && (
-            <div className="space-y-4 pt-2">
-              <div className="grid grid-cols-2 gap-3">
-                {[
-                  { label: "Role", value: selectedUser.role, icon: ShieldCheck },
-                  {
-                    label: "Profile",
-                    value: selectedUser.profile_completed ? "Complete" : "Incomplete",
-                    icon: CheckCircle2,
-                  },
-                  { label: "WhatsApp", value: selectedUser.whatsapp ?? "—", icon: Globe },
-                  {
-                    label: "Country of birth",
-                    value: selectedUser.country_of_birth ?? "—",
-                    icon: MapPin,
-                  },
-                  {
-                    label: "Country of residence",
-                    value: selectedUser.country_of_residence ?? "—",
-                    icon: MapPin,
-                  },
-                  {
-                    label: "Study level",
-                    value: selectedUser.study_level ?? "—",
-                    icon: GraduationCap,
-                  },
-                  {
-                    label: "Desired program",
-                    value: selectedUser.desired_program ?? "—",
-                    icon: GraduationCap,
-                  },
-                  {
-                    label: "Budget sensitivity",
-                    value: selectedUser.budget_sensitivity ?? "—",
-                    icon: Globe,
-                  },
-                ].map(({ label, value, icon: Icon }) => (
-                  <div key={label} className="bg-muted/40 rounded-lg p-3">
-                    <div className="flex items-center gap-1.5 text-xs text-muted-foreground mb-1">
-                      <Icon className="w-3.5 h-3.5" />
-                      {label}
-                    </div>
-                    <p className="text-sm font-medium text-foreground capitalize">{value}</p>
-                  </div>
-                ))}
-              </div>
+            <Tabs defaultValue="profile" className="w-full">
+              <TabsList className="w-full">
+                <TabsTrigger value="profile" className="flex-1 gap-1.5">
+                  <Eye className="w-3.5 h-3.5" /> Profile
+                </TabsTrigger>
+                <TabsTrigger value="activity" className="flex-1 gap-1.5">
+                  <Activity className="w-3.5 h-3.5" /> Activity
+                </TabsTrigger>
+              </TabsList>
 
-              {selectedUser.preferred_destinations && selectedUser.preferred_destinations.length > 0 && (
-                <div className="bg-muted/40 rounded-lg p-3">
-                  <p className="text-xs text-muted-foreground mb-2">Preferred destinations</p>
-                  <div className="flex flex-wrap gap-1.5">
-                    {selectedUser.preferred_destinations.map((d) => (
-                      <Badge key={d} variant="secondary" className="text-xs">{d}</Badge>
+              <TabsContent value="profile">
+                <div className="space-y-4 pt-2">
+                  <div className="grid grid-cols-2 gap-3">
+                    {[
+                      { label: "Role", value: selectedUser.role, icon: ShieldCheck },
+                      { label: "Profile", value: selectedUser.profile_completed ? "Complete" : "Incomplete", icon: CheckCircle2 },
+                      { label: "WhatsApp", value: selectedUser.whatsapp ?? "—", icon: Globe },
+                      { label: "Country of birth", value: selectedUser.country_of_birth ?? "—", icon: MapPin },
+                      { label: "Country of residence", value: selectedUser.country_of_residence ?? "—", icon: MapPin },
+                      { label: "Study level", value: selectedUser.study_level ?? "—", icon: GraduationCap },
+                      { label: "Desired program", value: selectedUser.desired_program ?? "—", icon: GraduationCap },
+                      { label: "Budget sensitivity", value: selectedUser.budget_sensitivity ?? "—", icon: Globe },
+                    ].map(({ label, value, icon: Icon }) => (
+                      <div key={label} className="bg-muted/40 rounded-lg p-3">
+                        <div className="flex items-center gap-1.5 text-xs text-muted-foreground mb-1">
+                          <Icon className="w-3.5 h-3.5" />
+                          {label}
+                        </div>
+                        <p className="text-sm font-medium text-foreground capitalize">{value}</p>
+                      </div>
                     ))}
                   </div>
-                </div>
-              )}
 
-              {selectedUser.orientation_result && (
-                <div className="bg-muted/40 rounded-lg p-3">
-                  <p className="text-xs text-muted-foreground mb-1">Orientation result</p>
-                  <p className="text-sm font-medium text-foreground">{selectedUser.orientation_result}</p>
-                </div>
-              )}
+                  {selectedUser.preferred_destinations && selectedUser.preferred_destinations.length > 0 && (
+                    <div className="bg-muted/40 rounded-lg p-3">
+                      <p className="text-xs text-muted-foreground mb-2">Preferred destinations</p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {selectedUser.preferred_destinations.map((d) => (
+                          <Badge key={d} variant="secondary" className="text-xs">{d}</Badge>
+                        ))}
+                      </div>
+                    </div>
+                  )}
 
-              <div className="flex items-center gap-2 pt-1">
-                <span className="text-xs text-muted-foreground">
-                  Scholarship interest:{" "}
-                  <span className="font-medium text-foreground">
-                    {selectedUser.scholarship_interest ? "Yes" : "No"}
-                  </span>
-                </span>
-                <span className="text-muted-foreground">·</span>
-                <span className="text-xs text-muted-foreground">
-                  Joined {format(new Date(selectedUser.created_at), "PPP")}
-                </span>
-              </div>
-            </div>
+                  {selectedUser.orientation_result && (
+                    <div className="bg-muted/40 rounded-lg p-3">
+                      <p className="text-xs text-muted-foreground mb-1">Orientation result</p>
+                      <p className="text-sm font-medium text-foreground">{selectedUser.orientation_result}</p>
+                    </div>
+                  )}
+
+                  <div className="flex items-center gap-2 pt-1">
+                    <span className="text-xs text-muted-foreground">
+                      Scholarship interest: <span className="font-medium text-foreground">{selectedUser.scholarship_interest ? "Yes" : "No"}</span>
+                    </span>
+                    <span className="text-muted-foreground">·</span>
+                    <span className="text-xs text-muted-foreground">
+                      Joined {format(new Date(selectedUser.created_at), "PPP")}
+                    </span>
+                  </div>
+                </div>
+              </TabsContent>
+
+              <TabsContent value="activity">
+                <ActivityTimeline userId={selectedUser.user_id} />
+              </TabsContent>
+            </Tabs>
           )}
         </DialogContent>
       </Dialog>

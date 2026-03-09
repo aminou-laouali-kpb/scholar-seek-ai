@@ -72,12 +72,23 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     // Set up auth listener FIRST
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (_event, session) => {
+      async (event, session) => {
         setSession(session);
         setUser(session?.user ?? null);
         if (session?.user) {
           // Use setTimeout to avoid Supabase deadlock
           setTimeout(() => fetchProfile(session.user.id), 0);
+          // Log login activity (fire-and-forget)
+          if (event === "SIGNED_IN") {
+            supabase
+              .from("activity_logs")
+              .insert({
+                user_id: session.user.id,
+                action: "login",
+                details: { provider: session.user.app_metadata?.provider ?? "email" },
+              } as any)
+              .then(() => {});
+          }
         } else {
           setProfile(null);
         }
