@@ -7,6 +7,7 @@ interface Stats {
   admissions: number;
   intents: number;
   consultations: number;
+  blogPosts: number;
 }
 
 const AdminDashboard = () => {
