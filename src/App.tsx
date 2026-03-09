@@ -43,6 +43,8 @@ import AdminAdmissions from "./pages/admin/AdminAdmissions";
 import AdminRequests from "./pages/admin/AdminRequests";
 import AdminSettings from "./pages/admin/AdminSettings";
 import AdminUsers from "./pages/admin/AdminUsers";
+import AdminBlog from "./pages/admin/AdminBlog";
+import BlogPost from "./pages/BlogPost";
 
 const queryClient = new QueryClient();
 
