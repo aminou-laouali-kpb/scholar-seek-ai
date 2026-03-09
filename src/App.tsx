@@ -35,11 +35,13 @@ import Questionnaire from "./pages/Questionnaire";
 import Orientation from "./pages/Orientation";
 import NotFound from "./pages/NotFound";
 import AdminLayout from "./pages/admin/AdminLayout";
+import AdminLogin from "./pages/admin/AdminLogin";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminScholarships from "./pages/admin/AdminScholarships";
 import AdminAdmissions from "./pages/admin/AdminAdmissions";
 import AdminRequests from "./pages/admin/AdminRequests";
 import AdminSettings from "./pages/admin/AdminSettings";
+import AdminUsers from "./pages/admin/AdminUsers";
 
 const queryClient = new QueryClient();
 
