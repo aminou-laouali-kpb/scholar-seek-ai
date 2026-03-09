@@ -34,6 +34,7 @@ import Dashboard from "./pages/Dashboard";
 import Questionnaire from "./pages/Questionnaire";
 import Orientation from "./pages/Orientation";
 import NotFound from "./pages/NotFound";
+import Partners from "./pages/Partners";
 import AdminLayout from "./pages/admin/AdminLayout";
 import AdminLogin from "./pages/admin/AdminLogin";
 import AdminDashboard from "./pages/admin/AdminDashboard";
