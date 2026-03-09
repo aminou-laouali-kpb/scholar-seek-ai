@@ -9,6 +9,7 @@ const navItems = [
   { path: "/admin/admissions", label: "Admissions", icon: Building2 },
   { path: "/admin/requests", label: "Requests", icon: MessageSquare },
   { path: "/admin/users", label: "Users", icon: Users },
+  { path: "/admin/blog", label: "Blog", icon: FileText },
   { path: "/admin/settings", label: "Settings", icon: Settings },
 ];
 

@@ -38,6 +38,7 @@ const AdminDashboard = () => {
     { label: "Admissions", value: stats.admissions, icon: Building2, color: "text-primary" },
     { label: "Application Intents", value: stats.intents, icon: FileText, color: "text-accent" },
     { label: "Consultation Requests", value: stats.consultations, icon: MessageSquare, color: "text-primary" },
+    { label: "Blog Posts", value: stats.blogPosts, icon: BookOpen, color: "text-accent" },
   ];
 
   return (
