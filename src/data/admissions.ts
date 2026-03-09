@@ -10,6 +10,7 @@ export interface AdmissionOpportunity {
   description: { en: string; fr: string };
   whyFit: { en: string; fr: string };
   budgetLevel: string;
+  relevanceTags?: string[];
 }
 
 export const admissions: AdmissionOpportunity[] = [
@@ -279,6 +280,7 @@ export const admissions: AdmissionOpportunity[] = [
       fr: "Programmes tech solides, plusieurs campus, école partenaire KPB avec accompagnement direct.",
     },
     budgetLevel: "high",
+    relevanceTags: ["partner", "omnes-education"],
   },
   {
     id: "esce-paris",
@@ -298,6 +300,7 @@ export const admissions: AdmissionOpportunity[] = [
       fr: "Orientation internationale, programmes business solides, partenaire KPB avec admission simplifiée.",
     },
     budgetLevel: "high",
+    relevanceTags: ["partner", "omnes-education"],
   },
   {
     id: "heip-paris",
@@ -317,6 +320,7 @@ export const admissions: AdmissionOpportunity[] = [
       fr: "Idéal pour futurs diplomates et professionnels des affaires internationales, école partenaire KPB.",
     },
     budgetLevel: "high",
+    relevanceTags: ["partner", "omnes-education"],
   },
   {
     id: "inseec-france",
@@ -336,6 +340,7 @@ export const admissions: AdmissionOpportunity[] = [
       fr: "Large choix de spécialisations, réseau de campus étendu, partenaire KPB avec admission prioritaire.",
     },
     budgetLevel: "high",
+    relevanceTags: ["partner", "omnes-education"],
   },
   {
     id: "ium-monaco",
@@ -355,6 +360,7 @@ export const admissions: AdmissionOpportunity[] = [
       fr: "Emplacement unique à Monaco, focus luxe et sport, école partenaire KPB.",
     },
     budgetLevel: "high",
+    relevanceTags: ["partner", "omnes-education"],
   },
   {
     id: "sup-de-pub",
@@ -374,6 +380,7 @@ export const admissions: AdmissionOpportunity[] = [
       fr: "Focus industries créatives, solide réseau professionnel, école partenaire KPB.",
     },
     budgetLevel: "high",
+    relevanceTags: ["partner", "omnes-education"],
   },
   // Igensia Education Partner Schools
   {
@@ -394,6 +401,7 @@ export const admissions: AdmissionOpportunity[] = [
       fr: "Programmes business solides, options MBA, partenaire KPB avec accompagnement direct.",
     },
     budgetLevel: "high",
+    relevanceTags: ["partner", "igensia-education"],
   },
   {
     id: "igs-rh",
@@ -413,6 +421,7 @@ export const admissions: AdmissionOpportunity[] = [
       fr: "Spécialisation RH, focus digital, école partenaire KPB.",
     },
     budgetLevel: "high",
+    relevanceTags: ["partner", "igensia-education"],
   },
   {
     id: "esam-paris",
@@ -432,6 +441,7 @@ export const admissions: AdmissionOpportunity[] = [
       fr: "Programmes finance et droit, orientation business, école partenaire KPB.",
     },
     budgetLevel: "high",
+    relevanceTags: ["partner", "igensia-education"],
   },
   {
     id: "iscpa-france",
@@ -451,6 +461,7 @@ export const admissions: AdmissionOpportunity[] = [
       fr: "Programmes journalisme et médias, école partenaire KPB.",
     },
     budgetLevel: "high",
+    relevanceTags: ["partner", "igensia-education"],
   },
   {
     id: "ffollozz-paris",
@@ -470,6 +481,7 @@ export const admissions: AdmissionOpportunity[] = [
       fr: "Focus innovant sur le marketing d'influence, école partenaire KPB.",
     },
     budgetLevel: "high",
+    relevanceTags: ["partner", "igensia-education"],
   },
   {
     id: "ipi-france",
@@ -489,6 +501,7 @@ export const admissions: AdmissionOpportunity[] = [
       fr: "Programmes orientés tech, spécialisation cybersécurité, école partenaire KPB.",
     },
     budgetLevel: "high",
+    relevanceTags: ["partner", "igensia-education"],
   },
   {
     id: "abs-paris",
@@ -508,6 +521,7 @@ export const admissions: AdmissionOpportunity[] = [
       fr: "Focus mode et sport business, options MBA, école partenaire KPB.",
     },
     budgetLevel: "high",
+    relevanceTags: ["partner", "igensia-education"],
   },
   {
     id: "imis-lyon",
@@ -527,5 +541,6 @@ export const admissions: AdmissionOpportunity[] = [
       fr: "Spécialisation unique en affaires réglementaires, école partenaire KPB.",
     },
     budgetLevel: "high",
+    relevanceTags: ["partner", "igensia-education"],
   },
 ];
