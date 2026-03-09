@@ -87,12 +87,16 @@ const App = () => (
         <BrowserRouter>
           <AuthProvider>
             <Routes>
+              {/* Admin login — public, no Header/Footer */}
+              <Route path="/admin/login" element={<AdminLogin />} />
+
               {/* Admin routes — no Header/Footer */}
               <Route path="/admin" element={<AdminRoute><AdminLayout /></AdminRoute>}>
                 <Route index element={<AdminDashboard />} />
                 <Route path="scholarships" element={<AdminScholarships />} />
                 <Route path="admissions" element={<AdminAdmissions />} />
                 <Route path="requests" element={<AdminRequests />} />
+                <Route path="users" element={<AdminUsers />} />
                 <Route path="settings" element={<AdminSettings />} />
               </Route>
 
