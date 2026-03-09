@@ -15,17 +15,19 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     const fetchStats = async () => {
-      const [s, a, i, c] = await Promise.all([
+      const [s, a, i, c, b] = await Promise.all([
         supabase.from("admin_scholarships").select("id", { count: "exact", head: true }),
         supabase.from("admin_admissions").select("id", { count: "exact", head: true }),
         supabase.from("application_intents").select("id", { count: "exact", head: true }),
         supabase.from("consultation_requests").select("id", { count: "exact", head: true }),
+        supabase.from("blog_posts").select("id", { count: "exact", head: true }),
       ]);
       setStats({
         scholarships: s.count ?? 0,
         admissions: a.count ?? 0,
         intents: i.count ?? 0,
         consultations: c.count ?? 0,
+        blogPosts: b.count ?? 0,
       });
     };
     fetchStats();
