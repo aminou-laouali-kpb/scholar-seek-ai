@@ -11,7 +11,7 @@ interface Stats {
 }
 
 const AdminDashboard = () => {
-  const [stats, setStats] = useState<Stats>({ scholarships: 0, admissions: 0, intents: 0, consultations: 0 });
+  const [stats, setStats] = useState<Stats>({ scholarships: 0, admissions: 0, intents: 0, consultations: 0, blogPosts: 0 });
 
   useEffect(() => {
     const fetchStats = async () => {
