@@ -143,7 +143,7 @@ const Partners = () => {
       <section className="py-6 bg-accent">
         <div className="container-narrow mx-auto px-4 text-center">
           <p className="font-heading font-bold text-accent-foreground text-lg">
-            ⏰ {isEn ? "Application Deadline: August 1, 2025 for September 2025 Intake" : "Date limite de candidature : 1er août 2025 pour la rentrée de septembre 2025"}
+            ⏰ {isEn ? "Application Deadline: August 15, 2026 for September 2026 Intake" : "Date limite de candidature : 15 août 2026 pour la rentrée de septembre 2026"}
           </p>
         </div>
       </section>
