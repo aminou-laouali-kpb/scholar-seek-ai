@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { GraduationCap, Building2, MessageSquare, FileText, BookOpen } from "lucide-react";
+import { GraduationCap, Building2, MessageSquare, FileText, BookOpen, School, Users } from "lucide-react";
 
 interface Stats {
+  partnerPrograms: number;
+  users: number;
   scholarships: number;
   admissions: number;
   intents: number;
@@ -11,11 +13,13 @@ interface Stats {
 }
 
 const AdminDashboard = () => {
-  const [stats, setStats] = useState<Stats>({ scholarships: 0, admissions: 0, intents: 0, consultations: 0, blogPosts: 0 });
+  const [stats, setStats] = useState<Stats>({ partnerPrograms: 0, users: 0, scholarships: 0, admissions: 0, intents: 0, consultations: 0, blogPosts: 0 });
 
   useEffect(() => {
     const fetchStats = async () => {
-      const [s, a, i, c, b] = await Promise.all([
+      const [pp, u, s, a, i, c, b] = await Promise.all([
+        supabase.from("partner_programs").select("id", { count: "exact", head: true }),
+        supabase.from("profiles").select("id", { count: "exact", head: true }),
         supabase.from("admin_scholarships").select("id", { count: "exact", head: true }),
         supabase.from("admin_admissions").select("id", { count: "exact", head: true }),
         supabase.from("application_intents").select("id", { count: "exact", head: true }),
@@ -23,6 +27,8 @@ const AdminDashboard = () => {
         supabase.from("blog_posts").select("id", { count: "exact", head: true }),
       ]);
       setStats({
+        partnerPrograms: pp.count ?? 0,
+        users: u.count ?? 0,
         scholarships: s.count ?? 0,
         admissions: a.count ?? 0,
         intents: i.count ?? 0,
@@ -34,11 +40,13 @@ const AdminDashboard = () => {
   }, []);
 
   const cards = [
-    { label: "Scholarships", value: stats.scholarships, icon: GraduationCap, color: "text-accent" },
-    { label: "Admissions", value: stats.admissions, icon: Building2, color: "text-primary" },
-    { label: "Application Intents", value: stats.intents, icon: FileText, color: "text-accent" },
-    { label: "Consultation Requests", value: stats.consultations, icon: MessageSquare, color: "text-primary" },
-    { label: "Blog Posts", value: stats.blogPosts, icon: BookOpen, color: "text-accent" },
+    { label: "Partner Programs", value: stats.partnerPrograms, icon: School, color: "text-primary" },
+    { label: "Registered Users", value: stats.users, icon: Users, color: "text-accent" },
+    { label: "Scholarships", value: stats.scholarships, icon: GraduationCap, color: "text-primary" },
+    { label: "Admissions", value: stats.admissions, icon: Building2, color: "text-accent" },
+    { label: "Application Intents", value: stats.intents, icon: FileText, color: "text-primary" },
+    { label: "Consultation Requests", value: stats.consultations, icon: MessageSquare, color: "text-accent" },
+    { label: "Blog Posts", value: stats.blogPosts, icon: BookOpen, color: "text-primary" },
   ];
 
   return (
