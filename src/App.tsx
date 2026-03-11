@@ -40,6 +40,7 @@ import AdminLogin from "./pages/admin/AdminLogin";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminScholarships from "./pages/admin/AdminScholarships";
 import AdminAdmissions from "./pages/admin/AdminAdmissions";
+import AdminPartnerPrograms from "./pages/admin/AdminPartnerPrograms";
 import AdminRequests from "./pages/admin/AdminRequests";
 import AdminSettings from "./pages/admin/AdminSettings";
 import AdminUsers from "./pages/admin/AdminUsers";
