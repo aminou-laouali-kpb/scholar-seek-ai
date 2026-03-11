@@ -40,9 +40,34 @@ const Index = () => {
 
   return (
     <div className="min-h-screen">
-      {/* ===== HERO — Split layout: solid blue top + image bottom ===== */}
+      {/* ===== HERO — Split layout: image first on mobile ===== */}
       <section className="bg-[hsl(220,72%,14%)] overflow-hidden">
-        <div className="container-narrow mx-auto px-4 sm:px-6 lg:px-8 pt-16 sm:pt-20 md:pt-32 pb-8 md:pb-16">
+        {/* Mobile: hero image FIRST */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="lg:hidden px-4 pt-8"
+        >
+          <div className="relative">
+            <img src={heroImg} alt="Students celebrating" className="w-full rounded-2xl shadow-hero object-cover h-48 sm:h-64" />
+            <div className="absolute -bottom-4 left-3 right-3">
+              <div className="bg-card/95 backdrop-blur-md rounded-xl p-3 shadow-card-hover flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full gradient-accent flex items-center justify-center shrink-0">
+                  <GraduationCap className="w-5 h-5 text-accent-foreground" />
+                </div>
+                <div className="flex-1">
+                  <p className="font-heading font-bold text-foreground text-sm">{t("hero.stats.students")}</p>
+                </div>
+                <div className="flex gap-0.5">
+                  {[...Array(5)].map((_, j) => <Star key={j} className="w-3 h-3 fill-accent text-accent" />)}
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        <div className="container-narrow mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-12 lg:pt-32 pb-12 md:pb-16">
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             <motion.div initial="hidden" animate="visible" className="text-center lg:text-left">
               <motion.h1 variants={fadeUp} custom={0} className="font-heading font-extrabold text-[2rem] leading-[1.15] sm:text-4xl lg:text-6xl text-primary-foreground">
@@ -84,32 +109,6 @@ const Index = () => {
             </motion.div>
           </div>
         </div>
-
-        {/* Mobile: hero image below text with overlap effect */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-          className="lg:hidden px-4 pb-6"
-        >
-          <div className="relative">
-            <img src={heroImg} alt="Students celebrating" className="w-full rounded-2xl shadow-hero object-cover h-48 sm:h-64" />
-            {/* Floating badge over image */}
-            <div className="absolute -bottom-4 left-3 right-3">
-              <div className="bg-card/95 backdrop-blur-md rounded-xl p-3 shadow-card-hover flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full gradient-accent flex items-center justify-center shrink-0">
-                  <GraduationCap className="w-5 h-5 text-accent-foreground" />
-                </div>
-                <div className="flex-1">
-                  <p className="font-heading font-bold text-foreground text-sm">{t("hero.stats.students")}</p>
-                </div>
-                <div className="flex gap-0.5">
-                  {[...Array(5)].map((_, j) => <Star key={j} className="w-3 h-3 fill-accent text-accent" />)}
-                </div>
-              </div>
-            </div>
-          </div>
-        </motion.div>
       </section>
 
       {/* ===== TOOLS SPOTLIGHT ===== */}
