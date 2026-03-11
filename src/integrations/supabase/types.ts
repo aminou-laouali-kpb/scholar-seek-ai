@@ -320,6 +320,99 @@ export type Database = {
         }
         Relationships: []
       }
+      partner_programs: {
+        Row: {
+          application_intake: string
+          application_process: string
+          campus_name: string
+          city: string
+          country: string
+          created_at: string
+          degree_level: string
+          duration: string
+          eligibility_academic: string
+          eligibility_language: string
+          id: string
+          is_featured: boolean
+          is_published: boolean
+          language_of_instruction: string
+          notes_internal: string
+          partner_status: string
+          program_family: string
+          program_name: string
+          required_documents: string
+          scholarship_available: string
+          school_name: string
+          school_slug: string
+          source_url: string
+          status: string
+          tuition_amount: string
+          tuition_currency: string
+          tuition_period: string
+          updated_at: string
+        }
+        Insert: {
+          application_intake?: string
+          application_process?: string
+          campus_name?: string
+          city?: string
+          country: string
+          created_at?: string
+          degree_level?: string
+          duration?: string
+          eligibility_academic?: string
+          eligibility_language?: string
+          id?: string
+          is_featured?: boolean
+          is_published?: boolean
+          language_of_instruction?: string
+          notes_internal?: string
+          partner_status?: string
+          program_family?: string
+          program_name: string
+          required_documents?: string
+          scholarship_available?: string
+          school_name: string
+          school_slug: string
+          source_url?: string
+          status?: string
+          tuition_amount?: string
+          tuition_currency?: string
+          tuition_period?: string
+          updated_at?: string
+        }
+        Update: {
+          application_intake?: string
+          application_process?: string
+          campus_name?: string
+          city?: string
+          country?: string
+          created_at?: string
+          degree_level?: string
+          duration?: string
+          eligibility_academic?: string
+          eligibility_language?: string
+          id?: string
+          is_featured?: boolean
+          is_published?: boolean
+          language_of_instruction?: string
+          notes_internal?: string
+          partner_status?: string
+          program_family?: string
+          program_name?: string
+          required_documents?: string
+          scholarship_available?: string
+          school_name?: string
+          school_slug?: string
+          source_url?: string
+          status?: string
+          tuition_amount?: string
+          tuition_currency?: string
+          tuition_period?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           budget_sensitivity: string | null
