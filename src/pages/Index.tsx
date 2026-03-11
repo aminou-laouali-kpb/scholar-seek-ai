@@ -40,15 +40,9 @@ const Index = () => {
 
   return (
     <div className="min-h-screen">
-      {/* ===== HERO — full-bleed image on mobile ===== */}
-      <section className="relative min-h-[85vh] md:min-h-0 overflow-hidden">
-        {/* Background image — visible on ALL screens */}
-        <div className="absolute inset-0">
-          <img src={heroImg} alt="" className="w-full h-full object-cover" aria-hidden="true" />
-          <div className="absolute inset-0 bg-gradient-to-b from-[hsl(220,72%,14%/0.88)] via-[hsl(220,65%,20%/0.85)] to-[hsl(220,72%,14%/0.94)]" />
-        </div>
-
-        <div className="container-narrow mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 md:py-32 relative z-10">
+      {/* ===== HERO — Split layout: solid blue top + image bottom ===== */}
+      <section className="bg-[hsl(220,72%,14%)] overflow-hidden">
+        <div className="container-narrow mx-auto px-4 sm:px-6 lg:px-8 pt-16 sm:pt-20 md:pt-32 pb-8 md:pb-16">
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             <motion.div initial="hidden" animate="visible" className="text-center lg:text-left">
               <motion.h1 variants={fadeUp} custom={0} className="font-heading font-extrabold text-[2rem] leading-[1.15] sm:text-4xl lg:text-6xl text-primary-foreground">
@@ -60,7 +54,7 @@ const Index = () => {
                 {t("hero.subtitle")}
               </motion.p>
 
-              {/* CTAs — stacked full-width on mobile */}
+              {/* CTAs */}
               <motion.div variants={fadeUp} custom={2} className="mt-6 md:mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start">
                 <Link to="/questionnaire" className="w-full sm:w-auto">
                   <Button variant="hero" size="xl" className="w-full sm:w-auto text-base sm:text-lg h-14 sm:h-14">
@@ -84,42 +78,35 @@ const Index = () => {
               </motion.div>
             </motion.div>
 
-            {/* Desktop-only floating card (image is now background) */}
+            {/* Desktop: hero image on the right */}
             <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.3, duration: 0.6 }} className="hidden lg:block">
-              <div className="relative">
-                <div className="rounded-2xl overflow-hidden shadow-hero bg-primary-foreground/5 backdrop-blur-sm border border-primary-foreground/10 p-8">
-                  <div className="text-center space-y-4">
-                    <div className="w-20 h-20 rounded-full gradient-accent flex items-center justify-center mx-auto">
-                      <GraduationCap className="w-10 h-10 text-accent-foreground" />
-                    </div>
-                    <h3 className="font-heading font-bold text-primary-foreground text-xl">500+</h3>
-                    <p className="text-primary-foreground/70 text-sm">{t("hero.stats.students")}</p>
-                    <div className="flex justify-center gap-1">
-                      {[...Array(5)].map((_, j) => <Star key={j} className="w-4 h-4 fill-accent text-accent" />)}
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <img src={heroImg} alt="Students celebrating" className="w-full rounded-2xl shadow-hero object-cover max-h-[480px]" />
             </motion.div>
           </div>
         </div>
 
-        {/* Mobile floating badge — bottom of hero */}
+        {/* Mobile: hero image below text with overlap effect */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-          className="lg:hidden absolute bottom-4 left-4 right-4 z-20"
+          transition={{ delay: 0.4 }}
+          className="lg:hidden px-4 pb-6"
         >
-          <div className="bg-card/95 backdrop-blur-md rounded-xl p-3 shadow-card-hover flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full gradient-accent flex items-center justify-center shrink-0">
-              <GraduationCap className="w-5 h-5 text-accent-foreground" />
-            </div>
-            <div className="flex-1">
-              <p className="font-heading font-bold text-foreground text-sm">{t("hero.stats.students")}</p>
-            </div>
-            <div className="flex gap-0.5">
-              {[...Array(5)].map((_, j) => <Star key={j} className="w-3 h-3 fill-accent text-accent" />)}
+          <div className="relative">
+            <img src={heroImg} alt="Students celebrating" className="w-full rounded-2xl shadow-hero object-cover h-48 sm:h-64" />
+            {/* Floating badge over image */}
+            <div className="absolute -bottom-4 left-3 right-3">
+              <div className="bg-card/95 backdrop-blur-md rounded-xl p-3 shadow-card-hover flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full gradient-accent flex items-center justify-center shrink-0">
+                  <GraduationCap className="w-5 h-5 text-accent-foreground" />
+                </div>
+                <div className="flex-1">
+                  <p className="font-heading font-bold text-foreground text-sm">{t("hero.stats.students")}</p>
+                </div>
+                <div className="flex gap-0.5">
+                  {[...Array(5)].map((_, j) => <Star key={j} className="w-3 h-3 fill-accent text-accent" />)}
+                </div>
+              </div>
             </div>
           </div>
         </motion.div>
