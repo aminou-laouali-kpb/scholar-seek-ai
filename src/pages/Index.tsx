@@ -45,7 +45,7 @@ const Index = () => {
         {/* Background image — visible on ALL screens */}
         <div className="absolute inset-0">
           <img src={heroImg} alt="" className="w-full h-full object-cover" aria-hidden="true" />
-          <div className="absolute inset-0 bg-gradient-to-b from-[hsl(220,72%,14%/0.82)] via-[hsl(220,65%,20%/0.75)] to-[hsl(220,72%,14%/0.92)]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[hsl(220,72%,14%/0.88)] via-[hsl(220,65%,20%/0.85)] to-[hsl(220,72%,14%/0.94)]" />
         </div>
 
         <div className="container-narrow mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 md:py-32 relative z-10">
