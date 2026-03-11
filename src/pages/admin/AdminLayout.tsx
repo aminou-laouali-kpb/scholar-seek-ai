@@ -7,6 +7,7 @@ const navItems = [
   { path: "/admin", label: "Dashboard", icon: LayoutDashboard, end: true },
   { path: "/admin/scholarships", label: "Scholarships", icon: GraduationCap },
   { path: "/admin/admissions", label: "Admissions", icon: Building2 },
+  { path: "/admin/partner-programs", label: "Partner Programs", icon: BookOpen },
   { path: "/admin/requests", label: "Requests", icon: MessageSquare },
   { path: "/admin/users", label: "Users", icon: Users },
   { path: "/admin/blog", label: "Blog", icon: FileText },

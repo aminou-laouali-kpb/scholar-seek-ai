@@ -99,6 +99,7 @@ const App = () => (
                 <Route index element={<AdminDashboard />} />
                 <Route path="scholarships" element={<AdminScholarships />} />
                 <Route path="admissions" element={<AdminAdmissions />} />
+                <Route path="partner-programs" element={<AdminPartnerPrograms />} />
                 <Route path="requests" element={<AdminRequests />} />
                 <Route path="users" element={<AdminUsers />} />
                 <Route path="settings" element={<AdminSettings />} />
