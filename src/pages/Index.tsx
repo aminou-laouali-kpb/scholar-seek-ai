@@ -116,7 +116,7 @@ const Index = () => {
               <GraduationCap className="w-5 h-5 text-accent-foreground" />
             </div>
             <div className="flex-1">
-              <p className="font-heading font-bold text-foreground text-sm">500+ {t("hero.stats.students")}</p>
+              <p className="font-heading font-bold text-foreground text-sm">{t("hero.stats.students")}</p>
             </div>
             <div className="flex gap-0.5">
               {[...Array(5)].map((_, j) => <Star key={j} className="w-3 h-3 fill-accent text-accent" />)}
