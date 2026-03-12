@@ -4,7 +4,8 @@ import { useLanguage } from "@/i18n/LanguageContext";
 import { useAuth } from "@/contexts/AuthContext";
 import { useAdminRole } from "@/hooks/useAdminRole";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Globe, LogOut, Shield } from "lucide-react";
+import { Menu, X, Globe, LogOut, Shield, Sun, Moon } from "lucide-react";
+import { useTheme } from "next-themes";
 import kpbLogo from "@/assets/kpb-logo.png";
 
 const Header = () => {
