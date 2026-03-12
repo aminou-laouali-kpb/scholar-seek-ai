@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Bookmark, BookmarkCheck, ArrowRight, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { CardSkeleton } from "@/components/ui/CardSkeleton";
 import { supabase } from "@/integrations/supabase/client";
 import { matchScholarships } from "@/lib/matching";
 import { useSavedItems } from "@/hooks/useSavedItems";
@@ -19,6 +20,7 @@ const ScholarshipRecommendations = ({ onApply }: Props) => {
   const { profile } = useAuth();
   const { isSaved, toggleSave } = useSavedItems();
   const [dbScholarships, setDbScholarships] = useState<Scholarship[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetch = async () => {
@@ -43,11 +45,23 @@ const ScholarshipRecommendations = ({ onApply }: Props) => {
           }))
         );
       }
+      setLoading(false);
     };
     fetch();
   }, []);
 
   const results = matchScholarships(dbScholarships, profile || {}).slice(0, 6);
+
+  if (loading) {
+    return (
+      <div id="scholarships-section">
+        <h2 className="font-heading font-bold text-xl text-foreground mb-5">
+          {isEn ? "Scholarships Recommended for Your Profile" : "Bourses recommandées pour votre profil"}
+        </h2>
+        <CardSkeleton count={6} />
+      </div>
+    );
+  }
 
   return (
     <div id="scholarships-section">

@@ -6,6 +6,7 @@ import { Bookmark, BookmarkCheck, ArrowRight, Star, MessageCircle, Award } from 
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
+import { CardSkeleton } from "@/components/ui/CardSkeleton";
 import { supabase } from "@/integrations/supabase/client";
 import { matchAdmissions } from "@/lib/matching";
 import { useSavedItems } from "@/hooks/useSavedItems";
@@ -23,6 +24,7 @@ const AdmissionOpportunities = ({ onApply }: Props) => {
   const { profile } = useAuth();
   const { isSaved, toggleSave } = useSavedItems();
   const [dbAdmissions, setDbAdmissions] = useState<AdmissionOpportunity[]>([]);
+  const [loading, setLoading] = useState(true);
   const [showPartnersOnly, setShowPartnersOnly] = useState(false);
 
   useEffect(() => {
@@ -49,9 +51,21 @@ const AdmissionOpportunities = ({ onApply }: Props) => {
           }))
         );
       }
+      setLoading(false);
     };
     fetch();
   }, []);
+
+  if (loading) {
+    return (
+      <div>
+        <h2 className="font-heading font-bold text-xl text-foreground mb-5">
+          {isEn ? "Admission Opportunities Matching Your Profile" : "Admissions en cours adaptées à votre profil"}
+        </h2>
+        <CardSkeleton count={6} />
+      </div>
+    );
+  }
 
   const matchedResults = matchAdmissions(dbAdmissions, profile || {});
   

@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useLanguage } from "@/i18n/LanguageContext";
 import SEOHead from "@/components/SEOHead";
 import { motion } from "framer-motion";
+import { CardSkeleton } from "@/components/ui/CardSkeleton";
 import { BookOpen, Search, Clock, Calendar } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -91,7 +92,7 @@ const Blog = () => {
           </div>
 
           {loading ? (
-            <div className="flex justify-center py-16"><div className="animate-spin w-8 h-8 border-4 border-primary border-t-transparent rounded-full" /></div>
+            <CardSkeleton variant="blog" count={6} />
           ) : paginated.length === 0 ? (
             <p className="text-center text-muted-foreground py-16">{isEn ? "No articles found" : "Aucun article trouvé"}</p>
           ) : (

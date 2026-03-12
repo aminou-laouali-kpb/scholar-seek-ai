@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { GraduationCap, Building2, MessageSquare, FileText, BookOpen, School, Users } from "lucide-react";
+import { GraduationCap, Building2, MessageSquare, FileText, BookOpen, School, Users, Mail } from "lucide-react";
 
 interface Stats {
   partnerPrograms: number;
@@ -10,14 +10,15 @@ interface Stats {
   intents: number;
   consultations: number;
   blogPosts: number;
+  contactRequests: number;
 }
 
 const AdminDashboard = () => {
-  const [stats, setStats] = useState<Stats>({ partnerPrograms: 0, users: 0, scholarships: 0, admissions: 0, intents: 0, consultations: 0, blogPosts: 0 });
+  const [stats, setStats] = useState<Stats>({ partnerPrograms: 0, users: 0, scholarships: 0, admissions: 0, intents: 0, consultations: 0, blogPosts: 0, contactRequests: 0 });
 
   useEffect(() => {
     const fetchStats = async () => {
-      const [pp, u, s, a, i, c, b] = await Promise.all([
+      const [pp, u, s, a, i, c, b, cr] = await Promise.all([
         supabase.from("partner_programs").select("id", { count: "exact", head: true }),
         supabase.from("profiles").select("id", { count: "exact", head: true }),
         supabase.from("admin_scholarships").select("id", { count: "exact", head: true }),
@@ -25,6 +26,7 @@ const AdminDashboard = () => {
         supabase.from("application_intents").select("id", { count: "exact", head: true }),
         supabase.from("consultation_requests").select("id", { count: "exact", head: true }),
         supabase.from("blog_posts").select("id", { count: "exact", head: true }),
+        supabase.from("contact_requests" as any).select("id", { count: "exact", head: true }),
       ]);
       setStats({
         partnerPrograms: pp.count ?? 0,
@@ -34,6 +36,7 @@ const AdminDashboard = () => {
         intents: i.count ?? 0,
         consultations: c.count ?? 0,
         blogPosts: b.count ?? 0,
+        contactRequests: (cr as any).count ?? 0,
       });
     };
     fetchStats();
@@ -47,6 +50,7 @@ const AdminDashboard = () => {
     { label: "Application Intents", value: stats.intents, icon: FileText, color: "text-primary" },
     { label: "Consultation Requests", value: stats.consultations, icon: MessageSquare, color: "text-accent" },
     { label: "Blog Posts", value: stats.blogPosts, icon: BookOpen, color: "text-primary" },
+    { label: "Contact Requests", value: stats.contactRequests, icon: Mail, color: "text-accent" },
   ];
 
   return (

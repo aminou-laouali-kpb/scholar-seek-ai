@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { CardSkeleton } from "@/components/ui/CardSkeleton";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { motion } from "framer-motion";
 import { Award, CheckCircle, MessageCircle, ArrowRight, GraduationCap, Building2, MapPin, Clock, Languages, Info } from "lucide-react";
@@ -53,6 +54,7 @@ const Partners = () => {
   const { language } = useLanguage();
   const isEn = language === "en";
   const [dbPrograms, setDbPrograms] = useState<DBProgram[]>([]);
+  const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [filterCountry, setFilterCountry] = useState("");
   const [filterLevel, setFilterLevel] = useState("");
@@ -66,6 +68,7 @@ const Partners = () => {
         .eq("is_published", true)
         .order("school_name");
       setDbPrograms((data as DBProgram[]) || []);
+      setLoading(false);
     };
     fetchData();
   }, []);
@@ -179,7 +182,7 @@ const Partners = () => {
             </div>
           </motion.div>
 
-          <div className="space-y-8">
+          {loading ? <CardSkeleton variant="school" count={3} /> : <div className="space-y-8">
             {filteredGroups.map((group) => (
               <motion.div key={group.slug} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4 }}>
                 <div className="bg-card rounded-2xl border border-border overflow-hidden shadow-card">
@@ -263,7 +266,7 @@ const Partners = () => {
             {filteredGroups.length === 0 && (
               <p className="text-center text-muted-foreground py-8">{isEn ? "No programs found matching your search." : "Aucun programme trouvé correspondant à votre recherche."}</p>
             )}
-          </div>
+          </div>}
         </div>
       </section>
 
