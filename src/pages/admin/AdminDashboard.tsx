@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { GraduationCap, Building2, MessageSquare, FileText, BookOpen, School, Users } from "lucide-react";
+import { GraduationCap, Building2, MessageSquare, FileText, BookOpen, School, Users, Mail } from "lucide-react";
 
 interface Stats {
   partnerPrograms: number;
