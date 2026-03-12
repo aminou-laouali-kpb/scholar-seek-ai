@@ -3,6 +3,7 @@ import { useLanguage } from "@/i18n/LanguageContext";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { Star, ArrowRight, MessageCircle } from "lucide-react";
+import SEOHead from "@/components/SEOHead";
 
 const WA_LINK = "https://wa.me/33768674292";
 
