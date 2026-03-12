@@ -14,6 +14,7 @@ const Header = () => {
   const { isAdmin } = useAdminRole();
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
+  const { theme, setTheme } = useTheme();
 
   const navLinks = [
     { path: "/", label: t("nav.home") },
