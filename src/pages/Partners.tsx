@@ -68,6 +68,7 @@ const Partners = () => {
         .eq("is_published", true)
         .order("school_name");
       setDbPrograms((data as DBProgram[]) || []);
+      setLoading(false);
     };
     fetchData();
   }, []);
