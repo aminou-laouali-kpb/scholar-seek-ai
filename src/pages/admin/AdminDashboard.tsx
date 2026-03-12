@@ -14,11 +14,11 @@ interface Stats {
 }
 
 const AdminDashboard = () => {
-  const [stats, setStats] = useState<Stats>({ partnerPrograms: 0, users: 0, scholarships: 0, admissions: 0, intents: 0, consultations: 0, blogPosts: 0 });
+  const [stats, setStats] = useState<Stats>({ partnerPrograms: 0, users: 0, scholarships: 0, admissions: 0, intents: 0, consultations: 0, blogPosts: 0, contactRequests: 0 });
 
   useEffect(() => {
     const fetchStats = async () => {
-      const [pp, u, s, a, i, c, b] = await Promise.all([
+      const [pp, u, s, a, i, c, b, cr] = await Promise.all([
         supabase.from("partner_programs").select("id", { count: "exact", head: true }),
         supabase.from("profiles").select("id", { count: "exact", head: true }),
         supabase.from("admin_scholarships").select("id", { count: "exact", head: true }),
@@ -26,6 +26,7 @@ const AdminDashboard = () => {
         supabase.from("application_intents").select("id", { count: "exact", head: true }),
         supabase.from("consultation_requests").select("id", { count: "exact", head: true }),
         supabase.from("blog_posts").select("id", { count: "exact", head: true }),
+        supabase.from("contact_requests" as any).select("id", { count: "exact", head: true }),
       ]);
       setStats({
         partnerPrograms: pp.count ?? 0,
@@ -35,6 +36,7 @@ const AdminDashboard = () => {
         intents: i.count ?? 0,
         consultations: c.count ?? 0,
         blogPosts: b.count ?? 0,
+        contactRequests: (cr as any).count ?? 0,
       });
     };
     fetchStats();
