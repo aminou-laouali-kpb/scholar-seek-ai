@@ -4,6 +4,7 @@ import { useLanguage } from "@/i18n/LanguageContext";
 import { useAuth } from "@/contexts/AuthContext";
 import { motion } from "framer-motion";
 import { MessageCircle, ArrowRight, Globe2, Search } from "lucide-react";
+import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import ProfileSummaryCard from "@/components/dashboard/ProfileSummaryCard";
 import NextSteps from "@/components/dashboard/NextSteps";
