@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import SEOHead from "@/components/SEOHead";
 
 const countryFlags: Record<string, string> = {
   belgium: "🇧🇪", france: "🇫🇷", canada: "🇨🇦", usa: "🇺🇸", china: "🇨🇳",
