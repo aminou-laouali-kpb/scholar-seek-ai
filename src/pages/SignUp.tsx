@@ -14,6 +14,7 @@ import { Info, Check, ChevronsUpDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { countries, STUDY_PROGRAMS } from "@/data/countries";
 import { toast } from "sonner";
+import SEOHead from "@/components/SEOHead";
 
 const STUDY_LEVEL_KEYS = ["highSchool", "bachelor", "master", "phd", "other"];
 
