@@ -120,6 +120,8 @@ const App = () => (
                   <Route path="admissions" element={<AdminAdmissions />} />
                   <Route path="partner-programs" element={<AdminPartnerPrograms />} />
                   <Route path="requests" element={<AdminRequests />} />
+                  <Route path="contact-requests" element={<AdminContactRequests />} />
+                  <Route path="questionnaire" element={<AdminQuestionnaire />} />
                   <Route path="users" element={<AdminUsers />} />
                   <Route path="settings" element={<AdminSettings />} />
                   <Route path="blog" element={<AdminBlog />} />
