@@ -3,6 +3,7 @@ import { useLanguage } from "@/i18n/LanguageContext";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { Mail, ArrowLeft } from "lucide-react";
+import SEOHead from "@/components/SEOHead";
 
 const CheckEmail = () => {
   const { language } = useLanguage();
