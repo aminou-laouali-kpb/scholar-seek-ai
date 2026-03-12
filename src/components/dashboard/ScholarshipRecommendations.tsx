@@ -20,6 +20,7 @@ const ScholarshipRecommendations = ({ onApply }: Props) => {
   const { profile } = useAuth();
   const { isSaved, toggleSave } = useSavedItems();
   const [dbScholarships, setDbScholarships] = useState<Scholarship[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetch = async () => {
