@@ -28,6 +28,35 @@ const HScrollSection = ({ children, className = "" }: { children: React.ReactNod
   </div>
 );
 
+const AnimatedStatPill = ({ target, suffix, label }: { target: number; suffix: string; label: string }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true });
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (!isInView) return;
+    let frame: number;
+    const duration = 1500;
+    const start = performance.now();
+    const animate = (now: number) => {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.round(eased * target));
+      if (progress < 1) frame = requestAnimationFrame(animate);
+    };
+    frame = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(frame);
+  }, [isInView, target]);
+
+  return (
+    <div ref={ref} className="bg-primary-foreground/10 backdrop-blur-sm border border-primary-foreground/15 rounded-full px-4 py-1.5 text-primary-foreground/90 text-xs sm:text-sm font-semibold">
+      <span className="text-accent mr-1">✦</span>
+      {count}{suffix} {label}
+    </div>
+  );
+};
+
 const Index = () => {
   const { t } = useLanguage();
   const isMobile = useIsMobile();
