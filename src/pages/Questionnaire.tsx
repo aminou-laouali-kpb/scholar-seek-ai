@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, ArrowLeft, CheckCircle2, MessageCircle, GraduationCap } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
+import SEOHead from "@/components/SEOHead";
+import { supabase } from "@/integrations/supabase/client";
 
 interface StepOption {
   value: string;

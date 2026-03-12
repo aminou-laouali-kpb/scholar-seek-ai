@@ -11,7 +11,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const WA_LINK = "https://wa.me/33768674292";

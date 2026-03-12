@@ -36,6 +36,7 @@ const FAQ = () => {
 
   return (
     <div className="min-h-screen">
+      <SEOHead title={t("faqPage.title") + " — KPB Education"} description={String(t("faqPage.subtitle"))} />
       <section className="gradient-hero section-padding">
         <div className="container-narrow mx-auto text-center">
           <h1 className="font-heading font-extrabold text-4xl md:text-5xl text-primary-foreground">{t("faqPage.title")}</h1>

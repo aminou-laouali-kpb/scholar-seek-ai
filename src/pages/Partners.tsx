@@ -111,6 +111,7 @@ const Partners = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead title={isEn ? "Partner Schools — KPB Education" : "Écoles Partenaires — KPB Éducation"} description={isEn ? "Explore our partner schools and programs worldwide." : "Découvrez nos écoles et programmes partenaires dans le monde."} />
       {/* Hero */}
       <section className="bg-gradient-to-b from-primary/5 to-background py-16 md:py-24">
         <div className="container-narrow mx-auto px-4 text-center">

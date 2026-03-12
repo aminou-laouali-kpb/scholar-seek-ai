@@ -82,6 +82,7 @@ const Scholarships = () => {
 
   return (
     <div className="min-h-screen">
+      <SEOHead title={t("scholarshipsPage.title") + " — KPB Education"} description={String(t("scholarshipsPage.subtitle"))} />
       <section className="gradient-hero section-padding">
         <div className="container-narrow mx-auto text-center">
           <h1 className="font-heading font-extrabold text-4xl md:text-5xl text-primary-foreground">{t("scholarshipsPage.title")}</h1>
