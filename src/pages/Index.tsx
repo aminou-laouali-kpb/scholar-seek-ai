@@ -41,6 +41,18 @@ const Index = () => {
 
   return (
     <div className="min-h-screen">
+      <SEOHead
+        title={t("hero.title") + " — KPB Education"}
+        description={String(t("hero.subtitle"))}
+        ogTitle="KPB Education — Study Abroad Platform"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "EducationalOrganization",
+          name: "KPB Education",
+          description: String(t("hero.subtitle")),
+          url: "https://kpbeducation.com",
+        }}
+      />
       {/* ===== HERO — Split layout: image first on mobile ===== */}
       <section className="bg-[hsl(220,72%,14%)] overflow-hidden">
         {/* Mobile: hero image FIRST */}
