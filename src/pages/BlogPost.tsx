@@ -67,9 +67,14 @@ const BlogPost = () => {
     image: post.cover_image_url || undefined,
   };
 
-  const share = () => {
-    if (navigator.share) navigator.share({ title, url: window.location.href });
-    else { navigator.clipboard.writeText(window.location.href); }
+  const share = async () => {
+    if (navigator.share) {
+      try { await navigator.share({ title, url: window.location.href }); } catch {}
+    } else {
+      await navigator.clipboard.writeText(window.location.href);
+      const { toast } = await import("sonner");
+      toast.success(isEn ? "Link copied!" : "Lien copié !");
+    }
   };
 
   // Simple markdown rendering (bold, italic, headings, paragraphs, links, lists)

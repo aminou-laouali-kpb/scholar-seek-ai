@@ -9,6 +9,8 @@ const navItems = [
   { path: "/admin/admissions", label: "Admissions", icon: Building2 },
   { path: "/admin/partner-programs", label: "Partner Programs", icon: BookOpen },
   { path: "/admin/requests", label: "Requests", icon: MessageSquare },
+  { path: "/admin/contact-requests", label: "Contact", icon: Mail },
+  { path: "/admin/questionnaire", label: "Questionnaire", icon: ClipboardList },
   { path: "/admin/users", label: "Users", icon: Users },
   { path: "/admin/blog", label: "Blog", icon: FileText },
   { path: "/admin/settings", label: "Settings", icon: Settings },
