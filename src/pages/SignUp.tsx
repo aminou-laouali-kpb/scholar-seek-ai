@@ -145,7 +145,7 @@ const SignUp = () => {
     const phonePrefix = countries.find((c) => c.code === form.phoneCountry)?.dialCode || "+237";
     const program = form.desiredProgram === "other" ? otherProgram : form.desiredProgram;
 
-    const { data, error } = await supabase.auth.signUp({
+    const { error } = await supabase.auth.signUp({
       email: form.email,
       password: form.password,
       options: {
@@ -153,6 +153,14 @@ const SignUp = () => {
         data: {
           first_name: form.firstName,
           last_name: form.lastName,
+          whatsapp: `${phonePrefix}${form.whatsapp}`,
+          phone_country: form.phoneCountry,
+          country_of_birth: form.countryOfBirth,
+          country_of_residence: form.countryOfResidence,
+          study_level: form.studyLevel,
+          desired_program: program,
+          dont_know_program: dontKnowProgram,
+          profile_completed: !dontKnowProgram,
         },
       },
     });
@@ -163,30 +171,8 @@ const SignUp = () => {
       return;
     }
 
-    // Update the auto-created profile with full data
-    if (data.user) {
-      await supabase.from("profiles").update({
-        first_name: form.firstName,
-        last_name: form.lastName,
-        whatsapp: `${phonePrefix}${form.whatsapp}`,
-        phone_country: form.phoneCountry,
-        country_of_birth: form.countryOfBirth,
-        country_of_residence: form.countryOfResidence,
-        study_level: form.studyLevel,
-        desired_program: program,
-        dont_know_program: dontKnowProgram,
-        profile_completed: true,
-      }).eq("user_id", data.user.id);
-    }
-
-    toast.success(t("signup.confirmEmail") as string || "Check your email to confirm your account!");
     setLoading(false);
-    
-    if (dontKnowProgram) {
-      navigate("/orientation");
-    } else {
-      navigate("/dashboard");
-    }
+    navigate("/check-email");
   };
 
   const studyLevels = t("signup.studyLevels") as Record<string, string>;
