@@ -116,6 +116,7 @@ const Questionnaire = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead title={String(t("questionnaire.pageTitle")) + " — KPB Education"} description={String(t("questionnaire.pageSubtitle"))} />
       {/* Hero bar */}
       <section className="gradient-hero py-10 md:py-14">
         <div className="container-narrow mx-auto px-4 text-center">
