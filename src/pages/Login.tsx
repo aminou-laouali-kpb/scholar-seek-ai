@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
+import SEOHead from "@/components/SEOHead";
 
 const Login = () => {
   const { t, language } = useLanguage();
