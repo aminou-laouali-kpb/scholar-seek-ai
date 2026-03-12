@@ -182,7 +182,7 @@ const Partners = () => {
             </div>
           </motion.div>
 
-          <div className="space-y-8">
+          {loading ? <CardSkeleton variant="school" count={3} /> : <div className="space-y-8">
             {filteredGroups.map((group) => (
               <motion.div key={group.slug} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4 }}>
                 <div className="bg-card rounded-2xl border border-border overflow-hidden shadow-card">
