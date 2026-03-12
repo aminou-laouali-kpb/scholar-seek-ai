@@ -6,6 +6,7 @@ import { Bookmark, BookmarkCheck, ArrowRight, Star, MessageCircle, Award } from 
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
+import { CardSkeleton } from "@/components/ui/CardSkeleton";
 import { supabase } from "@/integrations/supabase/client";
 import { matchAdmissions } from "@/lib/matching";
 import { useSavedItems } from "@/hooks/useSavedItems";
