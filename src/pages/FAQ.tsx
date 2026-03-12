@@ -1,5 +1,6 @@
 import { useLanguage } from "@/i18n/LanguageContext";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import SEOHead from "@/components/SEOHead";
 
 const FAQ = () => {
   const { t, language } = useLanguage();
