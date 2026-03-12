@@ -108,11 +108,9 @@ const Index = () => {
 
               {/* Stats as pill badges */}
               <motion.div variants={fadeUp} custom={3} className="mt-6 md:mt-10 flex flex-wrap gap-2 sm:gap-3 justify-center lg:justify-start">
-                {Object.values(t("hero.stats") as Record<string, string>).map((stat, i) => (
-                  <div key={i} className="bg-primary-foreground/10 backdrop-blur-sm border border-primary-foreground/15 rounded-full px-4 py-1.5 text-primary-foreground/90 text-xs sm:text-sm font-semibold">
-                    <span className="text-accent mr-1">✦</span>{stat}
-                  </div>
-                ))}
+                <AnimatedStatPill target={500} suffix="+" label={String(t("hero.statLabels.students") || "students guided")} />
+                <AnimatedStatPill target={95} suffix="%" label={String(t("hero.statLabels.success") || "success rate")} />
+                <AnimatedStatPill target={10} suffix="+" label={String(t("hero.statLabels.countries") || "countries")} />
               </motion.div>
             </motion.div>
 
