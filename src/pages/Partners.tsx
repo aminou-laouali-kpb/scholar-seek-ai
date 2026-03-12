@@ -54,6 +54,7 @@ const Partners = () => {
   const { language } = useLanguage();
   const isEn = language === "en";
   const [dbPrograms, setDbPrograms] = useState<DBProgram[]>([]);
+  const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [filterCountry, setFilterCountry] = useState("");
   const [filterLevel, setFilterLevel] = useState("");
