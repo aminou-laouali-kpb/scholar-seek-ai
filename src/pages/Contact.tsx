@@ -9,6 +9,7 @@ import { motion } from "framer-motion";
 import { Mail, MessageCircle, CheckCircle } from "lucide-react";
 import { toast } from "sonner";
 import { z } from "zod";
+import SEOHead from "@/components/SEOHead";
 
 const contactSchema = z.object({
   name: z.string().trim().min(1, "Name is required").max(100),
