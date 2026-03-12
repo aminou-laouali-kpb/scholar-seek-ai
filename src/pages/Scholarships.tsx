@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { CardSkeleton } from "@/components/ui/CardSkeleton";
 import { motion } from "framer-motion";
 import { Award, ArrowRight, MessageCircle, Search, ExternalLink, Calendar, GraduationCap } from "lucide-react";
+import SEOHead from "@/components/SEOHead";
 
 const WA_LINK = "https://wa.me/33768674292";
 
