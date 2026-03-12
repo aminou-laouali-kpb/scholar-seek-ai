@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { Search, GraduationCap, Award, ArrowRight, BookOpen, Globe2, Users, CheckCircle2, Star, FileText, MessageCircle, ShieldCheck, MapPin, Compass, ClipboardCheck, ChevronRight } from "lucide-react";
 import heroImg from "@/assets/hero-students.jpg";
+import SEOHead from "@/components/SEOHead";
 import {
   Accordion,
   AccordionContent,
