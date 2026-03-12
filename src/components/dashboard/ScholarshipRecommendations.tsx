@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Bookmark, BookmarkCheck, ArrowRight, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { CardSkeleton } from "@/components/ui/CardSkeleton";
 import { supabase } from "@/integrations/supabase/client";
 import { matchScholarships } from "@/lib/matching";
 import { useSavedItems } from "@/hooks/useSavedItems";
