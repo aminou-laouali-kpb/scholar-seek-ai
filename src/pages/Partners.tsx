@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { CardSkeleton } from "@/components/ui/CardSkeleton";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { motion } from "framer-motion";
 import { Award, CheckCircle, MessageCircle, ArrowRight, GraduationCap, Building2, MapPin, Clock, Languages, Info } from "lucide-react";
