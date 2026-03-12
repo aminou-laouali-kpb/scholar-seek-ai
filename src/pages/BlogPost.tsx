@@ -30,7 +30,24 @@ const BlogPost = () => {
     fetch();
   }, [slug]);
 
-  if (loading) return <div className="min-h-screen flex items-center justify-center"><div className="animate-spin w-8 h-8 border-4 border-primary border-t-transparent rounded-full" /></div>;
+  if (loading) return (
+    <div className="min-h-screen">
+      <div className="w-full h-64 md:h-80 bg-muted animate-pulse" />
+      <div className="container-narrow mx-auto section-padding space-y-4">
+        <div className="h-4 w-24 bg-muted rounded animate-pulse" />
+        <div className="h-6 w-20 bg-muted rounded-full animate-pulse" />
+        <div className="h-10 w-3/4 bg-muted rounded animate-pulse" />
+        <div className="flex gap-4">
+          <div className="h-4 w-32 bg-muted rounded animate-pulse" />
+          <div className="h-4 w-20 bg-muted rounded animate-pulse" />
+          <div className="h-4 w-24 bg-muted rounded animate-pulse" />
+        </div>
+        <div className="space-y-3 mt-8">
+          {Array.from({ length: 8 }).map((_, i) => <div key={i} className="h-4 bg-muted rounded animate-pulse" style={{ width: `${85 + Math.random() * 15}%` }} />)}
+        </div>
+      </div>
+    </div>
+  );
   if (!post) return <div className="min-h-screen flex flex-col items-center justify-center gap-4"><p className="text-muted-foreground">Article introuvable</p><Link to="/blog" className="text-primary underline">← Retour au blog</Link></div>;
 
   const title = isEn ? (post.title_en || post.title_fr) : post.title_fr;
@@ -50,9 +67,14 @@ const BlogPost = () => {
     image: post.cover_image_url || undefined,
   };
 
-  const share = () => {
-    if (navigator.share) navigator.share({ title, url: window.location.href });
-    else { navigator.clipboard.writeText(window.location.href); }
+  const share = async () => {
+    if (navigator.share) {
+      try { await navigator.share({ title, url: window.location.href }); } catch {}
+    } else {
+      await navigator.clipboard.writeText(window.location.href);
+      const { toast } = await import("sonner");
+      toast.success(isEn ? "Link copied!" : "Lien copié !");
+    }
   };
 
   // Simple markdown rendering (bold, italic, headings, paragraphs, links, lists)

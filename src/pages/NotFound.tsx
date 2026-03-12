@@ -2,7 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, BookOpen, GraduationCap, Wrench, Globe } from "lucide-react";
 
 const NotFound = () => {
   const location = useLocation();
@@ -12,6 +12,13 @@ const NotFound = () => {
   useEffect(() => {
     console.error("404 Error: User attempted to access non-existent route:", location.pathname);
   }, [location.pathname]);
+
+  const popularLinks = [
+    { path: "/tools", label: isEn ? "Tools" : "Outils", icon: Wrench },
+    { path: "/scholarships", label: isEn ? "Scholarships" : "Bourses", icon: GraduationCap },
+    { path: "/destinations", label: isEn ? "Destinations" : "Destinations", icon: Globe },
+    { path: "/blog", label: "Blog", icon: BookOpen },
+  ];
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-secondary/30 px-4">
@@ -30,6 +37,20 @@ const NotFound = () => {
             {isEn ? "Back to Home" : "Retour à l'Accueil"} <ArrowRight className="w-4 h-4" />
           </Button>
         </Link>
+
+        <div className="mt-10">
+          <p className="text-sm text-muted-foreground mb-4">{isEn ? "Or explore:" : "Ou explorez :"}</p>
+          <div className="flex flex-wrap justify-center gap-3">
+            {popularLinks.map((link) => {
+              const Icon = link.icon;
+              return (
+                <Link key={link.path} to={link.path}>
+                  <Button variant="outline" size="sm"><Icon className="w-4 h-4" />{link.label}</Button>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
       </div>
     </div>
   );

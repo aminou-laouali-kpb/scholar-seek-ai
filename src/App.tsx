@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { LanguageProvider } from "@/i18n/LanguageContext";
 import { AuthProvider, useAuth } from "@/contexts/AuthContext";
+import { ThemeProvider } from "next-themes";
 import { useAdminRole } from "@/hooks/useAdminRole";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -55,6 +56,8 @@ const AdminRequests = lazy(() => import("./pages/admin/AdminRequests"));
 const AdminSettings = lazy(() => import("./pages/admin/AdminSettings"));
 const AdminUsers = lazy(() => import("./pages/admin/AdminUsers"));
 const AdminBlog = lazy(() => import("./pages/admin/AdminBlog"));
+const AdminContactRequests = lazy(() => import("./pages/admin/AdminContactRequests"));
+const AdminQuestionnaire = lazy(() => import("./pages/admin/AdminQuestionnaire"));
 
 const queryClient = new QueryClient();
 
@@ -99,6 +102,7 @@ const AdminRoute = ({ children }: { children: React.ReactNode }) => {
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
+    <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
     <LanguageProvider>
       <TooltipProvider>
         <Toaster />
@@ -118,6 +122,8 @@ const App = () => (
                   <Route path="admissions" element={<AdminAdmissions />} />
                   <Route path="partner-programs" element={<AdminPartnerPrograms />} />
                   <Route path="requests" element={<AdminRequests />} />
+                  <Route path="contact-requests" element={<AdminContactRequests />} />
+                  <Route path="questionnaire" element={<AdminQuestionnaire />} />
                   <Route path="users" element={<AdminUsers />} />
                   <Route path="settings" element={<AdminSettings />} />
                   <Route path="blog" element={<AdminBlog />} />
@@ -170,6 +176,7 @@ const App = () => (
         </BrowserRouter>
       </TooltipProvider>
     </LanguageProvider>
+    </ThemeProvider>
   </QueryClientProvider>
 );
 

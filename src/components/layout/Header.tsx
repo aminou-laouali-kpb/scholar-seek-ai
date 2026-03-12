@@ -4,7 +4,8 @@ import { useLanguage } from "@/i18n/LanguageContext";
 import { useAuth } from "@/contexts/AuthContext";
 import { useAdminRole } from "@/hooks/useAdminRole";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Globe, LogOut, Shield } from "lucide-react";
+import { Menu, X, Globe, LogOut, Shield, Sun, Moon } from "lucide-react";
+import { useTheme } from "next-themes";
 import kpbLogo from "@/assets/kpb-logo.png";
 
 const Header = () => {
@@ -13,6 +14,7 @@ const Header = () => {
   const { isAdmin } = useAdminRole();
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
+  const { theme, setTheme } = useTheme();
 
   const navLinks = [
     { path: "/", label: t("nav.home") },
@@ -54,6 +56,13 @@ const Header = () => {
           </nav>
 
           <div className="flex items-center gap-2">
+            <button
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              className="p-2 text-muted-foreground hover:text-foreground rounded-lg hover:bg-secondary transition-colors"
+              aria-label="Toggle theme"
+            >
+              {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+            </button>
             <button
               onClick={() => setLanguage(language === "en" ? "fr" : "en")}
               className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground rounded-lg hover:bg-secondary transition-colors"
