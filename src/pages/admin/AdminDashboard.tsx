@@ -50,6 +50,7 @@ const AdminDashboard = () => {
     { label: "Application Intents", value: stats.intents, icon: FileText, color: "text-primary" },
     { label: "Consultation Requests", value: stats.consultations, icon: MessageSquare, color: "text-accent" },
     { label: "Blog Posts", value: stats.blogPosts, icon: BookOpen, color: "text-primary" },
+    { label: "Contact Requests", value: stats.contactRequests, icon: Mail, color: "text-accent" },
   ];
 
   return (

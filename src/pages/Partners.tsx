@@ -266,7 +266,7 @@ const Partners = () => {
             {filteredGroups.length === 0 && (
               <p className="text-center text-muted-foreground py-8">{isEn ? "No programs found matching your search." : "Aucun programme trouvé correspondant à votre recherche."}</p>
             )}
-          </div>
+          </div>}
         </div>
       </section>
 

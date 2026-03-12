@@ -135,6 +135,8 @@ const App = () => (
                     <Route path="/student-platform" element={<StudentPlatform />} />
                     <Route path="/login" element={<AuthRoute><Login /></AuthRoute>} />
                     <Route path="/signup" element={<AuthRoute><SignUp /></AuthRoute>} />
+                    <Route path="/check-email" element={<CheckEmail />} />
+                    <Route path="/reset-password" element={<ResetPassword />} />
                     <Route path="/complete-profile" element={<CompleteProfileRoute><CompleteProfile /></CompleteProfileRoute>} />
                     <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
                     <Route path="/questionnaire" element={<Questionnaire />} />
