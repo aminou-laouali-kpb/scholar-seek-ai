@@ -9,6 +9,7 @@ import { motion } from "framer-motion";
 import { Mail, MessageCircle, CheckCircle } from "lucide-react";
 import { toast } from "sonner";
 import { z } from "zod";
+import SEOHead from "@/components/SEOHead";
 
 const contactSchema = z.object({
   name: z.string().trim().min(1, "Name is required").max(100),
@@ -45,6 +46,7 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen">
+      <SEOHead title={t("contactPage.title") + " — KPB Education"} description={String(t("contactPage.subtitle"))} />
       <section className="gradient-hero section-padding">
         <div className="container-narrow mx-auto text-center">
           <h1 className="font-heading font-extrabold text-4xl md:text-5xl text-primary-foreground">{t("contactPage.title")}</h1>

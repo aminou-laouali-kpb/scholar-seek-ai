@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
+import SEOHead from "@/components/SEOHead";
 
 const Login = () => {
   const { t, language } = useLanguage();
@@ -62,6 +63,7 @@ const Login = () => {
 
   return (
     <div className="min-h-screen bg-secondary/30 flex items-center justify-center px-4 py-16">
+      <SEOHead title={isEn ? "Log In — KPB Education" : "Connexion — KPB Éducation"} description={isEn ? "Log in to your KPB Education account." : "Connectez-vous à votre compte KPB Éducation."} />
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-md">
         <div className="bg-card rounded-2xl p-8 shadow-card border border-border">
           <div className="text-center mb-8">

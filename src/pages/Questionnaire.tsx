@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, ArrowLeft, CheckCircle2, MessageCircle, GraduationCap } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
+import SEOHead from "@/components/SEOHead";
+import { supabase } from "@/integrations/supabase/client";
 
 interface StepOption {
   value: string;
@@ -32,10 +34,20 @@ const Questionnaire = () => {
     setAnswers({ ...answers, [currentStep]: value });
   };
 
-  const next = () => {
+  const next = async () => {
     if (currentStep < totalSteps - 1) {
       setCurrentStep(currentStep + 1);
     } else {
+      // Save to database before showing result
+      const needsAdv = answers[3] !== "self-funded" || answers[4] === "not-sure";
+      try {
+        await supabase.from("questionnaire_responses" as any).insert([{
+          answers,
+          needs_advisor: needsAdv,
+        }] as any);
+      } catch (_) {
+        // Non-blocking — don't prevent user from seeing results
+      }
       setShowResult(true);
     }
   };
@@ -104,6 +116,7 @@ const Questionnaire = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead title={String(t("questionnaire.pageTitle")) + " — KPB Education"} description={String(t("questionnaire.pageSubtitle"))} />
       {/* Hero bar */}
       <section className="gradient-hero py-10 md:py-14">
         <div className="container-narrow mx-auto px-4 text-center">

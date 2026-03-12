@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useAuth } from "@/contexts/AuthContext";
+import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import {
@@ -38,6 +39,7 @@ const StudentPlatform = () => {
 
   return (
     <div className="min-h-screen">
+      <SEOHead title={isEn ? "Student Platform — KPB Education" : "Espace Étudiant — KPB Éducation"} description={String(sp.heroSubtitle)} />
       {/* Hero */}
       <section className="gradient-hero section-padding py-20 md:py-28">
         <div className="container-narrow mx-auto text-center">

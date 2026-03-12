@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { CardSkeleton } from "@/components/ui/CardSkeleton";
 import { motion } from "framer-motion";
 import { Award, ArrowRight, MessageCircle, Search, ExternalLink, Calendar, GraduationCap } from "lucide-react";
+import SEOHead from "@/components/SEOHead";
 
 const WA_LINK = "https://wa.me/33768674292";
 
@@ -81,6 +82,7 @@ const Scholarships = () => {
 
   return (
     <div className="min-h-screen">
+      <SEOHead title={t("scholarshipsPage.title") + " — KPB Education"} description={String(t("scholarshipsPage.subtitle"))} />
       <section className="gradient-hero section-padding">
         <div className="container-narrow mx-auto text-center">
           <h1 className="font-heading font-extrabold text-4xl md:text-5xl text-primary-foreground">{t("scholarshipsPage.title")}</h1>

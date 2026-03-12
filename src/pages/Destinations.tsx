@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import SEOHead from "@/components/SEOHead";
 
 const countryFlags: Record<string, string> = {
   belgium: "🇧🇪", france: "🇫🇷", canada: "🇨🇦", usa: "🇺🇸", china: "🇨🇳",
@@ -14,6 +15,7 @@ const Destinations = () => {
 
   return (
     <div className="min-h-screen">
+      <SEOHead title={t("destinationsPage.title") + " — KPB Education"} description={String(t("destinationsPage.subtitle"))} />
       <section className="gradient-hero section-padding">
         <div className="container-narrow mx-auto text-center">
           <h1 className="font-heading font-extrabold text-4xl md:text-5xl text-primary-foreground">{t("destinationsPage.title")}</h1>

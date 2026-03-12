@@ -4,6 +4,7 @@ import { useLanguage } from "@/i18n/LanguageContext";
 import { useAuth } from "@/contexts/AuthContext";
 import { motion } from "framer-motion";
 import { MessageCircle, ArrowRight, Globe2, Search } from "lucide-react";
+import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import ProfileSummaryCard from "@/components/dashboard/ProfileSummaryCard";
 import NextSteps from "@/components/dashboard/NextSteps";
@@ -45,6 +46,7 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen bg-secondary/30">
+      <SEOHead title={isEn ? "Dashboard — KPB Education" : "Tableau de bord — KPB Éducation"} description={isEn ? "Your personalized study abroad dashboard." : "Votre tableau de bord personnalisé."} />
       {/* Hero Banner */}
       <div className="gradient-hero py-10 px-4">
         <div className="container-narrow mx-auto">

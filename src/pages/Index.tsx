@@ -1,16 +1,17 @@
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { Search, GraduationCap, Award, ArrowRight, BookOpen, Globe2, Users, CheckCircle2, Star, FileText, MessageCircle, ShieldCheck, MapPin, Compass, ClipboardCheck, ChevronRight } from "lucide-react";
 import heroImg from "@/assets/hero-students.jpg";
+import SEOHead from "@/components/SEOHead";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const WA_LINK = "https://wa.me/33768674292";
@@ -27,6 +28,35 @@ const HScrollSection = ({ children, className = "" }: { children: React.ReactNod
   </div>
 );
 
+const AnimatedStatPill = ({ target, suffix, label }: { target: number; suffix: string; label: string }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true });
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (!isInView) return;
+    let frame: number;
+    const duration = 1500;
+    const start = performance.now();
+    const animate = (now: number) => {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.round(eased * target));
+      if (progress < 1) frame = requestAnimationFrame(animate);
+    };
+    frame = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(frame);
+  }, [isInView, target]);
+
+  return (
+    <div ref={ref} className="bg-primary-foreground/10 backdrop-blur-sm border border-primary-foreground/15 rounded-full px-4 py-1.5 text-primary-foreground/90 text-xs sm:text-sm font-semibold">
+      <span className="text-accent mr-1">✦</span>
+      {count}{suffix} {label}
+    </div>
+  );
+};
+
 const Index = () => {
   const { t } = useLanguage();
   const isMobile = useIsMobile();
@@ -40,6 +70,18 @@ const Index = () => {
 
   return (
     <div className="min-h-screen">
+      <SEOHead
+        title={t("hero.title") + " — KPB Education"}
+        description={String(t("hero.subtitle"))}
+        ogTitle="KPB Education — Study Abroad Platform"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "EducationalOrganization",
+          name: "KPB Education",
+          description: String(t("hero.subtitle")),
+          url: "https://kpbeducation.com",
+        }}
+      />
       {/* ===== HERO — Split layout: image first on mobile ===== */}
       <section className="bg-[hsl(220,72%,14%)] overflow-hidden">
         {/* Mobile: hero image FIRST */}
@@ -95,11 +137,9 @@ const Index = () => {
 
               {/* Stats as pill badges */}
               <motion.div variants={fadeUp} custom={3} className="mt-6 md:mt-10 flex flex-wrap gap-2 sm:gap-3 justify-center lg:justify-start">
-                {Object.values(t("hero.stats") as Record<string, string>).map((stat, i) => (
-                  <div key={i} className="bg-primary-foreground/10 backdrop-blur-sm border border-primary-foreground/15 rounded-full px-4 py-1.5 text-primary-foreground/90 text-xs sm:text-sm font-semibold">
-                    <span className="text-accent mr-1">✦</span>{stat}
-                  </div>
-                ))}
+                <AnimatedStatPill target={500} suffix="+" label={String(t("hero.statLabels.students") || "students guided")} />
+                <AnimatedStatPill target={95} suffix="%" label={String(t("hero.statLabels.success") || "success rate")} />
+                <AnimatedStatPill target={10} suffix="+" label={String(t("hero.statLabels.countries") || "countries")} />
               </motion.div>
             </motion.div>
 

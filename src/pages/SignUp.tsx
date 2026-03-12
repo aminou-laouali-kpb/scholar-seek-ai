@@ -14,6 +14,7 @@ import { Info, Check, ChevronsUpDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { countries, STUDY_PROGRAMS } from "@/data/countries";
 import { toast } from "sonner";
+import SEOHead from "@/components/SEOHead";
 
 const STUDY_LEVEL_KEYS = ["highSchool", "bachelor", "master", "phd", "other"];
 
@@ -180,6 +181,7 @@ const SignUp = () => {
 
   return (
     <div className="min-h-screen bg-secondary/30 flex items-center justify-center px-4 py-16">
+      <SEOHead title={language === "en" ? "Sign Up — KPB Education" : "Inscription — KPB Éducation"} description={language === "en" ? "Create your free KPB Education account." : "Créez votre compte KPB Éducation gratuit."} />
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-2xl">
         <div className="bg-card rounded-2xl p-8 shadow-card border border-border">
           <div className="text-center mb-8">

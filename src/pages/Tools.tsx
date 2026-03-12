@@ -3,6 +3,7 @@ import { useLanguage } from "@/i18n/LanguageContext";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { Search, Globe2, Award, ArrowRight, MapPin, GraduationCap } from "lucide-react";
+import SEOHead from "@/components/SEOHead";
 
 const Tools = () => {
   const { t } = useLanguage();
@@ -17,6 +18,7 @@ const Tools = () => {
 
   return (
     <div className="min-h-screen">
+      <SEOHead title={t("toolsPage.title") + " — KPB Education"} description={String(t("toolsPage.subtitle"))} />
       <section className="gradient-hero section-padding">
         <div className="container-narrow mx-auto text-center">
           <h1 className="font-heading font-extrabold text-4xl md:text-5xl text-primary-foreground">{t("toolsPage.title")}</h1>

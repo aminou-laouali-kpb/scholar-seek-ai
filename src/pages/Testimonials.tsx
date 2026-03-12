@@ -3,6 +3,7 @@ import { useLanguage } from "@/i18n/LanguageContext";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { Star, ArrowRight, MessageCircle } from "lucide-react";
+import SEOHead from "@/components/SEOHead";
 
 const WA_LINK = "https://wa.me/33768674292";
 
@@ -14,6 +15,7 @@ const Testimonials = () => {
 
   return (
     <div className="min-h-screen">
+      <SEOHead title={t("testimonialsPage.title") + " — KPB Education"} description={String(t("testimonialsPage.subtitle"))} />
       <section className="gradient-hero section-padding">
         <div className="container-narrow mx-auto text-center">
           <h1 className="font-heading font-extrabold text-4xl md:text-5xl text-primary-foreground">{t("testimonialsPage.title")}</h1>
