@@ -509,6 +509,30 @@ export type Database = {
         }
         Relationships: []
       }
+      questionnaire_responses: {
+        Row: {
+          answers: Json
+          created_at: string
+          id: string
+          needs_advisor: boolean
+          user_id: string | null
+        }
+        Insert: {
+          answers?: Json
+          created_at?: string
+          id?: string
+          needs_advisor?: boolean
+          user_id?: string | null
+        }
+        Update: {
+          answers?: Json
+          created_at?: string
+          id?: string
+          needs_advisor?: boolean
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       saved_items: {
         Row: {
           created_at: string
