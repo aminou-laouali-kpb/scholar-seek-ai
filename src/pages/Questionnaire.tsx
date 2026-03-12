@@ -34,10 +34,20 @@ const Questionnaire = () => {
     setAnswers({ ...answers, [currentStep]: value });
   };
 
-  const next = () => {
+  const next = async () => {
     if (currentStep < totalSteps - 1) {
       setCurrentStep(currentStep + 1);
     } else {
+      // Save to database before showing result
+      const needsAdv = answers[3] !== "self-funded" || answers[4] === "not-sure";
+      try {
+        await supabase.from("questionnaire_responses" as any).insert([{
+          answers,
+          needs_advisor: needsAdv,
+        }] as any);
+      } catch (_) {
+        // Non-blocking — don't prevent user from seeing results
+      }
       setShowResult(true);
     }
   };
