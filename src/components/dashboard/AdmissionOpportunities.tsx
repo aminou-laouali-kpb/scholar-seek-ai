@@ -24,6 +24,7 @@ const AdmissionOpportunities = ({ onApply }: Props) => {
   const { profile } = useAuth();
   const { isSaved, toggleSave } = useSavedItems();
   const [dbAdmissions, setDbAdmissions] = useState<AdmissionOpportunity[]>([]);
+  const [loading, setLoading] = useState(true);
   const [showPartnersOnly, setShowPartnersOnly] = useState(false);
 
   useEffect(() => {
