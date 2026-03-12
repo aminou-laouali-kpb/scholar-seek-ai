@@ -3,6 +3,7 @@ import { useLanguage } from "@/i18n/LanguageContext";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { Search, Globe2, Award, ArrowRight, MapPin, GraduationCap } from "lucide-react";
+import SEOHead from "@/components/SEOHead";
 
 const Tools = () => {
   const { t } = useLanguage();
