@@ -331,7 +331,7 @@ export const translations: Record<Language, Record<string, any>> = {
       previewTitle: "A Dashboard Built for You",
       previewSubtitle: "Here's a glimpse of what your personalized student dashboard looks like.",
       finalCtaTitle: "Ready to Start Your Journey?",
-      finalCtaSubtitle: "Join thousands of students who trust KPB Education to guide them abroad.",
+      finalCtaSubtitle: "Join 500+ students who trust KPB Education to guide them abroad.",
     },
     login: {
       title: "Welcome Back",
