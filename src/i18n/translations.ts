@@ -264,7 +264,7 @@ export const translations: Record<Language, Record<string, any>> = {
     },
     scholarshipsPage: {
       title: "Scholarships",
-      subtitle: "Discover scholarship opportunities and get help applying for funding to study abroad.",
+      subtitle: "Browse available scholarships and find funding for your studies abroad.",
       types: ["Merit-Based Scholarships", "Need-Based Financial Aid", "Government Scholarships", "University-Specific Awards", "Regional & Country Scholarships", "Research Grants"],
     },
     aboutPage: {
