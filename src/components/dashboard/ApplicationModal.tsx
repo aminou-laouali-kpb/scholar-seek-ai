@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { CheckCircle2, MessageCircle, ArrowRight } from "lucide-react";
+import { track } from "@/lib/analytics";
 
 const WA_LINK = "https://wa.me/33768674292";
 

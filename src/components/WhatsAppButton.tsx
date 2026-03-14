@@ -42,6 +42,7 @@ const WhatsAppButton = React.forwardRef<HTMLAnchorElement>((_, ref) => {
       target="_blank"
       rel="noopener noreferrer"
       title={t("whatsappTooltip")}
+      onClick={() => track("whatsapp_clicked", { context: "floating_button", page: location.pathname })}
       className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-success hover:bg-success/90 text-success-foreground shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center hover:scale-110"
     >
       <MessageCircle className="w-7 h-7" />

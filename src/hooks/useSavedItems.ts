@@ -51,6 +51,7 @@ export function useSavedItems() {
       if (existing) {
         setItems((prev) => prev.filter((i) => i.id !== existing.id));
         await supabase.from("saved_items").delete().eq("id", existing.id);
+        track("item_unsaved", { itemType, itemId });
       } else {
         const newItem: Partial<SavedItem> = {
           user_id: user.id,
@@ -60,6 +61,7 @@ export function useSavedItems() {
         };
         setItems((prev) => [{ ...newItem, id: crypto.randomUUID(), created_at: new Date().toISOString() } as SavedItem, ...prev]);
         await supabase.from("saved_items").insert(newItem as any);
+        track("item_saved", { itemType, itemId });
         fetchItems();
       }
     },
