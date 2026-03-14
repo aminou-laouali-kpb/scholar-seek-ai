@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
+import { track } from "@/lib/analytics";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
@@ -153,11 +154,7 @@ const CompleteProfile = () => {
 
     if (!error) {
       await refreshProfile();
-      // Fire-and-forget activity log
-      supabase
-        .from("activity_logs")
-        .insert({ user_id: user.id, action: "profile_completed", details: { study_level: form.studyLevel, country: form.countryOfResidence } } as any)
-        .then(() => {});
+      track("onboarding_completed", { study_level: form.studyLevel, country: form.countryOfResidence, destinations: form.preferredDestinations });
       navigate(dontKnowProgram ? "/orientation" : "/dashboard");
     }
     setLoading(false);

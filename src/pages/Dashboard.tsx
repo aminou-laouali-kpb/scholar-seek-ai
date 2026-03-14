@@ -13,6 +13,7 @@ import AdmissionOpportunities from "@/components/dashboard/AdmissionOpportunitie
 import SavedItems from "@/components/dashboard/SavedItems";
 import ApplicationModal from "@/components/dashboard/ApplicationModal";
 import { track } from "@/lib/analytics";
+import { useLeadScore } from "@/hooks/useLeadScore";
 
 const WA_LINK = "https://wa.me/33768674292";
 
@@ -20,6 +21,7 @@ const Dashboard = () => {
   const { t, language } = useLanguage();
   const isEn = language === "en";
   const { profile } = useAuth();
+  useLeadScore();
 
   const [modalOpen, setModalOpen] = useState(false);
   const [modalData, setModalData] = useState({ itemType: "", itemId: "", itemName: "" });

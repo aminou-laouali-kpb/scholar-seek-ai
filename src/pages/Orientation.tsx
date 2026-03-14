@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
+import { track } from "@/lib/analytics";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
@@ -53,11 +54,7 @@ const Orientation = () => {
         desired_program: fieldsData[fieldKey]?.title || fieldKey,
       }).eq("user_id", user.id);
       await refreshProfile();
-      // Fire-and-forget activity log
-      supabase
-        .from("activity_logs")
-        .insert({ user_id: user.id, action: "orientation_completed", details: { field: fieldKey } } as any)
-        .then(() => {});
+      track("orientation_completed", { field: fieldKey });
     }
     navigate("/dashboard");
   };

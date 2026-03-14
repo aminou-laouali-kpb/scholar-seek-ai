@@ -1,5 +1,5 @@
 import { Outlet, Link, useLocation, useNavigate } from "react-router-dom";
-import { LayoutDashboard, GraduationCap, Building2, MessageSquare, Settings, ChevronLeft, Users, LogOut, FileText, BookOpen, Mail, ClipboardList } from "lucide-react";
+import { LayoutDashboard, GraduationCap, Building2, MessageSquare, Settings, ChevronLeft, Users, LogOut, FileText, BookOpen, Mail, ClipboardList, Flame } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -12,6 +12,7 @@ const navItems = [
   { path: "/admin/contact-requests", label: "Contact", icon: Mail },
   { path: "/admin/questionnaire", label: "Questionnaire", icon: ClipboardList },
   { path: "/admin/users", label: "Users", icon: Users },
+  { path: "/admin/leads", label: "Student Leads", icon: Flame },
   { path: "/admin/blog", label: "Blog", icon: FileText },
   { path: "/admin/settings", label: "Settings", icon: Settings },
 ];
