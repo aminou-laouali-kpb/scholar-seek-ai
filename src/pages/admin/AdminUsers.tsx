@@ -52,7 +52,17 @@ interface ActivityLog {
 const ACTION_LABELS: Record<string, { label: string; color: string }> = {
   login: { label: "Logged in", color: "text-blue-600 dark:text-blue-400" },
   profile_completed: { label: "Profile completed", color: "text-emerald-600 dark:text-emerald-400" },
+  onboarding_completed: { label: "Onboarding completed", color: "text-emerald-600 dark:text-emerald-400" },
+  orientation_started: { label: "Orientation started", color: "text-indigo-600 dark:text-indigo-400" },
   orientation_completed: { label: "Orientation completed", color: "text-purple-600 dark:text-purple-400" },
+  application_started: { label: "Application started", color: "text-orange-600 dark:text-orange-400" },
+  support_requested: { label: "Support requested", color: "text-amber-600 dark:text-amber-400" },
+  consultation_requested: { label: "Consultation requested", color: "text-amber-600 dark:text-amber-400" },
+  whatsapp_clicked: { label: "WhatsApp clicked", color: "text-green-600 dark:text-green-400" },
+  recommendation_clicked: { label: "Recommendation clicked", color: "text-blue-600 dark:text-blue-400" },
+  item_saved: { label: "Item saved", color: "text-violet-600 dark:text-violet-400" },
+  item_unsaved: { label: "Item unsaved", color: "text-muted-foreground" },
+  destination_tool_opened: { label: "Destination tool opened", color: "text-cyan-600 dark:text-cyan-400" },
 };
 
 const ActivityTimeline = ({ userId }: { userId: string }) => {

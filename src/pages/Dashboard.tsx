@@ -21,6 +21,7 @@ const Dashboard = () => {
   const { t, language } = useLanguage();
   const isEn = language === "en";
   const { profile } = useAuth();
+  useLeadScore();
 
   const [modalOpen, setModalOpen] = useState(false);
   const [modalData, setModalData] = useState({ itemType: "", itemId: "", itemName: "" });

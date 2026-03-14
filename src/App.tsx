@@ -126,6 +126,7 @@ const App = () => (
                   <Route path="contact-requests" element={<AdminContactRequests />} />
                   <Route path="questionnaire" element={<AdminQuestionnaire />} />
                   <Route path="users" element={<AdminUsers />} />
+                  <Route path="leads" element={<AdminLeads />} />
                   <Route path="settings" element={<AdminSettings />} />
                   <Route path="blog" element={<AdminBlog />} />
                 </Route>

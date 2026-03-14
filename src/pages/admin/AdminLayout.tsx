@@ -12,6 +12,7 @@ const navItems = [
   { path: "/admin/contact-requests", label: "Contact", icon: Mail },
   { path: "/admin/questionnaire", label: "Questionnaire", icon: ClipboardList },
   { path: "/admin/users", label: "Users", icon: Users },
+  { path: "/admin/leads", label: "Student Leads", icon: Flame },
   { path: "/admin/blog", label: "Blog", icon: FileText },
   { path: "/admin/settings", label: "Settings", icon: Settings },
 ];
