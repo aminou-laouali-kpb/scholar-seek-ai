@@ -12,11 +12,19 @@ interface ProfileForMatching {
   scholarship_interest?: boolean | null;
 }
 
-interface MatchResult<T> {
+export interface MatchResult<T> {
   item: T;
   score: number;
   percentage: number;
+  matchLabel: { en: string; fr: string };
+  matchTier: "strong" | "good" | "explore";
   reasons: { en: string; fr: string }[];
+}
+
+function getMatchLabel(percentage: number): { label: { en: string; fr: string }; tier: "strong" | "good" | "explore" } {
+  if (percentage >= 70) return { label: { en: "Strong match", fr: "Très bon match" }, tier: "strong" };
+  if (percentage >= 45) return { label: { en: "Good fit", fr: "Bon match" }, tier: "good" };
+  return { label: { en: "Worth exploring", fr: "À explorer" }, tier: "explore" };
 }
 
 const COUNTRY_MAP: Record<string, string> = {
@@ -74,7 +82,10 @@ export function matchScholarships(
       const countryKey = COUNTRY_MAP[s.country];
       if (studentDests.includes(s.country) || studentDests.includes(countryKey || "")) {
         score += 30;
-        reasons.push({ en: "Matches your preferred destination", fr: "Correspond à votre destination préférée" });
+        reasons.push({
+          en: "This scholarship is available in your preferred country",
+          fr: "Cette bourse est disponible dans votre pays de préférence",
+        });
       } else if (s.country === profile.country_of_birth || s.country === profile.country_of_residence) {
         score += 15;
       }
@@ -83,19 +94,28 @@ export function matchScholarships(
       const programMatch = s.programs.some((p) => studentPrograms.includes(p));
       if (programMatch) {
         score += 30;
-        reasons.push({ en: "Aligns with your field of study", fr: "Correspond à votre domaine d'études" });
+        reasons.push({
+          en: "Covers programs related to your field of study",
+          fr: "Couvre des programmes liés à votre domaine d'études",
+        });
       }
 
       // Level match
       if (studentLevel && s.levels.includes(studentLevel)) {
         score += 20;
-        reasons.push({ en: "Available for your study level", fr: "Disponible pour votre niveau d'études" });
+        reasons.push({
+          en: "Open to students at your current level",
+          fr: "Ouverte aux étudiants de votre niveau actuel",
+        });
       }
 
       // Budget
       if (profile.budget_sensitivity === "low" && s.budgetFriendly) {
         score += 10;
-        reasons.push({ en: "Budget-friendly option", fr: "Option adaptée à votre budget" });
+        reasons.push({
+          en: "A budget-friendly option that fits your needs",
+          fr: "Une option économique adaptée à vos besoins",
+        });
       } else if (s.budgetFriendly) {
         score += 5;
       }
@@ -109,8 +129,9 @@ export function matchScholarships(
       if (score === 0) score = 5;
 
       const percentage = Math.min(Math.round((score / 100) * 100), 99);
+      const { label, tier } = getMatchLabel(percentage);
 
-      return { item: s, score, percentage, reasons };
+      return { item: s, score, percentage, matchLabel: label, matchTier: tier, reasons };
     })
     .sort((a, b) => b.score - a.score);
 }
@@ -132,29 +153,44 @@ export function matchAdmissions(
       const countryKey = COUNTRY_MAP[a.country];
       if (studentDests.includes(a.country) || studentDests.includes(countryKey || "")) {
         score += 30;
-        reasons.push({ en: "In your preferred destination", fr: "Dans votre destination préférée" });
+        reasons.push({
+          en: "Located in your preferred destination",
+          fr: "Situé dans votre destination de préférence",
+        });
       }
 
       // Program match
       const programMatch = a.programs.some((p) => studentPrograms.includes(p));
       if (programMatch) {
         score += 30;
-        reasons.push({ en: "Offers your field of study", fr: "Propose votre domaine d'études" });
+        reasons.push({
+          en: "Offers programs in your field of study",
+          fr: "Propose des programmes dans votre domaine d'études",
+        });
       }
 
       // Level match
       if (studentLevel && a.levels.includes(studentLevel)) {
         score += 20;
-        reasons.push({ en: "Available for your study level", fr: "Disponible pour votre niveau d'études" });
+        reasons.push({
+          en: "Open to students at your current level",
+          fr: "Ouvert aux étudiants de votre niveau actuel",
+        });
       }
 
       // Budget match
       if (profile.budget_sensitivity === "low" && a.budgetLevel === "low") {
         score += 15;
-        reasons.push({ en: "Affordable for your budget", fr: "Abordable pour votre budget" });
+        reasons.push({
+          en: "Affordable option that suits your budget",
+          fr: "Option abordable adaptée à votre budget",
+        });
       } else if (profile.budget_sensitivity === "medium" && (a.budgetLevel === "low" || a.budgetLevel === "medium")) {
         score += 10;
-        reasons.push({ en: "Within your budget range", fr: "Dans votre fourchette de budget" });
+        reasons.push({
+          en: "Within your budget range",
+          fr: "Dans votre fourchette de budget",
+        });
       } else if (profile.budget_sensitivity === "high") {
         score += 5;
       }
@@ -162,8 +198,9 @@ export function matchAdmissions(
       if (score === 0) score = 5;
 
       const percentage = Math.min(Math.round((score / 95) * 100), 99);
+      const { label, tier } = getMatchLabel(percentage);
 
-      return { item: a, score, percentage, reasons };
+      return { item: a, score, percentage, matchLabel: label, matchTier: tier, reasons };
     })
     .sort((a, b) => b.score - a.score);
 }

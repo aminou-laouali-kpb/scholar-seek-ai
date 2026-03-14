@@ -2,7 +2,7 @@ import { useLanguage } from "@/i18n/LanguageContext";
 import { useAuth } from "@/contexts/AuthContext";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { User, Edit, MapPin, GraduationCap, Compass } from "lucide-react";
+import { User, Edit, MapPin, GraduationCap, Compass, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { countries } from "@/data/countries";
@@ -18,7 +18,6 @@ const ProfileSummaryCard = () => {
     return c ? (isEn ? c.nameEn : c.nameFr) : code;
   };
 
-  // Calculate profile completion
   const fields = [
     profile?.first_name,
     profile?.last_name,
@@ -66,6 +65,16 @@ const ProfileSummaryCard = () => {
           <span className="text-xs font-bold text-primary">{completion}%</span>
         </div>
         <Progress value={completion} className="h-2" />
+        {completion < 100 && (
+          <Link to="/complete-profile" className="block mt-2">
+            <p className="text-xs text-accent font-medium flex items-center gap-1 hover:underline">
+              {isEn
+                ? "Complete your profile for better recommendations"
+                : "Complétez votre profil pour de meilleures recommandations"}
+              <ArrowRight className="w-3 h-3" />
+            </p>
+          </Link>
+        )}
       </div>
 
       <div className="grid grid-cols-2 gap-3 text-sm">

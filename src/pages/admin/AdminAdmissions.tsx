@@ -3,10 +3,11 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Plus, Search, Pencil, Trash2, Eye, EyeOff, Download, Upload } from "lucide-react";
+import { Plus, Search, Pencil, Trash2, Eye, EyeOff, Download, Upload, Star } from "lucide-react";
 import AdmissionForm from "@/components/admin/AdmissionForm";
 import { useToast } from "@/hooks/use-toast";
 import { exportToCsv, parseCsv } from "@/lib/csv";
+import { track } from "@/lib/analytics";
 
 export interface AdminAdmission {
   id: string;
@@ -31,6 +32,15 @@ export interface AdminAdmission {
   created_at: string;
   updated_at: string;
 }
+
+const STATUS_BADGE: Record<string, string> = {
+  open: "bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300",
+  rolling: "bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300",
+  opening_soon: "bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300",
+  closed: "bg-secondary text-muted-foreground",
+  paused: "bg-secondary text-muted-foreground",
+  to_confirm: "border border-amber-300 text-amber-700 dark:text-amber-400 bg-transparent",
+};
 
 const AdminAdmissions = () => {
   const [items, setItems] = useState<AdminAdmission[]>([]);
@@ -60,6 +70,7 @@ const AdminAdmissions = () => {
 
   const togglePublish = async (item: AdminAdmission) => {
     await supabase.from("admin_admissions").update({ is_published: !item.is_published }).eq("id", item.id);
+    track(item.is_published ? "admin_unpublish" : "admin_publish", { type: "admission", id: item.id });
     fetchData();
   };
 
@@ -71,29 +82,23 @@ const AdminAdmissions = () => {
   const handleImport = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-
     const reader = new FileReader();
     reader.onload = async (event) => {
       try {
         const csvData = event.target?.result as string;
         const parsedData = parseCsv(csvData);
-        
         if (parsedData.length === 0) {
           toast({ title: "Error", description: "Empty or invalid CSV file.", variant: "destructive" });
           return;
         }
-
         const formattedData = parsedData.map(item => ({
           ...item,
           programs: Array.isArray(item.programs) ? item.programs : (item.programs ? [item.programs] : []),
           levels: Array.isArray(item.levels) ? item.levels : (item.levels ? [item.levels] : []),
           relevance_tags: Array.isArray(item.relevance_tags) ? item.relevance_tags : (item.relevance_tags ? [item.relevance_tags] : [])
         }));
-
         const { error } = await supabase.from("admin_admissions").upsert(formattedData);
-        
         if (error) throw error;
-        
         toast({ title: "Success", description: `Imported ${formattedData.length} records.` });
         fetchData();
       } catch (err: any) {
@@ -144,8 +149,11 @@ const AdminAdmissions = () => {
         <select className="border border-input rounded-md px-3 py-2 text-sm bg-background" value={filterStatus} onChange={(e) => setFilterStatus(e.target.value)}>
           <option value="">All Status</option>
           <option value="open">Open</option>
+          <option value="rolling">Rolling</option>
+          <option value="opening_soon">Opening Soon</option>
           <option value="closed">Closed</option>
           <option value="paused">Paused</option>
+          <option value="to_confirm">To Confirm</option>
         </select>
       </div>
 
@@ -164,33 +172,49 @@ const AdminAdmissions = () => {
             </thead>
             <tbody>
               {filtered.map((item) => (
-                <tr key={item.id} className="border-b border-border last:border-0 hover:bg-muted/20">
-                  <td className="px-4 py-3 font-medium text-foreground">{item.institution_name}</td>
-                  <td className="px-4 py-3">{item.country_flag} {item.country}</td>
-                  <td className="px-4 py-3 capitalize">{item.institution_type}</td>
-                  <td className="px-4 py-3">
-                    <Badge variant={item.status === "open" ? "default" : "secondary"}>{item.status}</Badge>
-                  </td>
-                  <td className="px-4 py-3">
-                    {item.is_published ? <Badge className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">Live</Badge> : <Badge variant="secondary">Draft</Badge>}
-                  </td>
-                  <td className="px-4 py-3">
-                    <div className="flex justify-end gap-1">
-                      <Button variant="ghost" size="icon" onClick={() => togglePublish(item)} title={item.is_published ? "Unpublish" : "Publish"}>
-                        {item.is_published ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                      </Button>
-                      <Button variant="ghost" size="icon" onClick={() => { setEditing(item); setFormOpen(true); }}>
-                        <Pencil className="w-4 h-4" />
-                      </Button>
-                      <Button variant="ghost" size="icon" onClick={() => handleDelete(item.id)}>
-                        <Trash2 className="w-4 h-4 text-destructive" />
-                      </Button>
-                    </div>
-                  </td>
-                </tr>
+                <>
+                  <tr key={item.id} className="border-b border-border last:border-0 hover:bg-muted/20">
+                    <td className="px-4 py-3 font-medium text-foreground">
+                      <div className="flex items-center gap-1.5">
+                        {item.is_featured && <Star className="w-3.5 h-3.5 text-accent fill-accent shrink-0" />}
+                        {item.institution_name}
+                      </div>
+                    </td>
+                    <td className="px-4 py-3">{item.country_flag} {item.country}</td>
+                    <td className="px-4 py-3 capitalize">{item.institution_type}</td>
+                    <td className="px-4 py-3">
+                      <span className={`text-xs font-semibold px-2 py-1 rounded-full ${STATUS_BADGE[item.status] || "bg-secondary text-muted-foreground"}`}>
+                        {item.status.replace("_", " ")}
+                      </span>
+                    </td>
+                    <td className="px-4 py-3">
+                      {item.is_published ? <Badge className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">Live</Badge> : <Badge variant="secondary">Draft</Badge>}
+                    </td>
+                    <td className="px-4 py-3">
+                      <div className="flex justify-end gap-1">
+                        <Button variant="ghost" size="icon" onClick={() => togglePublish(item)} title={item.is_published ? "Unpublish" : "Publish"}>
+                          {item.is_published ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                        </Button>
+                        <Button variant="ghost" size="icon" onClick={() => { setEditing(item); setFormOpen(true); }}>
+                          <Pencil className="w-4 h-4" />
+                        </Button>
+                        <Button variant="ghost" size="icon" onClick={() => handleDelete(item.id)}>
+                          <Trash2 className="w-4 h-4 text-destructive" />
+                        </Button>
+                      </div>
+                    </td>
+                  </tr>
+                  {item.admin_notes && (
+                    <tr key={`${item.id}-notes`} className="border-b border-border last:border-0">
+                      <td colSpan={6} className="px-4 pb-3 pt-0">
+                        <p className="text-xs text-muted-foreground italic">📝 {item.admin_notes}</p>
+                      </td>
+                    </tr>
+                  )}
+                </>
               ))}
               {filtered.length === 0 && (
-                <tr><td colSpan={6} className="px-4 py-8 text-center text-muted-foreground">No admissions found.</td></tr>
+                <tr><td colSpan={6} className="px-4 py-8 text-center text-muted-foreground">No admissions yet. Add your first admission to start matching students.</td></tr>
               )}
             </tbody>
           </table>

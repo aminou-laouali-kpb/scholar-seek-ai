@@ -2,12 +2,13 @@ import { useLanguage } from "@/i18n/LanguageContext";
 import { useAuth } from "@/contexts/AuthContext";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { 
-  UserCheck, Compass, Globe2, Bookmark, FileText, 
-  MessageCircle, ArrowRight, CheckCircle2, Search
+import {
+  UserCheck, Compass, Globe2, Bookmark, FileText,
+  MessageCircle, ArrowRight, CheckCircle2, ClipboardList
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useSavedItems } from "@/hooks/useSavedItems";
+import { track } from "@/lib/analytics";
 
 const WA_LINK = "https://wa.me/33768674292";
 
@@ -20,6 +21,7 @@ interface Step {
   link: string;
   external?: boolean;
   done?: boolean;
+  priority: number;
 }
 
 const NextSteps = () => {
@@ -32,69 +34,108 @@ const NextSteps = () => {
   const hasProgram = !!(profile?.desired_program || profile?.orientation_result);
   const hasDestinations = !!(profile?.preferred_destinations?.length);
   const hasSaved = savedItems.length > 0;
+  const isAdvanced = profileCompleted && hasProgram && hasDestinations;
+  const wantsScholarships = profile?.scholarship_interest !== false;
 
   const allSteps: Step[] = [
     {
       id: "complete-profile",
       icon: UserCheck,
       title: { en: "Complete your profile", fr: "Complétez votre profil" },
-      desc: { en: "Add your details so we can give you better recommendations.", fr: "Ajoutez vos informations pour de meilleures recommandations." },
+      desc: {
+        en: "The more we know about you, the better your recommendations will be.",
+        fr: "Plus nous en savons sur vous, meilleures seront vos recommandations.",
+      },
       cta: { en: "Complete Profile", fr: "Compléter le profil" },
       link: "/complete-profile",
       done: profileCompleted,
+      priority: profileCompleted ? 99 : 1,
     },
     {
       id: "choose-program",
       icon: Compass,
-      title: { en: "Choose your study program", fr: "Choisissez votre programme" },
-      desc: { en: "Take our orientation test to discover the best program for you.", fr: "Passez notre test d'orientation pour découvrir le meilleur programme." },
-      cta: { en: "Take Orientation Test", fr: "Passer le test" },
+      title: { en: "Discover your ideal program", fr: "Découvrez votre programme idéal" },
+      desc: {
+        en: "Take our quick orientation test to find the best study program for your goals.",
+        fr: "Passez notre test d'orientation rapide pour trouver le programme qui correspond à vos objectifs.",
+      },
+      cta: { en: "Take Orientation Test", fr: "Passer le test d'orientation" },
       link: "/orientation",
       done: hasProgram,
+      priority: hasProgram ? 99 : 2,
     },
     {
       id: "explore-destinations",
       icon: Globe2,
-      title: { en: "Explore destination options", fr: "Explorez les destinations" },
-      desc: { en: "Browse our destination tools and find the best country for you.", fr: "Parcourez nos outils de destination et trouvez le meilleur pays." },
-      cta: { en: "Explore Destinations", fr: "Explorer" },
+      title: { en: "Choose your destination", fr: "Choisissez votre destination" },
+      desc: {
+        en: "Explore our tools to find the best country and university for your profile.",
+        fr: "Explorez nos outils pour trouver le meilleur pays et la meilleure université pour votre profil.",
+      },
+      cta: { en: "Explore Destinations", fr: "Explorer les destinations" },
       link: "/destinations",
       done: hasDestinations,
+      priority: hasDestinations ? 99 : 3,
     },
     {
       id: "save-items",
       icon: Bookmark,
-      title: { en: "Save scholarships or universities", fr: "Sauvegardez des bourses ou universités" },
-      desc: { en: "Browse recommendations below and save the ones that interest you.", fr: "Parcourez les recommandations ci-dessous et sauvegardez celles qui vous intéressent." },
+      title: { en: "Build your shortlist", fr: "Créez votre sélection" },
+      desc: {
+        en: "Browse recommendations below and save the scholarships or universities that interest you.",
+        fr: "Parcourez les recommandations ci-dessous et sauvegardez les bourses ou universités qui vous intéressent.",
+      },
       cta: { en: "Browse Scholarships", fr: "Voir les bourses" },
       link: "#scholarships-section",
       done: hasSaved,
+      priority: hasSaved ? 99 : (wantsScholarships ? 3.5 : 5),
+    },
+    {
+      id: "review-shortlist",
+      icon: ClipboardList,
+      title: { en: "Review your shortlist", fr: "Consultez votre sélection" },
+      desc: {
+        en: "You have saved items — review them and decide which ones to pursue.",
+        fr: "Vous avez des éléments sauvegardés — consultez-les et décidez lesquels poursuivre.",
+      },
+      cta: { en: "View Shortlist", fr: "Voir la sélection" },
+      link: "#saved-section",
+      done: false,
+      priority: hasSaved ? (isAdvanced ? 1 : 4) : 99,
     },
     {
       id: "prepare-docs",
       icon: FileText,
       title: { en: "Prepare your documents", fr: "Préparez vos documents" },
-      desc: { en: "Get ready for applications by gathering transcripts, CV, and motivation letters.", fr: "Préparez vos candidatures en rassemblant relevés, CV et lettres de motivation." },
+      desc: {
+        en: "Get ready by gathering your transcripts, CV, and motivation letters.",
+        fr: "Préparez-vous en rassemblant vos relevés de notes, CV et lettres de motivation.",
+      },
       cta: { en: "Learn More", fr: "En savoir plus" },
       link: "/services",
       done: false,
+      priority: isAdvanced ? 2 : 6,
     },
     {
       id: "contact-advisor",
       icon: MessageCircle,
       title: { en: "Talk to a KPB advisor", fr: "Parlez à un conseiller KPB" },
-      desc: { en: "Get personalized guidance from our expert team.", fr: "Obtenez des conseils personnalisés de notre équipe d'experts." },
+      desc: {
+        en: "Get personalized guidance from our expert team — we're here to help.",
+        fr: "Obtenez des conseils personnalisés de notre équipe d'experts — nous sommes là pour vous aider.",
+      },
       cta: { en: "Chat on WhatsApp", fr: "Discuter sur WhatsApp" },
       link: WA_LINK,
       external: true,
       done: false,
+      priority: isAdvanced ? 1.5 : 7,
     },
   ];
 
-  // Show undone steps first, limit to 4
-  const pending = allSteps.filter((s) => !s.done);
+  // Sort by priority (lower = higher priority), filter out hidden ones (priority 99)
+  const pending = allSteps.filter((s) => !s.done && s.priority < 99).sort((a, b) => a.priority - b.priority);
   const completed = allSteps.filter((s) => s.done);
-  const displayed = [...pending.slice(0, 4)];
+  const displayed = pending.slice(0, 4);
 
   return (
     <div>
@@ -103,8 +144,8 @@ const NextSteps = () => {
       </h2>
       <p className="text-muted-foreground text-sm mb-4">
         {isEn
-          ? `${completed.length} of ${allSteps.length} steps completed`
-          : `${completed.length} sur ${allSteps.length} étapes complétées`}
+          ? `${completed.length} of ${allSteps.filter(s => s.priority < 99 || s.done).length} steps completed — keep going!`
+          : `${completed.length} sur ${allSteps.filter(s => s.priority < 99 || s.done).length} étapes complétées — continuez !`}
       </p>
       <div className="grid sm:grid-cols-2 gap-4">
         {displayed.map((step, i) => {
@@ -139,7 +180,7 @@ const NextSteps = () => {
 
           if (step.external)
             return (
-              <a key={step.id} href={step.link} target="_blank" rel="noopener noreferrer">
+              <a key={step.id} href={step.link} target="_blank" rel="noopener noreferrer" onClick={() => track("whatsapp_clicked", { context: "next_steps" })}>
                 {content}
               </a>
             );

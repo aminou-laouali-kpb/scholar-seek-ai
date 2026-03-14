@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { motion, AnimatePresence } from "framer-motion";
-import { Bookmark, Star, StarOff, Trash2, Award, GraduationCap, Globe2 } from "lucide-react";
+import { Bookmark, Star, StarOff, Trash2, Award, GraduationCap, Globe2, MessageCircle, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useSavedItems, SavedItemType } from "@/hooks/useSavedItems";
 import { scholarships } from "@/data/scholarships";
 import { admissions } from "@/data/admissions";
+import { track } from "@/lib/analytics";
+
+const WA_LINK = "https://wa.me/33768674292";
 
 const TABS: { key: "all" | SavedItemType; en: string; fr: string }[] = [
   { key: "all", en: "All", fr: "Tout" },
@@ -43,17 +46,39 @@ const SavedItems = () => {
     return Globe2;
   };
 
-  if (items.length === 0) return null;
+  // Empty state
+  if (items.length === 0) {
+    return (
+      <div>
+        <h2 className="font-heading font-bold text-xl text-foreground mb-2">
+          {isEn ? "Your Shortlist" : "Votre sélection"}
+        </h2>
+        <div className="bg-card rounded-2xl p-8 shadow-card border border-border text-center">
+          <Bookmark className="w-10 h-10 text-muted-foreground/30 mx-auto mb-3" />
+          <p className="text-muted-foreground text-sm mb-1">
+            {isEn
+              ? "You haven't saved anything yet."
+              : "Vous n'avez encore rien sauvegardé."}
+          </p>
+          <p className="text-muted-foreground text-xs">
+            {isEn
+              ? "Browse scholarships or admissions above and bookmark the ones that interest you."
+              : "Parcourez les bourses ou admissions ci-dessus et ajoutez en favoris celles qui vous intéressent."}
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div>
       <h2 className="font-heading font-bold text-xl text-foreground mb-1">
-        {isEn ? "My Saved Items" : "Mes favoris"}
+        {isEn ? "Your Shortlist" : "Votre sélection"}
       </h2>
       <p className="text-muted-foreground text-sm mb-4">
         {isEn
-          ? `${items.length} item${items.length > 1 ? "s" : ""} saved`
-          : `${items.length} élément${items.length > 1 ? "s" : ""} sauvegardé${items.length > 1 ? "s" : ""}`}
+          ? `${items.length} item${items.length > 1 ? "s" : ""} saved — review and take action`
+          : `${items.length} élément${items.length > 1 ? "s" : ""} sauvegardé${items.length > 1 ? "s" : ""} — consultez et passez à l'action`}
       </p>
 
       {/* Tabs */}
@@ -125,6 +150,21 @@ const SavedItems = () => {
             );
           })}
         </AnimatePresence>
+      </div>
+
+      {/* Advisor CTA for saved items */}
+      <div className="mt-4 bg-accent/5 border border-accent/10 rounded-xl p-4 flex flex-col sm:flex-row items-center gap-3">
+        <p className="text-sm text-foreground flex-1">
+          {isEn
+            ? "Ready to move forward? Talk to an advisor about your shortlist."
+            : "Prêt à avancer ? Parlez à un conseiller de votre sélection."}
+        </p>
+        <a href={WA_LINK} target="_blank" rel="noopener noreferrer">
+          <Button variant="accent" size="sm" onClick={() => track("whatsapp_clicked", { context: "saved_items" })}>
+            <MessageCircle className="w-4 h-4" />
+            {isEn ? "Chat on WhatsApp" : "Discuter sur WhatsApp"}
+          </Button>
+        </a>
       </div>
     </div>
   );

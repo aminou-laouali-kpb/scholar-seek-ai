@@ -12,6 +12,7 @@ import ScholarshipRecommendations from "@/components/dashboard/ScholarshipRecomm
 import AdmissionOpportunities from "@/components/dashboard/AdmissionOpportunities";
 import SavedItems from "@/components/dashboard/SavedItems";
 import ApplicationModal from "@/components/dashboard/ApplicationModal";
+import { track } from "@/lib/analytics";
 
 const WA_LINK = "https://wa.me/33768674292";
 
@@ -24,6 +25,7 @@ const Dashboard = () => {
   const [modalData, setModalData] = useState({ itemType: "", itemId: "", itemName: "" });
 
   const handleApply = (itemType: string, itemId: string, itemName: string) => {
+    track("application_started", { itemType, itemId, itemName });
     setModalData({ itemType, itemId, itemName });
     setModalOpen(true);
   };
@@ -37,11 +39,11 @@ const Dashboard = () => {
   ];
 
   const destDescriptions: Record<string, { en: string; fr: string }> = {
-    france: { en: "Find the best private school for your profile", fr: "Trouve la meilleure école privée selon ton profil" },
-    belgium: { en: "Find the best university according to your profile", fr: "Trouve la meilleure université selon ton profil" },
-    canada: { en: "Find the best university according to your profile", fr: "Trouve la meilleure université selon ton profil" },
-    china: { en: "Find the best university according to your profile", fr: "Trouve la meilleure université selon ton profil" },
-    usa: { en: "Find the best university or community college for your profile", fr: "Trouve la meilleure université ou community college selon ton profil" },
+    france: { en: "Find the best private school for your profile", fr: "Trouvez la meilleure école privée selon votre profil" },
+    belgium: { en: "Find the best university for your profile", fr: "Trouvez la meilleure université selon votre profil" },
+    canada: { en: "Find the best university for your profile", fr: "Trouvez la meilleure université selon votre profil" },
+    china: { en: "Find the best university for your profile", fr: "Trouvez la meilleure université selon votre profil" },
+    usa: { en: "Find the best university or community college for your profile", fr: "Trouvez la meilleure université ou community college selon votre profil" },
   };
 
   return (
@@ -59,8 +61,8 @@ const Dashboard = () => {
           </h1>
           <p className="text-primary-foreground/70 mt-1 text-sm">
             {isEn
-              ? "Your personalized study abroad guidance dashboard."
-              : "Votre tableau de bord personnalisé pour étudier à l'étranger."}
+              ? "Your personalized roadmap to studying abroad — everything in one place."
+              : "Votre feuille de route personnalisée pour étudier à l'étranger — tout en un seul endroit."}
           </p>
         </div>
       </div>
@@ -82,13 +84,13 @@ const Dashboard = () => {
         {/* Admission Opportunities */}
         <AdmissionOpportunities onApply={handleApply} />
 
-        {/* Destinations & Tools (preserved) */}
+        {/* Destinations & Tools */}
         <div>
           <h2 className="font-heading font-bold text-xl text-foreground mb-1">
-            {isEn ? "Destination Tools for Your Profile" : "Outils de destination pour votre profil"}
+            {isEn ? "Find the Right University for Your Goals" : "Trouvez l'université idéale pour vos objectifs"}
           </h2>
           <p className="text-muted-foreground text-sm mb-5">
-            {isEn ? "Explore our destination tools to find the best universities and programs for you." : "Explorez nos outils de destination pour trouver les meilleures universités et programmes pour vous."}
+            {isEn ? "Use our destination tools to discover the best universities and programs for your profile." : "Utilisez nos outils de destination pour découvrir les meilleures universités et programmes selon votre profil."}
           </p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {destinations.map((dest, i) => {
@@ -114,14 +116,14 @@ const Dashboard = () => {
                     <Link to={dest.route}>
                       <Button variant="default" size="sm" className="w-full">
                         <DestIcon className="w-4 h-4" />
-                        {isEn ? "Open Tool" : "Ouvrir l'Outil"}
+                        {isEn ? "Open Tool" : "Ouvrir l'outil"}
                         <ArrowRight className="w-3 h-3" />
                       </Button>
                     </Link>
-                    <a href={WA_LINK} target="_blank" rel="noopener noreferrer">
+                    <a href={WA_LINK} target="_blank" rel="noopener noreferrer" onClick={() => track("whatsapp_clicked", { context: "destination_tool", destination: dest.key })}>
                       <Button variant="outline" size="sm" className="w-full">
                         <MessageCircle className="w-4 h-4" />
-                        {isEn ? "Talk to Advisor" : "Parler à un Conseiller"}
+                        {isEn ? "Talk to Advisor" : "Parler à un conseiller"}
                       </Button>
                     </a>
                   </div>
@@ -132,7 +134,9 @@ const Dashboard = () => {
         </div>
 
         {/* Saved Items */}
-        <SavedItems />
+        <div id="saved-section">
+          <SavedItems />
+        </div>
 
         {/* Advisor CTA */}
         <motion.div
@@ -148,7 +152,7 @@ const Dashboard = () => {
               ? "Our expert advisors are ready to help you with university selection, application reviews, visa support, and more."
               : "Nos conseillers experts sont prêts à vous aider pour le choix des universités, la relecture des candidatures, l'aide au visa, et plus encore."}
           </p>
-          <a href={WA_LINK} target="_blank" rel="noopener noreferrer">
+          <a href={WA_LINK} target="_blank" rel="noopener noreferrer" onClick={() => track("whatsapp_clicked", { context: "dashboard_cta" })}>
             <Button variant="accent" size="lg">
               <MessageCircle className="w-5 h-5" />
               {isEn ? "Chat with an Advisor" : "Discuter avec un conseiller"}
