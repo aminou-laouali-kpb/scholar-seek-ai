@@ -28,7 +28,7 @@ const HScrollSection = ({ children, className = "" }: { children: React.ReactNod
   </div>
 );
 
-const AnimatedStatPill = React.forwardRef<HTMLDivElement, { target: number; suffix: string; label: string }>(({ target, suffix, label }, _forwardedRef) => {
+const AnimatedStatPill = forwardRef<HTMLDivElement, { target: number; suffix: string; label: string }>(({ target, suffix, label }, _forwardedRef) => {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true });
   const [count, setCount] = useState(0);
