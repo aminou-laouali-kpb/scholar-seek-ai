@@ -424,8 +424,8 @@ export const translations: Record<Language, Record<string, any>> = {
       cards: {
         profile: { title: "My Profile", desc: "View and edit your personal information and academic profile." },
         orientation: { title: "My Orientation Result", desc: "Discover the best study program for your personality and goals." },
-        scholarships: { title: "Recommended Scholarships", desc: "AI-powered scholarship recommendations based on your profile — coming soon." },
-        admissions: { title: "Ongoing Admissions", desc: "Active admission opportunities matching your profile — coming soon." },
+        scholarships: { title: "Recommended Scholarships", desc: "Personalized scholarship recommendations based on your profile." },
+        admissions: { title: "Ongoing Admissions", desc: "Active admission opportunities matching your profile." },
         actions: { title: "Next Actions", desc: "Your personalized checklist of steps to take for your study abroad journey." },
         advisor: { title: "Contact an Advisor", desc: "Chat with a KPB advisor on WhatsApp for personalized guidance." },
       },
