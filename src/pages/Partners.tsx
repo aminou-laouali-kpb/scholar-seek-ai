@@ -234,7 +234,7 @@ const Partners = () => {
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-2 flex-wrap">
                               <h4 className="font-medium text-foreground">{program.program_name}</h4>
-                              {program.is_featured && <Badge className="bg-accent text-accent-foreground text-[10px]">⭐ Featured</Badge>}
+                              {program.is_featured && <Badge className="bg-accent text-accent-foreground text-[10px]">⭐ {isEn ? "Featured" : "En vedette"}</Badge>}
                               {program.scholarship_available === "Yes" && (
                                 <Badge className="bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300 text-[10px]">
                                   <Sparkles className="w-3 h-3 mr-0.5" />
