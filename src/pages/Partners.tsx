@@ -325,7 +325,7 @@ const Partners = () => {
             <h2 className="font-heading text-2xl md:text-3xl font-bold text-foreground mb-4">{isEn ? "Ready to Apply to a Partner School?" : "Prêt à postuler dans une école partenaire ?"}</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto mb-6">{isEn ? "Complete your profile to see personalized school recommendations, or talk to our advisors for guidance." : "Complétez votre profil pour voir les recommandations personnalisées, ou parlez à nos conseillers pour être guidé."}</p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Link to="/dashboard"><Button variant="default" size="lg">{isEn ? "Go to Dashboard" : "Accéder au tableau de bord"}<ArrowRight className="w-4 h-4" /></Button></Link>
+              <Link to={user ? "/dashboard" : "/signup"}><Button variant="default" size="lg">{user ? (isEn ? "Go to Dashboard" : "Accéder au tableau de bord") : (isEn ? "Create My Free Account" : "Créer Mon Compte Gratuit")}<ArrowRight className="w-4 h-4" /></Button></Link>
               <a href={WA_LINK} target="_blank" rel="noopener noreferrer" onClick={() => track("whatsapp_clicked", { context: "partners_cta" })}><Button variant="outline" size="lg"><MessageCircle className="w-4 h-4" />{isEn ? "Contact an Advisor" : "Contacter un conseiller"}</Button></a>
             </div>
           </div>

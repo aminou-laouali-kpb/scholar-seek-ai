@@ -28,8 +28,22 @@ const CountryDetail = () => {
 
   if (!country || !countryFlags[country]) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p className="text-muted-foreground">Country not found.</p>
+      <div className="min-h-screen bg-background">
+        <section className="gradient-hero section-padding">
+          <div className="container-narrow mx-auto text-center">
+            <div className="text-6xl mb-4">🌍</div>
+            <h1 className="font-heading font-extrabold text-3xl text-primary-foreground">{isEn ? "Country Not Found" : "Pays introuvable"}</h1>
+            <p className="mt-4 text-primary-foreground/80 max-w-md mx-auto">
+              {isEn ? "We couldn't find the destination you're looking for." : "Nous n'avons pas trouvé la destination que vous recherchez."}
+            </p>
+            <Link to="/destinations">
+              <Button variant="hero" size="lg" className="mt-6">
+                <ArrowRight className="w-4 h-4" />
+                {isEn ? "View All Destinations" : "Voir toutes les destinations"}
+              </Button>
+            </Link>
+          </div>
+        </section>
       </div>
     );
   }

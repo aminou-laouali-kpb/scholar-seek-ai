@@ -36,6 +36,8 @@ const Orientation = () => {
   const [answers, setAnswers] = useState<Record<number, string>>({});
   const [showResult, setShowResult] = useState(false);
 
+  useEffect(() => { track("orientation_started"); }, []);
+
   const steps = t("orientation.steps") as Array<{ title: string; subtitle: string; options: Array<{ value: string; label: string }> }>;
   const totalSteps = steps.length;
   const progress = ((currentStep + 1) / totalSteps) * 100;

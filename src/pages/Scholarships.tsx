@@ -149,7 +149,7 @@ const Scholarships = () => {
                   className="bg-card rounded-2xl p-5 shadow-card border border-border hover:shadow-card-hover transition-all relative"
                 >
                   {s.is_featured && (
-                    <Badge className="absolute top-4 right-4 bg-accent text-accent-foreground text-[10px]">⭐ Featured</Badge>
+                    <Badge className="absolute top-4 right-4 bg-accent text-accent-foreground text-[10px]">⭐ {isEn ? "Featured" : "En vedette"}</Badge>
                   )}
 
                   <div className="flex items-center gap-2 mb-3">

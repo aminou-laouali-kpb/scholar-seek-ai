@@ -74,7 +74,8 @@ const AdminLayout = () => {
       </aside>
 
       {/* Mobile top nav */}
-      <div className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-sidebar text-sidebar-foreground px-4 py-3 flex items-center gap-3 overflow-x-auto">
+      <div className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-sidebar text-sidebar-foreground px-4 py-3 flex items-center gap-3 overflow-x-auto relative">
+        <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-sidebar to-transparent z-10" />
         <Link to="/" className="shrink-0">
           <ChevronLeft className="w-4 h-4" />
         </Link>
