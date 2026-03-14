@@ -140,8 +140,22 @@ export const translations: Record<Language, Record<string, any>> = {
     finalCTA: {
       title: "Your Future Won't Wait. Neither Should You.",
       subtitle: "Take the first step today. It's free, fast, and could change everything.",
-      cta1: "I Start My Process!",
+      cta1: "Create My Account",
       cta2: "Book a Free Consultation",
+    },
+    destinationsGlance: {
+      title: "Explore Our Destinations",
+      subtitle: "10 countries, one platform. Find the right fit for your studies.",
+      cta: "View All Destinations",
+      conversionTitle: "Ready to get matched?",
+      conversionSubtitle: "Create your free account and get personalized recommendations based on your profile and goals.",
+    },
+    platformPromo: {
+      title: "Your Free Student Platform",
+      subtitle: "Create your account and unlock personalized scholarship matches, admission opportunities, next steps, and guided support — all in one place.",
+      badges: ["100% Free", "Personalized", "Guided by Advisors"],
+      ctaPrimary: "Create My Account",
+      ctaSecondary: "Explore the Platform",
     },
     questionnaire: {
       pageTitle: "Let's Find Your Path",
