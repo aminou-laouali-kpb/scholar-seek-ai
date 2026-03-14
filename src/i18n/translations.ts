@@ -23,11 +23,18 @@ export const translations: Record<Language, Record<string, any>> = {
       titleHighlight: "We Handle Everything",
       subtitle: "Stop guessing. KPB Education finds you the right university, the right scholarship, and guides you from the first click to your student visa. Join 500+ students who trusted us.",
       cta1: "I Start My Process!",
+      ctaSignup: "Create My Account",
+      ctaTools: "Explore Our Tools",
       cta2: "Talk to an Advisor",
       stats: {
         students: "500+ Students Guided",
         countries: "8+ Destinations",
         rate: "95% Success Rate",
+      },
+      statLabels: {
+        students: "students guided",
+        success: "success rate",
+        countries: "countries",
       },
     },
     tools: {
