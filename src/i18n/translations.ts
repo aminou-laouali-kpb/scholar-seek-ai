@@ -851,8 +851,22 @@ export const translations: Record<Language, Record<string, any>> = {
     finalCTA: {
       title: "Votre Avenir N'attend Pas. Vous Non Plus.",
       subtitle: "Faites le premier pas aujourd'hui. C'est gratuit, rapide, et ça peut tout changer.",
-      cta1: "Je commence ma procédure !",
+      cta1: "Créer Mon Compte",
       cta2: "Réserver une Consultation Gratuite",
+    },
+    destinationsGlance: {
+      title: "Explorez Nos Destinations",
+      subtitle: "10 pays, une seule plateforme. Trouvez la destination idéale pour vos études.",
+      cta: "Voir Toutes les Destinations",
+      conversionTitle: "Prêt à être mis en relation ?",
+      conversionSubtitle: "Créez votre compte gratuit et recevez des recommandations personnalisées selon votre profil et vos objectifs.",
+    },
+    platformPromo: {
+      title: "Votre Plateforme Étudiante Gratuite",
+      subtitle: "Créez votre compte et débloquez des bourses personnalisées, des opportunités d'admission, des prochaines étapes et un accompagnement guidé — tout en un seul endroit.",
+      badges: ["100% Gratuit", "Personnalisé", "Guidé par des Conseillers"],
+      ctaPrimary: "Créer Mon Compte",
+      ctaSecondary: "Explorer la Plateforme",
     },
     questionnaire: {
       pageTitle: "Trouvons Votre Chemin",
