@@ -86,7 +86,7 @@ export async function computeLeadScore(userId: string): Promise<LeadScoreResult>
 export async function upsertLeadScore(userId: string): Promise<LeadScoreResult> {
   const score = await computeLeadScore(userId);
 
-  await supabase
+  await (supabase as any)
     .from("lead_scores")
     .upsert(
       {
@@ -96,7 +96,7 @@ export async function upsertLeadScore(userId: string): Promise<LeadScoreResult> 
         strong_signals: score.strongSignals,
         last_action: score.lastAction,
         last_action_at: score.lastActionAt,
-      } as any,
+      },
       { onConflict: "user_id" }
     );
 
