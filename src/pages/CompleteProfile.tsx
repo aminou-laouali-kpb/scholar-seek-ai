@@ -137,7 +137,7 @@ const CompleteProfile = () => {
     const whatsappNumber = rawWhatsapp.startsWith(prefix) ? rawWhatsapp.slice(prefix.length) : rawWhatsapp;
 
     const programValue = profile.desired_program || "";
-    const isStandardProgram = STUDY_PROGRAMS.includes(programValue);
+    const isStandardProgram = (STUDY_PROGRAMS as readonly string[]).includes(programValue);
 
     setForm({
       firstName: profile.first_name || "",
