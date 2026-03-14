@@ -51,6 +51,10 @@ const CountryDetail = () => {
 
   return (
     <div className="min-h-screen">
+      <SEOHead
+        title={`${isEn ? "Study in" : "Étudier en"} ${name} — KPB Education`}
+        description={data.tagline}
+      />
       {/* Hero */}
       <section className="gradient-hero section-padding">
         <div className="container-narrow mx-auto text-center">
