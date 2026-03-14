@@ -39,6 +39,7 @@ const ApplicationModal = ({ open, onOpenChange, itemType, itemId, itemName }: Ap
         item_name: itemName,
         status: "started",
       } as any);
+      track("application_started", { itemType, itemId, itemName });
     }
 
     await supabase.from("consultation_requests").insert({
@@ -49,6 +50,12 @@ const ApplicationModal = ({ open, onOpenChange, itemType, itemId, itemName }: Ap
       item_name: itemName,
       message: message,
     } as any);
+
+    if (requestType === "consultation") {
+      track("consultation_requested", { itemType, itemId, itemName });
+    } else if (requestType === "support") {
+      track("support_requested", { itemType, itemId, itemName });
+    }
 
     setStep("success");
     setLoading(false);
