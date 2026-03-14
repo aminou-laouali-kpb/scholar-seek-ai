@@ -2,6 +2,7 @@ import React from "react";
 import { MessageCircle } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useLocation } from "react-router-dom";
+import { track } from "@/lib/analytics";
 
 const WA_NUMBER = "33768674292";
 
