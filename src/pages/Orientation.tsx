@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { track } from "@/lib/analytics";
 import { useLanguage } from "@/i18n/LanguageContext";
