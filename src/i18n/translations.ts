@@ -226,6 +226,7 @@ export const translations: Record<Language, Record<string, any>> = {
       description: "Your trusted partner for studying abroad. Smart tools, expert guidance, real results.",
       tools: "Tools",
       company: "Company",
+      partners: "Partner Schools",
       support: "Support",
       legal: "Legal",
       privacy: "Privacy Policy",
