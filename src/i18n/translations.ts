@@ -975,7 +975,7 @@ export const translations: Record<Language, Record<string, any>> = {
     },
     scholarshipsPage: {
       title: "Bourses d'Études",
-      subtitle: "Découvrez les opportunités de bourses et obtenez de l'aide pour financer vos études à l'étranger.",
+      subtitle: "Parcourez les bourses disponibles et trouvez un financement pour vos études à l'étranger.",
       types: ["Bourses au Mérite", "Aide Financière", "Bourses Gouvernementales", "Bourses Universitaires", "Bourses Régionales", "Bourses de Recherche"],
     },
     aboutPage: {
