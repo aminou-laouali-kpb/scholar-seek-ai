@@ -22,7 +22,8 @@ const countryToolRoutes: Record<string, string> = {
 
 const CountryDetail = () => {
   const { country } = useParams<{ country: string }>();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const isEn = language === "en";
 
   if (!country || !countryFlags[country]) {
     return (
