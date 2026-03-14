@@ -40,6 +40,23 @@ const Destinations = () => {
           </div>
         </div>
       </section>
+
+      {/* Conversion CTA */}
+      <section className="py-12 bg-secondary/30">
+        <div className="container-narrow mx-auto text-center">
+          <h2 className="font-heading font-bold text-2xl md:text-3xl text-foreground mb-3">
+            {t("destinationsGlance.conversionTitle")}
+          </h2>
+          <p className="text-muted-foreground text-sm md:text-base mb-6 max-w-lg mx-auto">
+            {t("destinationsGlance.conversionSubtitle")}
+          </p>
+          <Link to="/signup">
+            <Button variant="accent" size="lg">
+              {t("hero.ctaSignup")} <ArrowRight className="w-4 h-4" />
+            </Button>
+          </Link>
+        </div>
+      </section>
     </div>
   );
 };

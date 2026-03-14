@@ -306,6 +306,15 @@ const Partners = () => {
         </div>
       </section>
 
+      {/* Not Sure CTA */}
+      <section className="py-12 bg-secondary/30">
+        <div className="container-narrow mx-auto px-4 text-center">
+          <h2 className="font-heading text-xl md:text-2xl font-bold text-foreground mb-3">{isEn ? "Not sure which school is right for you?" : "Vous ne savez pas quelle école choisir ?"}</h2>
+          <p className="text-muted-foreground text-sm max-w-lg mx-auto mb-5">{isEn ? "Create your free student account and let us match you with the best partner programs based on your profile." : "Créez votre compte étudiant gratuit et laissez-nous vous associer aux meilleurs programmes partenaires selon votre profil."}</p>
+          <Link to="/signup"><Button variant="accent" size="lg">{isEn ? "Create My Free Account" : "Créer Mon Compte Gratuit"} <ArrowRight className="w-4 h-4" /></Button></Link>
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="py-16">
         <div className="container-narrow mx-auto px-4">

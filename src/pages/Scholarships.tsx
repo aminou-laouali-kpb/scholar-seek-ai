@@ -195,6 +195,23 @@ const Scholarships = () => {
         </div>
       </section>
 
+      {/* Personalized CTA */}
+      <section className="py-10 bg-secondary/30">
+        <div className="container-narrow mx-auto text-center">
+          <p className="text-foreground font-heading font-semibold text-lg mb-3">
+            {isEn ? "Want personalized scholarship matches?" : "Vous voulez des bourses personnalisées ?"}
+          </p>
+          <p className="text-muted-foreground text-sm mb-5 max-w-md mx-auto">
+            {isEn ? "Create your free account and get scholarship recommendations tailored to your profile." : "Créez votre compte gratuit et recevez des recommandations de bourses adaptées à votre profil."}
+          </p>
+          <Link to="/signup">
+            <Button variant="accent" size="lg">
+              {isEn ? "Create My Free Account" : "Créer Mon Compte Gratuit"} <ArrowRight className="w-4 h-4" />
+            </Button>
+          </Link>
+        </div>
+      </section>
+
       {/* Scholarship Test CTA */}
       <section className="gradient-accent section-padding">
         <div className="container-narrow mx-auto text-center">

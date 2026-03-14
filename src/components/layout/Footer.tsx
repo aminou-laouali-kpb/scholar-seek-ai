@@ -41,6 +41,7 @@ const Footer = React.forwardRef<HTMLElement>((_, ref) => {
               <li><Link to="/about" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">{t("nav.about")}</Link></li>
               <li><Link to="/services" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">{t("nav.services")}</Link></li>
               <li><Link to="/destinations" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">{t("nav.destinations")}</Link></li>
+              <li><Link to="/partners" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">{t("footer.partners")}</Link></li>
               <li><Link to="/blog" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">{t("nav.blog")}</Link></li>
               <li><Link to="/testimonials" className="text-sm text-primary-foreground/70 hover:text-primary-foreground transition-colors">{t("nav.testimonials")}</Link></li>
             </ul>

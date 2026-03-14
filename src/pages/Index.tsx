@@ -469,8 +469,8 @@ const Index = () => {
           <h2 className="font-heading font-extrabold text-2xl sm:text-3xl md:text-4xl text-accent-foreground">{t("finalCTA.title")}</h2>
           <p className="mt-3 md:mt-4 text-accent-foreground/80 text-sm md:text-lg max-w-xl mx-auto">{t("finalCTA.subtitle")}</p>
           <div className="mt-6 md:mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-            <Link to="/questionnaire" className="w-full sm:w-auto">
-              <Button variant="default" size="xl" className="w-full sm:w-auto">{t("finalCTA.cta1")} <ArrowRight className="w-5 h-5" /></Button>
+           <Link to="/signup" className="w-full sm:w-auto">
+              <Button variant="default" size="xl" className="w-full sm:w-auto">{t("hero.ctaSignup")} <ArrowRight className="w-5 h-5" /></Button>
             </Link>
             <a href={WA_LINK} target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
               <Button variant="heroOutline" size="xl" className="w-full sm:w-auto"><MessageCircle className="w-5 h-5" /> {t("finalCTA.cta2")}</Button>
