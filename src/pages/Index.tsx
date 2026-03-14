@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { Button } from "@/components/ui/button";
@@ -28,7 +29,7 @@ const HScrollSection = ({ children, className = "" }: { children: React.ReactNod
   </div>
 );
 
-const AnimatedStatPill = ({ target, suffix, label }: { target: number; suffix: string; label: string }) => {
+const AnimatedStatPill = forwardRef<HTMLDivElement, { target: number; suffix: string; label: string }>(({ target, suffix, label }, _forwardedRef) => {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true });
   const [count, setCount] = useState(0);
@@ -55,7 +56,8 @@ const AnimatedStatPill = ({ target, suffix, label }: { target: number; suffix: s
       {count}{suffix} {label}
     </div>
   );
-};
+});
+AnimatedStatPill.displayName = "AnimatedStatPill";
 
 const Index = () => {
   const { t } = useLanguage();
