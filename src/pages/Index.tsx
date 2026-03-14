@@ -55,7 +55,8 @@ const AnimatedStatPill = React.forwardRef<HTMLDivElement, { target: number; suff
       {count}{suffix} {label}
     </div>
   );
-};
+});
+AnimatedStatPill.displayName = "AnimatedStatPill";
 
 const Index = () => {
   const { t } = useLanguage();
