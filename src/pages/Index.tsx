@@ -59,7 +59,7 @@ const AnimatedStatPill = forwardRef<HTMLDivElement, { target: number; suffix: st
 });
 AnimatedStatPill.displayName = "AnimatedStatPill";
 
-const Index = () => {
+const Index = forwardRef<HTMLDivElement>((_props, _ref) => {
   const { t } = useLanguage();
   const isMobile = useIsMobile();
 
@@ -482,6 +482,8 @@ const Index = () => {
       </section>
     </div>
   );
-};
+});
+
+Index.displayName = "Index";
 
 export default Index;
