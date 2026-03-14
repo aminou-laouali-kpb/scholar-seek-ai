@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { CardSkeleton } from "@/components/ui/CardSkeleton";
 import { useLanguage } from "@/i18n/LanguageContext";
+import { useAuth } from "@/contexts/AuthContext";
 import { motion } from "framer-motion";
 import { Award, CheckCircle, MessageCircle, ArrowRight, GraduationCap, Building2, MapPin, Clock, Languages, Info, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -63,6 +64,7 @@ const STATUS_STYLES: Record<string, string> = {
 
 const Partners = () => {
   const { language } = useLanguage();
+  const { user } = useAuth();
   const isEn = language === "en";
   const [dbPrograms, setDbPrograms] = useState<DBProgram[]>([]);
   const [loading, setLoading] = useState(true);
@@ -135,7 +137,7 @@ const Partners = () => {
               {isEn ? "KPB Education has exclusive partnerships with leading education institutions worldwide, offering you simplified admission and personalized support." : "KPB Education bénéficie de partenariats exclusifs avec des établissements d'enseignement de premier plan dans le monde, vous offrant une admission simplifiée et un accompagnement personnalisé."}
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Link to="/dashboard"><Button variant="default" size="lg">{isEn ? "View Matching Schools" : "Voir les écoles correspondantes"}<ArrowRight className="w-4 h-4" /></Button></Link>
+              <Link to={user ? "/dashboard" : "/signup"}><Button variant="default" size="lg">{user ? (isEn ? "View Matching Schools" : "Voir les écoles correspondantes") : (isEn ? "Create My Account" : "Créer mon compte")}<ArrowRight className="w-4 h-4" /></Button></Link>
               <a href={WA_LINK} target="_blank" rel="noopener noreferrer" onClick={() => track("whatsapp_clicked", { context: "partners_hero" })}><Button variant="outline" size="lg"><MessageCircle className="w-4 h-4" />{isEn ? "Talk to an Advisor" : "Parler à un conseiller"}</Button></a>
             </div>
           </motion.div>
@@ -232,7 +234,7 @@ const Partners = () => {
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-2 flex-wrap">
                               <h4 className="font-medium text-foreground">{program.program_name}</h4>
-                              {program.is_featured && <Badge className="bg-accent text-accent-foreground text-[10px]">⭐ Featured</Badge>}
+                              {program.is_featured && <Badge className="bg-accent text-accent-foreground text-[10px]">⭐ {isEn ? "Featured" : "En vedette"}</Badge>}
                               {program.scholarship_available === "Yes" && (
                                 <Badge className="bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300 text-[10px]">
                                   <Sparkles className="w-3 h-3 mr-0.5" />
@@ -323,7 +325,7 @@ const Partners = () => {
             <h2 className="font-heading text-2xl md:text-3xl font-bold text-foreground mb-4">{isEn ? "Ready to Apply to a Partner School?" : "Prêt à postuler dans une école partenaire ?"}</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto mb-6">{isEn ? "Complete your profile to see personalized school recommendations, or talk to our advisors for guidance." : "Complétez votre profil pour voir les recommandations personnalisées, ou parlez à nos conseillers pour être guidé."}</p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Link to="/dashboard"><Button variant="default" size="lg">{isEn ? "Go to Dashboard" : "Accéder au tableau de bord"}<ArrowRight className="w-4 h-4" /></Button></Link>
+              <Link to={user ? "/dashboard" : "/signup"}><Button variant="default" size="lg">{user ? (isEn ? "Go to Dashboard" : "Accéder au tableau de bord") : (isEn ? "Create My Free Account" : "Créer Mon Compte Gratuit")}<ArrowRight className="w-4 h-4" /></Button></Link>
               <a href={WA_LINK} target="_blank" rel="noopener noreferrer" onClick={() => track("whatsapp_clicked", { context: "partners_cta" })}><Button variant="outline" size="lg"><MessageCircle className="w-4 h-4" />{isEn ? "Contact an Advisor" : "Contacter un conseiller"}</Button></a>
             </div>
           </div>

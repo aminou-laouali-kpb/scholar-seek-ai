@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { motion, AnimatePresence } from "framer-motion";
-import { Bookmark, Star, StarOff, Trash2, Award, GraduationCap, Globe2, MessageCircle, ArrowRight } from "lucide-react";
+import { Bookmark, Star, StarOff, Trash2, Award, GraduationCap, Globe2, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useSavedItems, SavedItemType } from "@/hooks/useSavedItems";
+import { supabase } from "@/integrations/supabase/client";
 import { scholarships } from "@/data/scholarships";
 import { admissions } from "@/data/admissions";
 import { track } from "@/lib/analytics";
@@ -22,6 +23,27 @@ const SavedItems = () => {
   const isEn = language === "en";
   const { items, toggleSave, togglePriority } = useSavedItems();
   const [activeTab, setActiveTab] = useState<"all" | SavedItemType>("all");
+  const [dbNames, setDbNames] = useState<Record<string, string>>({});
+
+  // Fetch names from DB tables for items that won't match static data
+  useEffect(() => {
+    const scholarshipIds = items.filter(i => i.item_type === "scholarship").map(i => i.item_id);
+    const admissionIds = items.filter(i => i.item_type === "admission").map(i => i.item_id);
+    const namesMap: Record<string, string> = {};
+
+    const fetchNames = async () => {
+      if (scholarshipIds.length > 0) {
+        const { data } = await supabase.from("admin_scholarships").select("id, name").in("id", scholarshipIds);
+        data?.forEach((s: any) => { namesMap[s.id] = s.name; });
+      }
+      if (admissionIds.length > 0) {
+        const { data } = await supabase.from("admin_admissions").select("id, institution_name").in("id", admissionIds);
+        data?.forEach((a: any) => { namesMap[a.id] = a.institution_name; });
+      }
+      setDbNames(namesMap);
+    };
+    if (items.length > 0) fetchNames();
+  }, [items]);
 
   const filtered = activeTab === "all" ? items : items.filter((i) => i.item_type === activeTab);
   const sorted = [...filtered].sort((a, b) => {
@@ -31,6 +53,8 @@ const SavedItems = () => {
   });
 
   const getItemName = (type: SavedItemType, id: string): string => {
+    // Try DB names first, then fall back to static data
+    if (dbNames[id]) return dbNames[id];
     if (type === "scholarship") {
       return scholarships.find((s) => s.id === id)?.name || id;
     }
@@ -56,14 +80,10 @@ const SavedItems = () => {
         <div className="bg-card rounded-2xl p-8 shadow-card border border-border text-center">
           <Bookmark className="w-10 h-10 text-muted-foreground/30 mx-auto mb-3" />
           <p className="text-muted-foreground text-sm mb-1">
-            {isEn
-              ? "You haven't saved anything yet."
-              : "Vous n'avez encore rien sauvegardé."}
+            {isEn ? "You haven't saved anything yet." : "Vous n'avez encore rien sauvegardé."}
           </p>
           <p className="text-muted-foreground text-xs">
-            {isEn
-              ? "Browse scholarships or admissions above and bookmark the ones that interest you."
-              : "Parcourez les bourses ou admissions ci-dessus et ajoutez en favoris celles qui vous intéressent."}
+            {isEn ? "Browse scholarships or admissions above and bookmark the ones that interest you." : "Parcourez les bourses ou admissions ci-dessus et ajoutez en favoris celles qui vous intéressent."}
           </p>
         </div>
       </div>
@@ -112,9 +132,7 @@ const SavedItems = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 className={`flex items-center gap-3 p-3 rounded-xl border transition-all ${
-                  item.is_priority
-                    ? "bg-accent/5 border-accent/20"
-                    : "bg-card border-border"
+                  item.is_priority ? "bg-accent/5 border-accent/20" : "bg-card border-border"
                 }`}
               >
                 <div className="w-8 h-8 rounded-lg bg-secondary flex items-center justify-center shrink-0">
@@ -125,24 +143,14 @@ const SavedItems = () => {
                   <p className="text-xs text-muted-foreground capitalize">{item.item_type}</p>
                 </div>
                 <div className="flex items-center gap-1">
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="h-8 w-8"
-                    onClick={() => togglePriority(item.item_type, item.item_id)}
-                  >
+                  <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => togglePriority(item.item_type, item.item_id)}>
                     {item.is_priority ? (
                       <Star className="w-4 h-4 text-accent fill-accent" />
                     ) : (
                       <StarOff className="w-4 h-4 text-muted-foreground" />
                     )}
                   </Button>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="h-8 w-8"
-                    onClick={() => toggleSave(item.item_type, item.item_id)}
-                  >
+                  <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => toggleSave(item.item_type, item.item_id)}>
                     <Trash2 className="w-4 h-4 text-muted-foreground hover:text-destructive" />
                   </Button>
                 </div>
@@ -155,9 +163,7 @@ const SavedItems = () => {
       {/* Advisor CTA for saved items */}
       <div className="mt-4 bg-accent/5 border border-accent/10 rounded-xl p-4 flex flex-col sm:flex-row items-center gap-3">
         <p className="text-sm text-foreground flex-1">
-          {isEn
-            ? "Ready to move forward? Talk to an advisor about your shortlist."
-            : "Prêt à avancer ? Parlez à un conseiller de votre sélection."}
+          {isEn ? "Ready to move forward? Talk to an advisor about your shortlist." : "Prêt à avancer ? Parlez à un conseiller de votre sélection."}
         </p>
         <a href={WA_LINK} target="_blank" rel="noopener noreferrer">
           <Button variant="accent" size="sm" onClick={() => track("whatsapp_clicked", { context: "saved_items" })}>

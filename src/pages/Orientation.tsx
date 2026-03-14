@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { track } from "@/lib/analytics";
 import { useLanguage } from "@/i18n/LanguageContext";
@@ -35,6 +35,8 @@ const Orientation = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<Record<number, string>>({});
   const [showResult, setShowResult] = useState(false);
+
+  useEffect(() => { track("orientation_started"); }, []);
 
   const steps = t("orientation.steps") as Array<{ title: string; subtitle: string; options: Array<{ value: string; label: string }> }>;
   const totalSteps = steps.length;

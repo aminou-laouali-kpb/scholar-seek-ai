@@ -122,7 +122,21 @@ const Scholarships = () => {
           {loading ? (
             <CardSkeleton count={6} />
           ) : filtered.length === 0 ? (
-            <p className="text-center text-muted-foreground py-16">{isEn ? "No scholarships found matching your criteria." : "Aucune bourse trouvée correspondant à vos critères."}</p>
+            <div className="text-center py-16">
+              <div className="bg-card rounded-2xl p-8 shadow-card border border-border max-w-md mx-auto">
+                <Search className="w-10 h-10 text-muted-foreground/30 mx-auto mb-3" />
+                <p className="text-foreground font-medium mb-2">{isEn ? "No scholarships found" : "Aucune bourse trouvée"}</p>
+                <p className="text-muted-foreground text-sm mb-4">{isEn ? "Try adjusting your filters or search terms." : "Essayez de modifier vos filtres ou termes de recherche."}</p>
+                <div className="flex flex-col sm:flex-row gap-2 justify-center">
+                  <Button variant="outline" size="sm" onClick={() => { setSearch(""); setFilterCountry(""); setFilterLevel(""); setFilterFunding(""); }}>
+                    {isEn ? "Reset Filters" : "Réinitialiser les filtres"}
+                  </Button>
+                  <a href={WA_LINK} target="_blank" rel="noopener noreferrer">
+                    <Button variant="accent" size="sm"><MessageCircle className="w-3.5 h-3.5" />{isEn ? "Ask an Advisor" : "Demander à un conseiller"}</Button>
+                  </a>
+                </div>
+              </div>
+            </div>
           ) : (
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {filtered.map((s, i) => (
@@ -135,7 +149,7 @@ const Scholarships = () => {
                   className="bg-card rounded-2xl p-5 shadow-card border border-border hover:shadow-card-hover transition-all relative"
                 >
                   {s.is_featured && (
-                    <Badge className="absolute top-4 right-4 bg-accent text-accent-foreground text-[10px]">⭐ Featured</Badge>
+                    <Badge className="absolute top-4 right-4 bg-accent text-accent-foreground text-[10px]">⭐ {isEn ? "Featured" : "En vedette"}</Badge>
                   )}
 
                   <div className="flex items-center gap-2 mb-3">

@@ -84,13 +84,7 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   return <>{children}</>;
 };
 
-const CompleteProfileRoute = ({ children }: { children: React.ReactNode }) => {
-  const { user, profile, loading } = useAuth();
-  if (loading) return null;
-  if (!user) return <Navigate to="/login" replace />;
-  if (profile?.profile_completed) return <Navigate to="/dashboard" replace />;
-  return <>{children}</>;
-};
+// CompleteProfileRoute removed — /complete-profile now uses ProtectedRoute to allow editing
 
 const AdminRoute = ({ children }: { children: React.ReactNode }) => {
   const { user, loading: authLoading } = useAuth();
@@ -162,7 +156,7 @@ const App = () => (
                       <Route path="/signup" element={<AuthRoute><SignUp /></AuthRoute>} />
                       <Route path="/check-email" element={<CheckEmail />} />
                       <Route path="/reset-password" element={<ResetPassword />} />
-                      <Route path="/complete-profile" element={<CompleteProfileRoute><CompleteProfile /></CompleteProfileRoute>} />
+                      <Route path="/complete-profile" element={<ProtectedRoute><CompleteProfile /></ProtectedRoute>} />
                       <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
                       <Route path="/questionnaire" element={<Questionnaire />} />
                       <Route path="/orientation" element={<ProtectedRoute><Orientation /></ProtectedRoute>} />
