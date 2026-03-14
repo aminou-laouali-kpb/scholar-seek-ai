@@ -156,7 +156,7 @@ const App = () => (
                       <Route path="/signup" element={<AuthRoute><SignUp /></AuthRoute>} />
                       <Route path="/check-email" element={<CheckEmail />} />
                       <Route path="/reset-password" element={<ResetPassword />} />
-                      <Route path="/complete-profile" element={<CompleteProfileRoute><CompleteProfile /></CompleteProfileRoute>} />
+                      <Route path="/complete-profile" element={<ProtectedRoute><CompleteProfile /></ProtectedRoute>} />
                       <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
                       <Route path="/questionnaire" element={<Questionnaire />} />
                       <Route path="/orientation" element={<ProtectedRoute><Orientation /></ProtectedRoute>} />

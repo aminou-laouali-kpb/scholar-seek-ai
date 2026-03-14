@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { track } from "@/lib/analytics";
 import { useLanguage } from "@/i18n/LanguageContext";
@@ -107,11 +107,13 @@ const PhonePrefixCombobox = ({
 const CompleteProfile = () => {
   const { t, language } = useLanguage();
   const isEn = language === "en";
-  const { user, refreshProfile } = useAuth();
+  const { user, profile, refreshProfile } = useAuth();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [dontKnowProgram, setDontKnowProgram] = useState(false);
   const [otherProgram, setOtherProgram] = useState("");
+
+  const isEditMode = !!profile?.profile_completed;
 
   const [form, setForm] = useState({
     firstName: "",
@@ -125,6 +127,35 @@ const CompleteProfile = () => {
     budgetSensitivity: "",
     preferredDestinations: [] as string[],
   });
+
+  // Pre-populate form from existing profile data
+  useEffect(() => {
+    if (!profile) return;
+    const phoneCountry = profile.phone_country || "CM";
+    const prefix = countries.find((c) => c.code === phoneCountry)?.dialCode || "+237";
+    const rawWhatsapp = profile.whatsapp || "";
+    const whatsappNumber = rawWhatsapp.startsWith(prefix) ? rawWhatsapp.slice(prefix.length) : rawWhatsapp;
+
+    const programValue = profile.desired_program || "";
+    const isStandardProgram = STUDY_PROGRAMS.includes(programValue);
+
+    setForm({
+      firstName: profile.first_name || "",
+      lastName: profile.last_name || "",
+      phoneCountry,
+      whatsapp: whatsappNumber,
+      countryOfBirth: profile.country_of_birth || "",
+      countryOfResidence: profile.country_of_residence || "",
+      studyLevel: profile.study_level || "",
+      desiredProgram: isStandardProgram ? programValue : (programValue ? "other" : ""),
+      budgetSensitivity: profile.budget_sensitivity || "",
+      preferredDestinations: profile.preferred_destinations || [],
+    });
+    setDontKnowProgram(!!profile.dont_know_program);
+    if (!isStandardProgram && programValue) {
+      setOtherProgram(programValue);
+    }
+  }, [profile]);
 
   const update = (key: string, value: string) => setForm((prev) => ({ ...prev, [key]: value }));
 
@@ -154,8 +185,13 @@ const CompleteProfile = () => {
 
     if (!error) {
       await refreshProfile();
-      track("onboarding_completed", { study_level: form.studyLevel, country: form.countryOfResidence, destinations: form.preferredDestinations });
-      navigate(dontKnowProgram ? "/orientation" : "/dashboard");
+      if (isEditMode) {
+        track("profile_updated", { study_level: form.studyLevel });
+        navigate("/dashboard");
+      } else {
+        track("onboarding_completed", { study_level: form.studyLevel, country: form.countryOfResidence, destinations: form.preferredDestinations });
+        navigate(dontKnowProgram ? "/orientation" : "/dashboard");
+      }
     }
     setLoading(false);
   };
@@ -168,8 +204,12 @@ const CompleteProfile = () => {
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-2xl">
         <div className="bg-card rounded-2xl p-8 shadow-card border border-border">
           <div className="text-center mb-8">
-            <h1 className="font-heading font-bold text-3xl text-foreground">{t("completeProfile.title")}</h1>
-            <p className="text-muted-foreground mt-2">{t("completeProfile.subtitle")}</p>
+            <h1 className="font-heading font-bold text-3xl text-foreground">
+              {isEditMode ? (isEn ? "Edit Your Profile" : "Modifier votre profil") : t("completeProfile.title")}
+            </h1>
+            <p className="text-muted-foreground mt-2">
+              {isEditMode ? (isEn ? "Update your information to get better recommendations." : "Mettez à jour vos informations pour de meilleures recommandations.") : t("completeProfile.subtitle")}
+            </p>
           </div>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
@@ -300,7 +340,7 @@ const CompleteProfile = () => {
             </div>
 
             <Button variant="accent" size="lg" className="w-full" type="submit" disabled={loading}>
-              {loading ? "..." : t("completeProfile.cta")}
+              {loading ? "..." : isEditMode ? (isEn ? "Save Changes" : "Enregistrer") : t("completeProfile.cta")}
             </Button>
           </form>
         </div>
