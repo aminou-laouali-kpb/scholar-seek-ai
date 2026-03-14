@@ -1135,8 +1135,8 @@ export const translations: Record<Language, Record<string, any>> = {
       cards: {
         profile: { title: "Mon Profil", desc: "Consultez et modifiez vos informations personnelles et votre profil académique." },
         orientation: { title: "Mon Résultat d'Orientation", desc: "Découvrez le meilleur programme d'études pour votre personnalité et vos objectifs." },
-        scholarships: { title: "Bourses Recommandées", desc: "Recommandations de bourses basées sur votre profil par IA — bientôt disponible." },
-        admissions: { title: "Admissions en Cours", desc: "Opportunités d'admission correspondant à votre profil — bientôt disponible." },
+        scholarships: { title: "Bourses Recommandées", desc: "Recommandations de bourses personnalisées basées sur votre profil." },
+        admissions: { title: "Admissions en Cours", desc: "Opportunités d'admission correspondant à votre profil." },
         actions: { title: "Prochaines Actions", desc: "Votre checklist personnalisée d'étapes pour votre projet d'études à l'étranger." },
         advisor: { title: "Contacter un Conseiller", desc: "Discutez avec un conseiller KPB sur WhatsApp pour un accompagnement personnalisé." },
       },
