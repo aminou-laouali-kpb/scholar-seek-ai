@@ -137,7 +137,7 @@ const Partners = () => {
               {isEn ? "KPB Education has exclusive partnerships with leading education institutions worldwide, offering you simplified admission and personalized support." : "KPB Education bénéficie de partenariats exclusifs avec des établissements d'enseignement de premier plan dans le monde, vous offrant une admission simplifiée et un accompagnement personnalisé."}
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Link to="/dashboard"><Button variant="default" size="lg">{isEn ? "View Matching Schools" : "Voir les écoles correspondantes"}<ArrowRight className="w-4 h-4" /></Button></Link>
+              <Link to={user ? "/dashboard" : "/signup"}><Button variant="default" size="lg">{user ? (isEn ? "View Matching Schools" : "Voir les écoles correspondantes") : (isEn ? "Create My Account" : "Créer mon compte")}<ArrowRight className="w-4 h-4" /></Button></Link>
               <a href={WA_LINK} target="_blank" rel="noopener noreferrer" onClick={() => track("whatsapp_clicked", { context: "partners_hero" })}><Button variant="outline" size="lg"><MessageCircle className="w-4 h-4" />{isEn ? "Talk to an Advisor" : "Parler à un conseiller"}</Button></a>
             </div>
           </motion.div>
