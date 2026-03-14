@@ -64,6 +64,7 @@ const STATUS_STYLES: Record<string, string> = {
 
 const Partners = () => {
   const { language } = useLanguage();
+  const { user } = useAuth();
   const isEn = language === "en";
   const [dbPrograms, setDbPrograms] = useState<DBProgram[]>([]);
   const [loading, setLoading] = useState(true);
