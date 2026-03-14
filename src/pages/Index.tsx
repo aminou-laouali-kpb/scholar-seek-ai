@@ -482,6 +482,8 @@ const Index = forwardRef<HTMLDivElement>((_props, _ref) => {
       </section>
     </div>
   );
-};
+});
+
+Index.displayName = "Index";
 
 export default Index;
