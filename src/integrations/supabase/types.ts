@@ -350,6 +350,48 @@ export type Database = {
         }
         Relationships: []
       }
+      lead_scores: {
+        Row: {
+          actions_count: number
+          admin_notes: string | null
+          admin_status: string
+          created_at: string
+          heat_level: string
+          id: string
+          last_action: string | null
+          last_action_at: string | null
+          strong_signals: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          actions_count?: number
+          admin_notes?: string | null
+          admin_status?: string
+          created_at?: string
+          heat_level?: string
+          id?: string
+          last_action?: string | null
+          last_action_at?: string | null
+          strong_signals?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          actions_count?: number
+          admin_notes?: string | null
+          admin_status?: string
+          created_at?: string
+          heat_level?: string
+          id?: string
+          last_action?: string | null
+          last_action_at?: string | null
+          strong_signals?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       partner_programs: {
         Row: {
           application_intake: string
