@@ -123,9 +123,9 @@ const Index = () => {
 
               {/* CTAs */}
               <motion.div variants={fadeUp} custom={2} className="mt-6 md:mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start">
-                <Link to="/questionnaire" className="w-full sm:w-auto">
+                <Link to="/signup" className="w-full sm:w-auto">
                   <Button variant="hero" size="xl" className="w-full sm:w-auto text-base sm:text-lg h-14 sm:h-14">
-                    {t("hero.cta1")} <ArrowRight className="w-5 h-5" />
+                    {t("hero.ctaSignup")} <ArrowRight className="w-5 h-5" />
                   </Button>
                 </Link>
                 <a href={WA_LINK} target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
@@ -133,6 +133,11 @@ const Index = () => {
                     <MessageCircle className="w-5 h-5" /> {t("hero.cta2")}
                   </Button>
                 </a>
+                <Link to="/tools" className="w-full sm:w-auto">
+                  <Button variant="ghost" size="lg" className="w-full sm:w-auto text-primary-foreground/70 hover:text-primary-foreground">
+                    {t("hero.ctaTools")} <ArrowRight className="w-4 h-4" />
+                  </Button>
+                </Link>
               </motion.div>
 
               {/* Stats as pill badges */}
