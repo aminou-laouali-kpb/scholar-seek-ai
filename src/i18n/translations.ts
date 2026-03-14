@@ -1042,7 +1042,7 @@ export const translations: Record<Language, Record<string, any>> = {
       previewTitle: "Un Tableau de Bord Conçu pour Vous",
       previewSubtitle: "Voici un aperçu de votre tableau de bord étudiant personnalisé.",
       finalCtaTitle: "Prêt à Commencer Votre Aventure ?",
-      finalCtaSubtitle: "Rejoignez des milliers d'étudiants qui font confiance à KPB Education pour les guider à l'étranger.",
+      finalCtaSubtitle: "Rejoignez 500+ étudiants qui font confiance à KPB Education pour les guider à l'étranger.",
     },
     login: {
       title: "Bon Retour",
