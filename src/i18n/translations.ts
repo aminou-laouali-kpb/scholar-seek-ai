@@ -938,6 +938,7 @@ export const translations: Record<Language, Record<string, any>> = {
       description: "Votre partenaire de confiance pour étudier à l'étranger. Outils intelligents, accompagnement expert, résultats concrets.",
       tools: "Outils",
       company: "Entreprise",
+      partners: "Écoles Partenaires",
       support: "Support",
       legal: "Légal",
       privacy: "Politique de Confidentialité",
