@@ -734,11 +734,18 @@ export const translations: Record<Language, Record<string, any>> = {
       titleHighlight: "on s'occupe de tout",
       subtitle: "Arrêtez de chercher dans le vide. KPB Education vous trouve la bonne université, la bonne bourse, et vous accompagne du premier clic jusqu'à votre visa étudiant. Rejoignez 500+ étudiants qui nous ont fait confiance.",
       cta1: "Je commence ma procédure !",
+      ctaSignup: "Créer Mon Compte",
+      ctaTools: "Explorer Nos Outils",
       cta2: "Parler à un Conseiller",
       stats: {
         students: "500+ Étudiants Guidés",
         countries: "8+ Destinations",
         rate: "95% Taux de Réussite",
+      },
+      statLabels: {
+        students: "étudiants guidés",
+        success: "taux de réussite",
+        countries: "pays",
       },
     },
     tools: {
