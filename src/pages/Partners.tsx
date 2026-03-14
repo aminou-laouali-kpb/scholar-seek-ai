@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { CardSkeleton } from "@/components/ui/CardSkeleton";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { motion } from "framer-motion";
-import { Award, CheckCircle, MessageCircle, ArrowRight, GraduationCap, Building2, MapPin, Clock, Languages, Info } from "lucide-react";
+import { Award, CheckCircle, MessageCircle, ArrowRight, GraduationCap, Building2, MapPin, Clock, Languages, Info, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import SEOHead from "@/components/SEOHead";
+import { track } from "@/lib/analytics";
 
 const WA_LINK = "https://wa.me/33768674292";
 
@@ -51,6 +52,15 @@ const benefits = [
   { icon: Award, title: { en: "Priority Processing", fr: "Traitement prioritaire" }, description: { en: "Your application gets priority review through our partnership.", fr: "Votre dossier bénéficie d'un examen prioritaire grâce à notre partenariat." } },
 ];
 
+const STATUS_STYLES: Record<string, string> = {
+  open: "bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300",
+  rolling: "bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300",
+  opening_soon: "bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300",
+  closed: "bg-secondary text-muted-foreground",
+  to_confirm: "border border-amber-300 text-amber-700 dark:text-amber-400 bg-transparent",
+  contact_us: "border border-accent/30 text-accent bg-transparent",
+};
+
 const Partners = () => {
   const { language } = useLanguage();
   const isEn = language === "en";
@@ -74,7 +84,6 @@ const Partners = () => {
     fetchData();
   }, []);
 
-  // Group by school
   const groupedSchools: GroupedSchool[] = [];
   const slugMap = new Map<string, GroupedSchool>();
   dbPrograms.forEach((p) => {
@@ -86,7 +95,6 @@ const Partners = () => {
     slugMap.get(p.school_slug)!.programs.push(p);
   });
 
-  // Filters
   const filteredGroups = groupedSchools.filter((g) => {
     if (searchQuery) {
       const q = searchQuery.toLowerCase();
@@ -103,10 +111,15 @@ const Partners = () => {
   const allNetworks = [...new Set(dbPrograms.map(p => p.program_family).filter(Boolean))].sort();
 
   const statusLabel = (s: string) => {
-    if (s === "contact_us") return isEn ? "Contact advisor" : "Contacter un conseiller";
-    if (s === "to_confirm") return isEn ? "Details to confirm" : "Détails à confirmer";
-    if (s === "rolling") return isEn ? "Rolling admissions" : "Admissions continues";
-    return isEn ? "Open" : "Ouvert";
+    const labels: Record<string, { en: string; fr: string }> = {
+      open: { en: "Open", fr: "Ouvert" },
+      rolling: { en: "Rolling admissions", fr: "Admissions continues" },
+      opening_soon: { en: "Opening soon", fr: "Ouverture prochaine" },
+      closed: { en: "Closed", fr: "Fermé" },
+      contact_us: { en: "Contact advisor", fr: "Contacter un conseiller" },
+      to_confirm: { en: "Details to confirm", fr: "Détails à confirmer" },
+    };
+    return labels[s]?.[isEn ? "en" : "fr"] || s;
   };
 
   return (
@@ -123,7 +136,7 @@ const Partners = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link to="/dashboard"><Button variant="default" size="lg">{isEn ? "View Matching Schools" : "Voir les écoles correspondantes"}<ArrowRight className="w-4 h-4" /></Button></Link>
-              <a href={WA_LINK} target="_blank" rel="noopener noreferrer"><Button variant="outline" size="lg"><MessageCircle className="w-4 h-4" />{isEn ? "Talk to an Advisor" : "Parler à un conseiller"}</Button></a>
+              <a href={WA_LINK} target="_blank" rel="noopener noreferrer" onClick={() => track("whatsapp_clicked", { context: "partners_hero" })}><Button variant="outline" size="lg"><MessageCircle className="w-4 h-4" />{isEn ? "Talk to an Advisor" : "Parler à un conseiller"}</Button></a>
             </div>
           </motion.div>
         </div>
@@ -220,17 +233,27 @@ const Partners = () => {
                             <div className="flex items-center gap-2 flex-wrap">
                               <h4 className="font-medium text-foreground">{program.program_name}</h4>
                               {program.is_featured && <Badge className="bg-accent text-accent-foreground text-[10px]">⭐ Featured</Badge>}
-                              {(program.status === "to_confirm" || program.status === "contact_us") && (
-                                <Badge variant="outline" className="text-[10px] gap-1">
-                                  <Info className="w-3 h-3" />
-                                  {statusLabel(program.status)}
+                              {program.scholarship_available === "Yes" && (
+                                <Badge className="bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300 text-[10px]">
+                                  <Sparkles className="w-3 h-3 mr-0.5" />
+                                  {isEn ? "Scholarships" : "Bourses"}
                                 </Badge>
+                              )}
+                              {program.status && program.status !== "open" && (
+                                <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${STATUS_STYLES[program.status] || "bg-secondary text-muted-foreground"}`}>
+                                  {statusLabel(program.status)}
+                                </span>
                               )}
                             </div>
                             <div className="flex flex-wrap gap-x-4 gap-y-1 mt-2 text-xs text-muted-foreground">
                               <span className="flex items-center gap-1"><GraduationCap className="w-3 h-3" />{program.degree_level}</span>
                               {program.duration && <span className="flex items-center gap-1"><Clock className="w-3 h-3" />{program.duration}</span>}
                               {program.language_of_instruction && <span className="flex items-center gap-1"><Languages className="w-3 h-3" />{program.language_of_instruction}</span>}
+                              {program.application_intake && (
+                                <span className="flex items-center gap-1 font-medium text-foreground/70">
+                                  📅 {isEn ? "Intake:" : "Rentrée :"} {program.application_intake}
+                                </span>
+                              )}
                               {program.campus_name && program.campus_name !== program.city && (
                                 <span className="flex items-center gap-1"><MapPin className="w-3 h-3" />{program.campus_name}</span>
                               )}
@@ -240,22 +263,33 @@ const Partners = () => {
                           <div className="flex items-center gap-3 shrink-0">
                             <div className="text-right">
                               <p className="text-sm font-semibold text-primary">
-                                {program.tuition_amount ? `${program.tuition_amount} ${program.tuition_currency}` : (isEn ? "Contact advisor" : "Contacter conseiller")}
+                                {program.tuition_amount
+                                  ? `${program.tuition_amount} ${program.tuition_currency}`
+                                  : (isEn ? "Tuition to confirm" : "Frais à confirmer")}
                               </p>
-                              <p className="text-[10px] text-muted-foreground">{program.tuition_period}</p>
+                              <p className="text-[10px] text-muted-foreground">
+                                {program.tuition_amount
+                                  ? program.tuition_period
+                                  : (isEn ? "Contact KPB for details" : "Contactez KPB pour plus de détails")}
+                              </p>
                             </div>
-                            <a href={WA_LINK} target="_blank" rel="noopener noreferrer">
+                            <a href={WA_LINK} target="_blank" rel="noopener noreferrer" onClick={() => track("whatsapp_clicked", { context: "partner_program", program: program.program_name })}>
                               <Button size="sm" variant="default">
                                 <MessageCircle className="w-3.5 h-3.5 mr-1" />
-                                {isEn ? "Apply" : "Postuler"}
+                                {isEn ? "Get Started" : "Commencer"}
                               </Button>
                             </a>
                           </div>
                         </div>
 
-                        {program.eligibility_academic && program.eligibility_academic !== "Program-specific; contact KPB for latest entry requirements." && (
+                        {program.eligibility_academic && program.eligibility_academic !== "Program-specific; contact KPB for latest entry requirements." ? (
                           <p className="text-xs text-muted-foreground mt-2 line-clamp-1">
                             <span className="font-medium">{isEn ? "Eligibility:" : "Éligibilité :"}</span> {program.eligibility_academic}
+                          </p>
+                        ) : (
+                          <p className="text-xs text-muted-foreground mt-2">
+                            <span className="font-medium">{isEn ? "Eligibility:" : "Éligibilité :"}</span>{" "}
+                            {isEn ? "Latest requirements available with KPB" : "Dernières conditions disponibles auprès de KPB"}
                           </p>
                         )}
                       </div>
@@ -281,7 +315,7 @@ const Partners = () => {
             <p className="text-muted-foreground max-w-2xl mx-auto mb-6">{isEn ? "Complete your profile to see personalized school recommendations, or talk to our advisors for guidance." : "Complétez votre profil pour voir les recommandations personnalisées, ou parlez à nos conseillers pour être guidé."}</p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link to="/dashboard"><Button variant="default" size="lg">{isEn ? "Go to Dashboard" : "Accéder au tableau de bord"}<ArrowRight className="w-4 h-4" /></Button></Link>
-              <a href={WA_LINK} target="_blank" rel="noopener noreferrer"><Button variant="outline" size="lg"><MessageCircle className="w-4 h-4" />{isEn ? "Contact an Advisor" : "Contacter un conseiller"}</Button></a>
+              <a href={WA_LINK} target="_blank" rel="noopener noreferrer" onClick={() => track("whatsapp_clicked", { context: "partners_cta" })}><Button variant="outline" size="lg"><MessageCircle className="w-4 h-4" />{isEn ? "Contact an Advisor" : "Contacter un conseiller"}</Button></a>
             </div>
           </div>
         </div>

@@ -2,13 +2,23 @@ import { useLanguage } from "@/i18n/LanguageContext";
 import { useAuth } from "@/contexts/AuthContext";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Bookmark, BookmarkCheck, ArrowRight, Star } from "lucide-react";
+import { Bookmark, BookmarkCheck, ArrowRight, Star, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CardSkeleton } from "@/components/ui/CardSkeleton";
 import { supabase } from "@/integrations/supabase/client";
 import { matchScholarships } from "@/lib/matching";
 import { useSavedItems } from "@/hooks/useSavedItems";
+import { track } from "@/lib/analytics";
+import { Link } from "react-router-dom";
 import type { Scholarship } from "@/data/scholarships";
+
+const WA_LINK = "https://wa.me/33768674292";
+
+const MATCH_TIER_STYLES: Record<string, string> = {
+  strong: "bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300",
+  good: "bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300",
+  explore: "bg-secondary text-muted-foreground",
+};
 
 interface Props {
   onApply: (itemType: string, itemId: string, itemName: string) => void;
@@ -56,9 +66,32 @@ const ScholarshipRecommendations = ({ onApply }: Props) => {
     return (
       <div id="scholarships-section">
         <h2 className="font-heading font-bold text-xl text-foreground mb-5">
-          {isEn ? "Scholarships Recommended for Your Profile" : "Bourses recommandées pour votre profil"}
+          {isEn ? "Scholarships You Could Qualify For" : "Bourses auxquelles vous pourriez être éligible"}
         </h2>
         <CardSkeleton count={6} />
+      </div>
+    );
+  }
+
+  if (results.length === 0) {
+    return (
+      <div id="scholarships-section">
+        <h2 className="font-heading font-bold text-xl text-foreground mb-2">
+          {isEn ? "Scholarships You Could Qualify For" : "Bourses auxquelles vous pourriez être éligible"}
+        </h2>
+        <div className="bg-card rounded-2xl p-8 shadow-card border border-border text-center">
+          <p className="text-muted-foreground mb-3">
+            {isEn
+              ? "Complete your profile to unlock personalized scholarship matches tailored to your goals."
+              : "Complétez votre profil pour débloquer des bourses personnalisées adaptées à vos objectifs."}
+          </p>
+          <Link to="/complete-profile">
+            <Button variant="default" size="sm">
+              {isEn ? "Complete Profile" : "Compléter le profil"}
+              <ArrowRight className="w-3 h-3" />
+            </Button>
+          </Link>
+        </div>
       </div>
     );
   }
@@ -67,7 +100,7 @@ const ScholarshipRecommendations = ({ onApply }: Props) => {
     <div id="scholarships-section">
       <div className="flex items-center justify-between mb-1">
         <h2 className="font-heading font-bold text-xl text-foreground">
-          {isEn ? "Scholarships Recommended for Your Profile" : "Bourses recommandées pour votre profil"}
+          {isEn ? "Scholarships You Could Qualify For" : "Bourses auxquelles vous pourriez être éligible"}
         </h2>
       </div>
       <p className="text-muted-foreground text-sm mb-5">
@@ -86,15 +119,15 @@ const ScholarshipRecommendations = ({ onApply }: Props) => {
             className="bg-card rounded-2xl p-5 shadow-card border border-border hover:shadow-card-hover transition-all group relative"
           >
             <div className="absolute top-4 right-4">
-              <span className="text-xs font-bold bg-accent/15 text-accent px-2 py-0.5 rounded-full">
-                {r.percentage}% {isEn ? "match" : "compatibilité"}
+              <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${MATCH_TIER_STYLES[r.matchTier]}`}>
+                {isEn ? r.matchLabel.en : r.matchLabel.fr}
               </span>
             </div>
 
             <div className="flex items-center gap-2 mb-3">
               <span className="text-2xl">{r.item.countryFlag}</span>
               <div>
-                <h3 className="font-heading font-bold text-sm text-foreground leading-tight pr-16">
+                <h3 className="font-heading font-bold text-sm text-foreground leading-tight pr-20">
                   {r.item.name}
                 </h3>
                 <span className="text-xs text-muted-foreground capitalize">
@@ -130,14 +163,29 @@ const ScholarshipRecommendations = ({ onApply }: Props) => {
             </p>
 
             <div className="flex gap-2">
-              <Button variant="accent" size="sm" className="flex-1" onClick={() => onApply("scholarship", r.item.id, r.item.name)}>
-                {isEn ? "Start Application" : "Postuler"}
+              <Button
+                variant="accent"
+                size="sm"
+                className="flex-1"
+                onClick={() => {
+                  track("recommendation_clicked", { type: "scholarship", id: r.item.id, name: r.item.name });
+                  onApply("scholarship", r.item.id, r.item.name);
+                }}
+              >
+                {isEn ? "Check Eligibility" : "Vérifier l'éligibilité"}
                 <ArrowRight className="w-3 h-3" />
               </Button>
               <Button variant="outline" size="sm" onClick={() => toggleSave("scholarship", r.item.id)}>
                 {isSaved("scholarship", r.item.id) ? <BookmarkCheck className="w-4 h-4 text-accent" /> : <Bookmark className="w-4 h-4" />}
               </Button>
             </div>
+
+            <a href={WA_LINK} target="_blank" rel="noopener noreferrer" className="mt-2 block">
+              <Button variant="ghost" size="sm" className="w-full text-muted-foreground">
+                <MessageCircle className="w-3.5 h-3.5" />
+                {isEn ? "Talk to Advisor" : "Parler à un conseiller"}
+              </Button>
+            </a>
           </motion.div>
         ))}
       </div>
