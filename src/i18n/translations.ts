@@ -23,11 +23,18 @@ export const translations: Record<Language, Record<string, any>> = {
       titleHighlight: "We Handle Everything",
       subtitle: "Stop guessing. KPB Education finds you the right university, the right scholarship, and guides you from the first click to your student visa. Join 500+ students who trusted us.",
       cta1: "I Start My Process!",
+      ctaSignup: "Create My Account",
+      ctaTools: "Explore Our Tools",
       cta2: "Talk to an Advisor",
       stats: {
         students: "500+ Students Guided",
         countries: "8+ Destinations",
         rate: "95% Success Rate",
+      },
+      statLabels: {
+        students: "students guided",
+        success: "success rate",
+        countries: "countries",
       },
     },
     tools: {
@@ -133,8 +140,22 @@ export const translations: Record<Language, Record<string, any>> = {
     finalCTA: {
       title: "Your Future Won't Wait. Neither Should You.",
       subtitle: "Take the first step today. It's free, fast, and could change everything.",
-      cta1: "I Start My Process!",
+      cta1: "Create My Account",
       cta2: "Book a Free Consultation",
+    },
+    destinationsGlance: {
+      title: "Explore Our Destinations",
+      subtitle: "10 countries, one platform. Find the right fit for your studies.",
+      cta: "View All Destinations",
+      conversionTitle: "Ready to get matched?",
+      conversionSubtitle: "Create your free account and get personalized recommendations based on your profile and goals.",
+    },
+    platformPromo: {
+      title: "Your Free Student Platform",
+      subtitle: "Create your account and unlock personalized scholarship matches, admission opportunities, next steps, and guided support — all in one place.",
+      badges: ["100% Free", "Personalized", "Guided by Advisors"],
+      ctaPrimary: "Create My Account",
+      ctaSecondary: "Explore the Platform",
     },
     questionnaire: {
       pageTitle: "Let's Find Your Path",
@@ -205,6 +226,7 @@ export const translations: Record<Language, Record<string, any>> = {
       description: "Your trusted partner for studying abroad. Smart tools, expert guidance, real results.",
       tools: "Tools",
       company: "Company",
+      partners: "Partner Schools",
       support: "Support",
       legal: "Legal",
       privacy: "Privacy Policy",
@@ -243,7 +265,7 @@ export const translations: Record<Language, Record<string, any>> = {
     },
     scholarshipsPage: {
       title: "Scholarships",
-      subtitle: "Discover scholarship opportunities and get help applying for funding to study abroad.",
+      subtitle: "Browse available scholarships and find funding for your studies abroad.",
       types: ["Merit-Based Scholarships", "Need-Based Financial Aid", "Government Scholarships", "University-Specific Awards", "Regional & Country Scholarships", "Research Grants"],
     },
     aboutPage: {
@@ -310,7 +332,7 @@ export const translations: Record<Language, Record<string, any>> = {
       previewTitle: "A Dashboard Built for You",
       previewSubtitle: "Here's a glimpse of what your personalized student dashboard looks like.",
       finalCtaTitle: "Ready to Start Your Journey?",
-      finalCtaSubtitle: "Join thousands of students who trust KPB Education to guide them abroad.",
+      finalCtaSubtitle: "Join 500+ students who trust KPB Education to guide them abroad.",
     },
     login: {
       title: "Welcome Back",
@@ -403,8 +425,8 @@ export const translations: Record<Language, Record<string, any>> = {
       cards: {
         profile: { title: "My Profile", desc: "View and edit your personal information and academic profile." },
         orientation: { title: "My Orientation Result", desc: "Discover the best study program for your personality and goals." },
-        scholarships: { title: "Recommended Scholarships", desc: "AI-powered scholarship recommendations based on your profile — coming soon." },
-        admissions: { title: "Ongoing Admissions", desc: "Active admission opportunities matching your profile — coming soon." },
+        scholarships: { title: "Recommended Scholarships", desc: "Personalized scholarship recommendations based on your profile." },
+        admissions: { title: "Ongoing Admissions", desc: "Active admission opportunities matching your profile." },
         actions: { title: "Next Actions", desc: "Your personalized checklist of steps to take for your study abroad journey." },
         advisor: { title: "Contact an Advisor", desc: "Chat with a KPB advisor on WhatsApp for personalized guidance." },
       },
@@ -713,11 +735,18 @@ export const translations: Record<Language, Record<string, any>> = {
       titleHighlight: "on s'occupe de tout",
       subtitle: "Arrêtez de chercher dans le vide. KPB Education vous trouve la bonne université, la bonne bourse, et vous accompagne du premier clic jusqu'à votre visa étudiant. Rejoignez 500+ étudiants qui nous ont fait confiance.",
       cta1: "Je commence ma procédure !",
+      ctaSignup: "Créer Mon Compte",
+      ctaTools: "Explorer Nos Outils",
       cta2: "Parler à un Conseiller",
       stats: {
         students: "500+ Étudiants Guidés",
         countries: "8+ Destinations",
         rate: "95% Taux de Réussite",
+      },
+      statLabels: {
+        students: "étudiants guidés",
+        success: "taux de réussite",
+        countries: "pays",
       },
     },
     tools: {
@@ -823,8 +852,22 @@ export const translations: Record<Language, Record<string, any>> = {
     finalCTA: {
       title: "Votre Avenir N'attend Pas. Vous Non Plus.",
       subtitle: "Faites le premier pas aujourd'hui. C'est gratuit, rapide, et ça peut tout changer.",
-      cta1: "Je commence ma procédure !",
+      cta1: "Créer Mon Compte",
       cta2: "Réserver une Consultation Gratuite",
+    },
+    destinationsGlance: {
+      title: "Explorez Nos Destinations",
+      subtitle: "10 pays, une seule plateforme. Trouvez la destination idéale pour vos études.",
+      cta: "Voir Toutes les Destinations",
+      conversionTitle: "Prêt à être mis en relation ?",
+      conversionSubtitle: "Créez votre compte gratuit et recevez des recommandations personnalisées selon votre profil et vos objectifs.",
+    },
+    platformPromo: {
+      title: "Votre Plateforme Étudiante Gratuite",
+      subtitle: "Créez votre compte et débloquez des bourses personnalisées, des opportunités d'admission, des prochaines étapes et un accompagnement guidé — tout en un seul endroit.",
+      badges: ["100% Gratuit", "Personnalisé", "Guidé par des Conseillers"],
+      ctaPrimary: "Créer Mon Compte",
+      ctaSecondary: "Explorer la Plateforme",
     },
     questionnaire: {
       pageTitle: "Trouvons Votre Chemin",
@@ -895,6 +938,7 @@ export const translations: Record<Language, Record<string, any>> = {
       description: "Votre partenaire de confiance pour étudier à l'étranger. Outils intelligents, accompagnement expert, résultats concrets.",
       tools: "Outils",
       company: "Entreprise",
+      partners: "Écoles Partenaires",
       support: "Support",
       legal: "Légal",
       privacy: "Politique de Confidentialité",
@@ -933,7 +977,7 @@ export const translations: Record<Language, Record<string, any>> = {
     },
     scholarshipsPage: {
       title: "Bourses d'Études",
-      subtitle: "Découvrez les opportunités de bourses et obtenez de l'aide pour financer vos études à l'étranger.",
+      subtitle: "Parcourez les bourses disponibles et trouvez un financement pour vos études à l'étranger.",
       types: ["Bourses au Mérite", "Aide Financière", "Bourses Gouvernementales", "Bourses Universitaires", "Bourses Régionales", "Bourses de Recherche"],
     },
     aboutPage: {
@@ -1000,7 +1044,7 @@ export const translations: Record<Language, Record<string, any>> = {
       previewTitle: "Un Tableau de Bord Conçu pour Vous",
       previewSubtitle: "Voici un aperçu de votre tableau de bord étudiant personnalisé.",
       finalCtaTitle: "Prêt à Commencer Votre Aventure ?",
-      finalCtaSubtitle: "Rejoignez des milliers d'étudiants qui font confiance à KPB Education pour les guider à l'étranger.",
+      finalCtaSubtitle: "Rejoignez 500+ étudiants qui font confiance à KPB Education pour les guider à l'étranger.",
     },
     login: {
       title: "Bon Retour",
@@ -1093,8 +1137,8 @@ export const translations: Record<Language, Record<string, any>> = {
       cards: {
         profile: { title: "Mon Profil", desc: "Consultez et modifiez vos informations personnelles et votre profil académique." },
         orientation: { title: "Mon Résultat d'Orientation", desc: "Découvrez le meilleur programme d'études pour votre personnalité et vos objectifs." },
-        scholarships: { title: "Bourses Recommandées", desc: "Recommandations de bourses basées sur votre profil par IA — bientôt disponible." },
-        admissions: { title: "Admissions en Cours", desc: "Opportunités d'admission correspondant à votre profil — bientôt disponible." },
+        scholarships: { title: "Bourses Recommandées", desc: "Recommandations de bourses personnalisées basées sur votre profil." },
+        admissions: { title: "Admissions en Cours", desc: "Opportunités d'admission correspondant à votre profil." },
         actions: { title: "Prochaines Actions", desc: "Votre checklist personnalisée d'étapes pour votre projet d'études à l'étranger." },
         advisor: { title: "Contacter un Conseiller", desc: "Discutez avec un conseiller KPB sur WhatsApp pour un accompagnement personnalisé." },
       },

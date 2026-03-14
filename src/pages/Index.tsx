@@ -123,9 +123,9 @@ const Index = () => {
 
               {/* CTAs */}
               <motion.div variants={fadeUp} custom={2} className="mt-6 md:mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start">
-                <Link to="/questionnaire" className="w-full sm:w-auto">
+                <Link to="/signup" className="w-full sm:w-auto">
                   <Button variant="hero" size="xl" className="w-full sm:w-auto text-base sm:text-lg h-14 sm:h-14">
-                    {t("hero.cta1")} <ArrowRight className="w-5 h-5" />
+                    {t("hero.ctaSignup")} <ArrowRight className="w-5 h-5" />
                   </Button>
                 </Link>
                 <a href={WA_LINK} target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
@@ -133,6 +133,11 @@ const Index = () => {
                     <MessageCircle className="w-5 h-5" /> {t("hero.cta2")}
                   </Button>
                 </a>
+                <Link to="/tools" className="w-full sm:w-auto">
+                  <Button variant="ghost" size="lg" className="w-full sm:w-auto text-primary-foreground/70 hover:text-primary-foreground">
+                    {t("hero.ctaTools")} <ArrowRight className="w-4 h-4" />
+                  </Button>
+                </Link>
               </motion.div>
 
               {/* Stats as pill badges */}
@@ -273,6 +278,33 @@ const Index = () => {
         </div>
       </section>
 
+      {/* ===== DESTINATIONS AT A GLANCE ===== */}
+      <section className="section-padding-compact bg-secondary/40">
+        <div className="container-narrow mx-auto">
+          <div className="text-center max-w-2xl mx-auto mb-6 md:mb-10">
+            <h2 className="font-heading font-bold text-2xl md:text-4xl text-foreground">{t("destinationsGlance.title")}</h2>
+            <p className="mt-2 text-muted-foreground text-sm md:text-lg">{t("destinationsGlance.subtitle")}</p>
+          </div>
+          <div className="flex flex-wrap justify-center gap-3 md:gap-4">
+            {[
+              { key: "belgium", flag: "🇧🇪" }, { key: "france", flag: "🇫🇷" }, { key: "canada", flag: "🇨🇦" },
+              { key: "usa", flag: "🇺🇸" }, { key: "china", flag: "🇨🇳" }, { key: "uk", flag: "🇬🇧" },
+              { key: "germany", flag: "🇩🇪" }, { key: "spain", flag: "🇪🇸" }, { key: "turkey", flag: "🇹🇷" }, { key: "uae", flag: "🇦🇪" },
+            ].map(({ key, flag }) => (
+              <Link key={key} to={`/destinations/${key}`}>
+                <motion.div whileHover={{ scale: 1.05 }} className="flex items-center gap-2 bg-card rounded-full px-4 py-2.5 shadow-card border border-border hover:border-accent/30 hover:shadow-card-hover transition-all cursor-pointer">
+                  <span className="text-2xl">{flag}</span>
+                  <span className="font-heading font-semibold text-foreground text-sm">{t(`destinationsPage.countries.${key}.name`)}</span>
+                </motion.div>
+              </Link>
+            ))}
+          </div>
+          <div className="text-center mt-6">
+            <Link to="/destinations"><Button variant="ghost" size="sm">{t("destinationsGlance.cta")} <ArrowRight className="w-4 h-4" /></Button></Link>
+          </div>
+        </div>
+      </section>
+
       {/* ===== WHY KPB ===== */}
       <section className="section-padding-compact gradient-hero">
         <div className="container-narrow mx-auto">
@@ -292,6 +324,32 @@ const Index = () => {
               );
             })}
           </div>
+        </div>
+      </section>
+
+      {/* ===== STUDENT PLATFORM PROMO ===== */}
+      <section className="section-padding-compact bg-background">
+        <div className="container-narrow mx-auto">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="bg-gradient-to-r from-primary/5 to-accent/10 rounded-2xl p-8 md:p-12 border border-accent/20">
+            <div className="text-center max-w-2xl mx-auto">
+              <div className="w-14 h-14 rounded-2xl gradient-accent flex items-center justify-center mx-auto mb-4">
+                <GraduationCap className="w-7 h-7 text-accent-foreground" />
+              </div>
+              <h2 className="font-heading font-bold text-2xl md:text-3xl text-foreground">{t("platformPromo.title")}</h2>
+              <p className="mt-3 text-muted-foreground text-sm md:text-lg leading-relaxed">{t("platformPromo.subtitle")}</p>
+              <div className="mt-4 flex flex-wrap justify-center gap-3">
+                {(t("platformPromo.badges") as string[]).map((badge, i) => (
+                  <span key={i} className="inline-flex items-center gap-1.5 bg-accent/10 text-accent-foreground text-xs font-semibold rounded-full px-3 py-1.5 border border-accent/20">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-accent" /> {badge}
+                  </span>
+                ))}
+              </div>
+              <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
+                <Link to="/signup"><Button variant="accent" size="lg">{t("platformPromo.ctaPrimary")} <ArrowRight className="w-4 h-4" /></Button></Link>
+                <Link to="/student-platform"><Button variant="outline" size="lg">{t("platformPromo.ctaSecondary")} <ArrowRight className="w-4 h-4" /></Button></Link>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
@@ -411,8 +469,8 @@ const Index = () => {
           <h2 className="font-heading font-extrabold text-2xl sm:text-3xl md:text-4xl text-accent-foreground">{t("finalCTA.title")}</h2>
           <p className="mt-3 md:mt-4 text-accent-foreground/80 text-sm md:text-lg max-w-xl mx-auto">{t("finalCTA.subtitle")}</p>
           <div className="mt-6 md:mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-            <Link to="/questionnaire" className="w-full sm:w-auto">
-              <Button variant="default" size="xl" className="w-full sm:w-auto">{t("finalCTA.cta1")} <ArrowRight className="w-5 h-5" /></Button>
+           <Link to="/signup" className="w-full sm:w-auto">
+              <Button variant="default" size="xl" className="w-full sm:w-auto">{t("hero.ctaSignup")} <ArrowRight className="w-5 h-5" /></Button>
             </Link>
             <a href={WA_LINK} target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
               <Button variant="heroOutline" size="xl" className="w-full sm:w-auto"><MessageCircle className="w-5 h-5" /> {t("finalCTA.cta2")}</Button>

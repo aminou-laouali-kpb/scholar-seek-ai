@@ -3,6 +3,7 @@ import { useLanguage } from "@/i18n/LanguageContext";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { ArrowRight, MessageCircle, GraduationCap, MapPin, BookOpen, Users, Building2 } from "lucide-react";
+import SEOHead from "@/components/SEOHead";
 
 const WA_LINK = "https://wa.me/33768674292";
 
@@ -22,7 +23,8 @@ const countryToolRoutes: Record<string, string> = {
 
 const CountryDetail = () => {
   const { country } = useParams<{ country: string }>();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const isEn = language === "en";
 
   if (!country || !countryFlags[country]) {
     return (
@@ -50,6 +52,10 @@ const CountryDetail = () => {
 
   return (
     <div className="min-h-screen">
+      <SEOHead
+        title={`${isEn ? "Study in" : "Étudier en"} ${name} — KPB Education`}
+        description={data.tagline}
+      />
       {/* Hero */}
       <section className="gradient-hero section-padding">
         <div className="container-narrow mx-auto text-center">
@@ -158,11 +164,41 @@ const CountryDetail = () => {
         </div>
       </section>
 
+      {/* Partner Schools & Scholarships links */}
+      <section className="section-padding bg-secondary/30">
+        <div className="container-narrow mx-auto max-w-4xl">
+          <div className="grid sm:grid-cols-2 gap-6">
+            <Link to={`/partners`} className="block">
+              <div className="bg-card rounded-2xl p-6 shadow-card border border-border hover:shadow-card-hover hover:border-accent/30 transition-all text-center">
+                <Building2 className="w-10 h-10 text-accent mx-auto mb-3" />
+                <h3 className="font-heading font-bold text-foreground text-lg mb-2">
+                  {isEn ? `KPB Partner Schools` : `Écoles Partenaires KPB`}
+                </h3>
+                <p className="text-muted-foreground text-sm">
+                  {isEn ? "Browse our curated partner programs with simplified admission." : "Explorez nos programmes partenaires avec admission simplifiée."}
+                </p>
+              </div>
+            </Link>
+            <Link to="/scholarships" className="block">
+              <div className="bg-card rounded-2xl p-6 shadow-card border border-border hover:shadow-card-hover hover:border-accent/30 transition-all text-center">
+                <GraduationCap className="w-10 h-10 text-accent mx-auto mb-3" />
+                <h3 className="font-heading font-bold text-foreground text-lg mb-2">
+                  {isEn ? "Scholarships" : "Bourses d'Études"}
+                </h3>
+                <p className="text-muted-foreground text-sm">
+                  {isEn ? "Discover scholarships available for this destination." : "Découvrez les bourses disponibles pour cette destination."}
+                </p>
+              </div>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Final CTA */}
       <section className="gradient-accent section-padding">
         <div className="container-narrow mx-auto text-center">
           <h2 className="font-heading font-extrabold text-2xl sm:text-3xl text-accent-foreground mb-4">
-            {t("countryDetail.primaryCta")}
+            {isEn ? `Start Your ${name} Journey Today` : `Commencez Votre Aventure en ${name} Aujourd'hui`}
           </h2>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             {primaryIsExternal ? (
@@ -178,6 +214,11 @@ const CountryDetail = () => {
               <Button variant="heroOutline" size="xl"><MessageCircle className="w-5 h-5" /> {t("countryDetail.secondaryCta")}</Button>
             </a>
           </div>
+          <Link to="/student-platform" className="inline-block mt-4">
+            <span className="text-accent-foreground/70 text-sm hover:text-accent-foreground underline transition-colors">
+              {isEn ? "Or create your free account for guided support" : "Ou créez votre compte gratuit pour un accompagnement guidé"}
+            </span>
+          </Link>
         </div>
       </section>
     </div>
