@@ -102,7 +102,7 @@ const App = () => (
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        <BrowserRouter future={{ v7_relativeSplatPath: true }}>
+        <BrowserRouter future={{ v7_relativeSplatPath: true, v7_startTransition: true }}>
           <ScrollToTop />
           <AuthProvider>
             <Suspense fallback={<PageLoader />}>

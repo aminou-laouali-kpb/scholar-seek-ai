@@ -482,8 +482,6 @@ const Index = () => {
       </section>
     </div>
   );
-});
-
-Index.displayName = "Index";
+};
 
 export default Index;
