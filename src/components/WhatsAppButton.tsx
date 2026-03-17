@@ -19,6 +19,9 @@ const getContextMessage = (pathname: string, isEn: boolean): string => {
   if (pathname.startsWith("/partners")) {
     return isEn ? "Hi, I'm interested in your partner school programs." : "Bonjour, je suis intéressé(e) par vos programmes d'écoles partenaires.";
   }
+  if (pathname.startsWith("/recours-gracieux")) {
+    return isEn ? "Hi, I used the recours gracieux analysis tool and need guidance." : "Bonjour, j'ai utilisé l'outil d'analyse de recours gracieux et j'aimerais être accompagné(e).";
+  }
   if (pathname.startsWith("/dashboard")) {
     return isEn ? "Hi, I need guidance on my application." : "Bonjour, j'ai besoin d'aide pour ma candidature.";
   }

@@ -40,6 +40,7 @@ const Questionnaire = lazy(() => import("./pages/Questionnaire"));
 const Orientation = lazy(() => import("./pages/Orientation"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const Partners = lazy(() => import("./pages/Partners"));
+const RecoursAnalyse = lazy(() => import("./pages/RecoursAnalyse"));
 const CheckEmail = lazy(() => import("./pages/CheckEmail"));
 const ResetPassword = lazy(() => import("./pages/ResetPassword"));
 const BlogPost = lazy(() => import("./pages/BlogPost"));
@@ -59,6 +60,7 @@ const AdminLeads = lazy(() => import("./pages/admin/AdminLeads"));
 const AdminBlog = lazy(() => import("./pages/admin/AdminBlog"));
 const AdminContactRequests = lazy(() => import("./pages/admin/AdminContactRequests"));
 const AdminQuestionnaire = lazy(() => import("./pages/admin/AdminQuestionnaire"));
+const AdminRecours = lazy(() => import("./pages/admin/AdminRecours"));
 
 const queryClient = new QueryClient();
 
@@ -123,6 +125,7 @@ const App = () => (
                   <Route path="leads" element={<AdminLeads />} />
                   <Route path="settings" element={<AdminSettings />} />
                   <Route path="blog" element={<AdminBlog />} />
+                  <Route path="recours-gracieux" element={<AdminRecours />} />
                 </Route>
 
                 {/* Public/student routes — with Header/Footer */}
@@ -143,6 +146,7 @@ const App = () => (
                       <Route path="/destinations/:country" element={<CountryDetail />} />
                       <Route path="/scholarships" element={<Scholarships />} />
                       <Route path="/partners" element={<Partners />} />
+                      <Route path="/recours-gracieux/analyse" element={<RecoursAnalyse />} />
                       <Route path="/blog" element={<Blog />} />
                       <Route path="/blog/:slug" element={<BlogPost />} />
                       <Route path="/testimonials" element={<Testimonials />} />

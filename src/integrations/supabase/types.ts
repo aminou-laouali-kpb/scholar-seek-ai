@@ -575,6 +575,105 @@ export type Database = {
         }
         Relationships: []
       }
+      recours_submissions: {
+        Row: {
+          admin_notes: string | null
+          admin_status: string
+          admin_tags: string[] | null
+          budget_range: string | null
+          country_of_residence: string
+          created_at: string
+          current_level: string
+          email: string
+          field_of_study: string
+          full_name: string
+          has_pending_applications: boolean | null
+          id: string
+          institutions_applied: string
+          nationality: string
+          num_refusals: number
+          open_to_private: boolean | null
+          preferred_cities: string | null
+          program_applied: string
+          refusal_date: string | null
+          refusal_document_url: string | null
+          refusal_reason: string | null
+          result_category: string | null
+          result_details: Json | null
+          situation_description: string | null
+          target_level: string
+          updated_at: string
+          urgency_level: string | null
+          user_id: string | null
+          whatsapp: string
+          why_contestable: string | null
+        }
+        Insert: {
+          admin_notes?: string | null
+          admin_status?: string
+          admin_tags?: string[] | null
+          budget_range?: string | null
+          country_of_residence?: string
+          created_at?: string
+          current_level?: string
+          email?: string
+          field_of_study?: string
+          full_name?: string
+          has_pending_applications?: boolean | null
+          id?: string
+          institutions_applied?: string
+          nationality?: string
+          num_refusals?: number
+          open_to_private?: boolean | null
+          preferred_cities?: string | null
+          program_applied?: string
+          refusal_date?: string | null
+          refusal_document_url?: string | null
+          refusal_reason?: string | null
+          result_category?: string | null
+          result_details?: Json | null
+          situation_description?: string | null
+          target_level?: string
+          updated_at?: string
+          urgency_level?: string | null
+          user_id?: string | null
+          whatsapp?: string
+          why_contestable?: string | null
+        }
+        Update: {
+          admin_notes?: string | null
+          admin_status?: string
+          admin_tags?: string[] | null
+          budget_range?: string | null
+          country_of_residence?: string
+          created_at?: string
+          current_level?: string
+          email?: string
+          field_of_study?: string
+          full_name?: string
+          has_pending_applications?: boolean | null
+          id?: string
+          institutions_applied?: string
+          nationality?: string
+          num_refusals?: number
+          open_to_private?: boolean | null
+          preferred_cities?: string | null
+          program_applied?: string
+          refusal_date?: string | null
+          refusal_document_url?: string | null
+          refusal_reason?: string | null
+          result_category?: string | null
+          result_details?: Json | null
+          situation_description?: string | null
+          target_level?: string
+          updated_at?: string
+          urgency_level?: string | null
+          user_id?: string | null
+          whatsapp?: string
+          why_contestable?: string | null
+        }
+        Relationships: []
+      }
       saved_items: {
         Row: {
           created_at: string
