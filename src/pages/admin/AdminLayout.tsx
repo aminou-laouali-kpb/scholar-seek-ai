@@ -14,6 +14,7 @@ const navItems = [
   { path: "/admin/users", label: "Users", icon: Users },
   { path: "/admin/leads", label: "Student Leads", icon: Flame },
   { path: "/admin/blog", label: "Blog", icon: FileText },
+  { path: "/admin/recours-gracieux", label: "Recours", icon: FileSearch },
   { path: "/admin/settings", label: "Settings", icon: Settings },
 ];
 
