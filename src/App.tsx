@@ -125,6 +125,7 @@ const App = () => (
                   <Route path="leads" element={<AdminLeads />} />
                   <Route path="settings" element={<AdminSettings />} />
                   <Route path="blog" element={<AdminBlog />} />
+                  <Route path="recours-gracieux" element={<AdminRecours />} />
                 </Route>
 
                 {/* Public/student routes — with Header/Footer */}
