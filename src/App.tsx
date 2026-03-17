@@ -40,6 +40,7 @@ const Questionnaire = lazy(() => import("./pages/Questionnaire"));
 const Orientation = lazy(() => import("./pages/Orientation"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const Partners = lazy(() => import("./pages/Partners"));
+const RecoursAnalyse = lazy(() => import("./pages/RecoursAnalyse"));
 const CheckEmail = lazy(() => import("./pages/CheckEmail"));
 const ResetPassword = lazy(() => import("./pages/ResetPassword"));
 const BlogPost = lazy(() => import("./pages/BlogPost"));
