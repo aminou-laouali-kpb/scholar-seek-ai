@@ -1,5 +1,5 @@
 import { Outlet, Link, useLocation, useNavigate } from "react-router-dom";
-import { LayoutDashboard, GraduationCap, Building2, MessageSquare, Settings, ChevronLeft, Users, LogOut, FileText, BookOpen, Mail, ClipboardList, Flame } from "lucide-react";
+import { LayoutDashboard, GraduationCap, Building2, MessageSquare, Settings, ChevronLeft, Users, LogOut, FileText, BookOpen, Mail, ClipboardList, Flame, FileSearch } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { supabase } from "@/integrations/supabase/client";
 
