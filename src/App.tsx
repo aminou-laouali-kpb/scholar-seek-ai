@@ -60,6 +60,7 @@ const AdminLeads = lazy(() => import("./pages/admin/AdminLeads"));
 const AdminBlog = lazy(() => import("./pages/admin/AdminBlog"));
 const AdminContactRequests = lazy(() => import("./pages/admin/AdminContactRequests"));
 const AdminQuestionnaire = lazy(() => import("./pages/admin/AdminQuestionnaire"));
+const AdminRecours = lazy(() => import("./pages/admin/AdminRecours"));
 
 const queryClient = new QueryClient();
 
