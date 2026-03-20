@@ -26,6 +26,8 @@ const Dashboard = () => {
 
   const [modalOpen, setModalOpen] = useState(false);
   const [modalData, setModalData] = useState({ itemType: "", itemId: "", itemName: "" });
+  const [recoursData, setRecoursData] = useState<{ hasRecours: boolean; openToPrivate: boolean; category: string | null }>({ hasRecours: false, openToPrivate: false, category: null });
+  const boostPrivate = recoursData.hasRecours && (recoursData.openToPrivate || recoursData.category === "C" || recoursData.category === "D");
 
   const handleApply = (itemType: string, itemId: string, itemName: string) => {
     track("application_started", { itemType, itemId, itemName });
