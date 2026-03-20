@@ -12,6 +12,7 @@ import ScholarshipRecommendations from "@/components/dashboard/ScholarshipRecomm
 import AdmissionOpportunities from "@/components/dashboard/AdmissionOpportunities";
 import SavedItems from "@/components/dashboard/SavedItems";
 import ApplicationModal from "@/components/dashboard/ApplicationModal";
+import RecoursStatusCard from "@/components/dashboard/RecoursStatusCard";
 import { track } from "@/lib/analytics";
 import { useLeadScore } from "@/hooks/useLeadScore";
 
@@ -25,6 +26,8 @@ const Dashboard = () => {
 
   const [modalOpen, setModalOpen] = useState(false);
   const [modalData, setModalData] = useState({ itemType: "", itemId: "", itemName: "" });
+  const [recoursData, setRecoursData] = useState<{ hasRecours: boolean; openToPrivate: boolean; category: string | null }>({ hasRecours: false, openToPrivate: false, category: null });
+  const boostPrivate = recoursData.hasRecours && (recoursData.openToPrivate || recoursData.category === "C" || recoursData.category === "D");
 
   const handleApply = (itemType: string, itemId: string, itemName: string) => {
     track("application_started", { itemType, itemId, itemName });
@@ -80,11 +83,41 @@ const Dashboard = () => {
           </div>
         </div>
 
+        {/* Recours Status */}
+        <RecoursStatusCard onRecoursData={setRecoursData} />
+
+        {/* Admission Opportunities — boosted if recours user open to private */}
+        {boostPrivate && (
+          <div>
+            <h2 className="font-heading font-bold text-xl text-foreground mb-1">
+              {isEn ? "🔒 Secure Your Plan B" : "🔒 Sécurise ton plan B"}
+            </h2>
+            <p className="text-muted-foreground text-sm mb-5">
+              {isEn
+                ? "While waiting for your appeal result, secure a spot in a private school."
+                : "Pendant l'attente de ton recours, sécurise une place en école privée."}
+            </p>
+            <AdmissionOpportunities onApply={handleApply} />
+          </div>
+        )}
+
         {/* Scholarship Recommendations */}
+        {recoursData.hasRecours && (
+          <div>
+            <h2 className="font-heading font-bold text-xl text-foreground mb-1">
+              {isEn ? "💡 Explore Scholarships While You Wait" : "💡 Explore les bourses en attendant"}
+            </h2>
+            <p className="text-muted-foreground text-sm mb-5">
+              {isEn
+                ? "Don't wait — start applying to scholarships now to maximize your options."
+                : "N'attends pas — commence à postuler aux bourses dès maintenant pour maximiser tes options."}
+            </p>
+          </div>
+        )}
         <ScholarshipRecommendations onApply={handleApply} />
 
-        {/* Admission Opportunities */}
-        <AdmissionOpportunities onApply={handleApply} />
+        {/* Admission Opportunities (normal order if not boosted) */}
+        {!boostPrivate && <AdmissionOpportunities onApply={handleApply} />}
 
         {/* Destinations & Tools */}
         <div>

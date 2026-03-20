@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { track } from "@/lib/analytics";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useAuth } from "@/contexts/AuthContext";
@@ -109,6 +109,8 @@ const CompleteProfile = () => {
   const isEn = language === "en";
   const { user, profile, refreshProfile } = useAuth();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const redirectAfter = searchParams.get("redirect");
   const [loading, setLoading] = useState(false);
   const [dontKnowProgram, setDontKnowProgram] = useState(false);
   const [otherProgram, setOtherProgram] = useState("");
@@ -187,10 +189,10 @@ const CompleteProfile = () => {
       await refreshProfile();
       if (isEditMode) {
         track("profile_updated", { study_level: form.studyLevel });
-        navigate("/dashboard");
+        navigate(redirectAfter || "/dashboard");
       } else {
         track("onboarding_completed", { study_level: form.studyLevel, country: form.countryOfResidence, destinations: form.preferredDestinations });
-        navigate(dontKnowProgram ? "/orientation" : "/dashboard");
+        navigate(dontKnowProgram ? "/orientation" : (redirectAfter || "/dashboard"));
       }
     }
     setLoading(false);

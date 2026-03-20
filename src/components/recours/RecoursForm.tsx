@@ -87,16 +87,23 @@ const targetLevels = [
 
 interface RecoursFormProps {
   onResult: (result: RecoursResult, submissionId: string) => void;
+  prefillData?: Partial<FormData>;
+  userId?: string;
 }
 
-const RecoursForm = ({ onResult }: RecoursFormProps) => {
+const RecoursForm = ({ onResult, prefillData, userId }: RecoursFormProps) => {
   const [step, setStep] = useState(1);
   const [data, setData] = useState<FormData>(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
-      return saved ? { ...defaultData, ...JSON.parse(saved) } : defaultData;
+      const base = saved ? { ...defaultData, ...JSON.parse(saved) } : defaultData;
+      // Apply prefill over defaults but not over saved draft
+      if (prefillData && !saved) {
+        return { ...base, ...prefillData };
+      }
+      return base;
     } catch {
-      return defaultData;
+      return { ...defaultData, ...prefillData };
     }
   });
   const [file, setFile] = useState<File | null>(null);
@@ -201,6 +208,7 @@ const RecoursForm = ({ onResult }: RecoursFormProps) => {
           result_category: result.category,
           result_details: result as any,
           refusal_document_url: docUrl,
+          user_id: userId || null,
         } as any)
         .select("id")
         .single();

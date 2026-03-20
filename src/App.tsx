@@ -41,6 +41,7 @@ const Orientation = lazy(() => import("./pages/Orientation"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const Partners = lazy(() => import("./pages/Partners"));
 const RecoursAnalyse = lazy(() => import("./pages/RecoursAnalyse"));
+const RecoursInfo = lazy(() => import("./pages/RecoursInfo"));
 const CheckEmail = lazy(() => import("./pages/CheckEmail"));
 const ResetPassword = lazy(() => import("./pages/ResetPassword"));
 const BlogPost = lazy(() => import("./pages/BlogPost"));
@@ -79,10 +80,13 @@ const AuthRoute = ({ children }: { children: React.ReactNode }) => {
   return <>{children}</>;
 };
 
-const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+const ProtectedRoute = ({ children, redirectPath }: { children: React.ReactNode; redirectPath?: string }) => {
   const { user, loading } = useAuth();
   if (loading) return null;
-  if (!user) return <Navigate to="/login" replace />;
+  if (!user) {
+    const loginUrl = redirectPath ? `/login?redirect=${encodeURIComponent(redirectPath)}` : "/login";
+    return <Navigate to={loginUrl} replace />;
+  }
   return <>{children}</>;
 };
 
@@ -146,7 +150,8 @@ const App = () => (
                       <Route path="/destinations/:country" element={<CountryDetail />} />
                       <Route path="/scholarships" element={<Scholarships />} />
                       <Route path="/partners" element={<Partners />} />
-                      <Route path="/recours-gracieux/analyse" element={<RecoursAnalyse />} />
+                      <Route path="/recours-gracieux" element={<RecoursInfo />} />
+                      <Route path="/recours-gracieux/analyse" element={<ProtectedRoute redirectPath="/recours-gracieux/analyse"><RecoursAnalyse /></ProtectedRoute>} />
                       <Route path="/blog" element={<Blog />} />
                       <Route path="/blog/:slug" element={<BlogPost />} />
                       <Route path="/testimonials" element={<Testimonials />} />

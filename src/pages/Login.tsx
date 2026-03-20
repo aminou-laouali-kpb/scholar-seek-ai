@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable/index";
@@ -13,6 +13,8 @@ const Login = () => {
   const { t, language } = useLanguage();
   const isEn = language === "en";
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const redirectTo = searchParams.get("redirect");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -28,8 +30,12 @@ const Login = () => {
     } else {
       const { data: { user } } = await supabase.auth.getUser();
       if (user) {
-        const { data: profile } = await supabase.from("profiles").select("profile_completed").eq("user_id", user.id).single();
-        navigate(profile?.profile_completed ? "/dashboard" : "/complete-profile");
+        const { data: prof } = await supabase.from("profiles").select("profile_completed").eq("user_id", user.id).single();
+        if (redirectTo) {
+          navigate(prof?.profile_completed ? redirectTo : `/complete-profile?redirect=${redirectTo}`);
+        } else {
+          navigate(prof?.profile_completed ? "/dashboard" : "/complete-profile");
+        }
       }
     }
     setLoading(false);
