@@ -155,7 +155,8 @@ const RecoursForm = ({ onResult, prefillData, userId }: RecoursFormProps) => {
       let docUrl: string | null = null;
       if (file) {
         const ext = file.name.split(".").pop();
-        const path = `${crypto.randomUUID()}.${ext}`;
+        const folder = userId || "anonymous";
+        const path = `${folder}/${crypto.randomUUID()}.${ext}`;
         const { error: uploadErr } = await supabase.storage
           .from("refusal-documents")
           .upload(path, file);
