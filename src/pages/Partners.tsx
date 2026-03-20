@@ -301,7 +301,21 @@ const Partners = () => {
               </motion.div>
             ))}
 
-            {filteredGroups.length === 0 && (
+            {filteredGroups.length === 0 && dbPrograms.length === 0 && (
+              <div className="text-center py-16">
+                <Building2 className="w-12 h-12 text-muted-foreground/40 mx-auto mb-4" />
+                <h3 className="font-heading font-bold text-xl text-foreground mb-2">
+                  {isEn ? "Our partner catalog is coming soon" : "Notre catalogue partenaire arrive bientôt"}
+                </h3>
+                <p className="text-muted-foreground max-w-md mx-auto mb-6">
+                  {isEn ? "We're finalizing partnerships with top institutions. Contact us to learn about our partner schools." : "Nous finalisons nos partenariats avec les meilleurs établissements. Contactez-nous pour connaître nos écoles partenaires."}
+                </p>
+                <a href={WA_LINK} target="_blank" rel="noopener noreferrer">
+                  <Button variant="default" size="lg"><MessageCircle className="w-4 h-4" /> {isEn ? "Ask about partner schools" : "Renseignez-vous sur nos écoles partenaires"}</Button>
+                </a>
+              </div>
+            )}
+            {filteredGroups.length === 0 && dbPrograms.length > 0 && (
               <p className="text-center text-muted-foreground py-8">{isEn ? "No programs found matching your search." : "Aucun programme trouvé correspondant à votre recherche."}</p>
             )}
           </div>}

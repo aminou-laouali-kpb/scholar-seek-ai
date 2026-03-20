@@ -16,9 +16,9 @@ import {
 import SEOHead from "@/components/SEOHead";
 import { track } from "@/lib/analytics";
 import { evaluateFulbright, type FulbrightInput, type FulbrightResult } from "@/lib/fulbrightEngine";
-import { countries } from "@/data/countries";
+import { countries, STUDY_PROGRAMS } from "@/data/countries";
 
-const WA_LINK = "https://wa.me/33768674292";
+const WA_LINK = "https://wa.me/33768674292?text=Bonjour%2C%20je%20veux%20commencer%20mon%20accompagnement%20Fulbright";
 const TOTAL_STEPS = 4;
 
 const FulbrightTest = () => {
@@ -277,7 +277,18 @@ const FulbrightTest = () => {
                     </Select>
                   </Field>
                   <Field label={en ? "Field of study" : "Domaine d'études"}>
-                    <Input value={form.fieldOfStudy} onChange={e => set("fieldOfStudy", e.target.value)} placeholder={en ? "e.g. Computer Science" : "ex. Informatique"} />
+                    <Select value={form.fieldOfStudy} onValueChange={v => set("fieldOfStudy", v)}>
+                      <SelectTrigger><SelectValue placeholder={en ? "Select a field" : "Sélectionnez un domaine"} /></SelectTrigger>
+                      <SelectContent>
+                        {STUDY_PROGRAMS.map(p => (
+                          <SelectItem key={p.key} value={p.key}>{en ? p.labelEn : p.labelFr}</SelectItem>
+                        ))}
+                        <SelectItem value="other">{en ? "Other" : "Autre"}</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    {form.fieldOfStudy === "other" && (
+                      <Input className="mt-2" value={form.fieldOfStudyOther || ""} onChange={e => set("fieldOfStudyOther" as any, e.target.value)} placeholder={en ? "Specify your field" : "Précisez votre domaine"} />
+                    )}
                   </Field>
                 </>
               )}

@@ -1,4 +1,6 @@
+import { useNavigate } from "react-router-dom";
 import { useLanguage } from "@/i18n/LanguageContext";
+import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { Award, ArrowRight, CheckCircle2, MessageCircle } from "lucide-react";
@@ -9,6 +11,12 @@ const WA_LINK = "https://wa.me/33768674292";
 const ScholarshipTest = () => {
   const { t, language } = useLanguage();
   const isEn = language === "en";
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const handleCTA = () => {
+    if (!user) { navigate("/login?redirect=/tools/scholarship-test"); return; }
+    navigate("/dashboard");
+  };
 
   const criteria = isEn
     ? ["Academic background & GPA", "Country of origin", "Desired destination", "Degree level", "Financial situation", "Field of study"]
@@ -36,7 +44,7 @@ const ScholarshipTest = () => {
             <h1 className="font-heading font-extrabold text-4xl md:text-5xl text-primary-foreground">{t("tools.scholarship.title")}</h1>
             <p className="mt-4 text-primary-foreground/80 text-lg max-w-2xl mx-auto">{t("tools.scholarship.description")}</p>
             <div className="mt-8">
-              <Button variant="hero" size="xl">{t("tools.scholarship.cta")} <ArrowRight className="w-5 h-5" /></Button>
+              <Button variant="hero" size="xl" onClick={handleCTA}>{t("tools.scholarship.cta")} <ArrowRight className="w-5 h-5" /></Button>
             </div>
           </motion.div>
         </div>

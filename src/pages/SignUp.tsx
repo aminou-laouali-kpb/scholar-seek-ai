@@ -173,7 +173,8 @@ const SignUp = () => {
     }
 
     setLoading(false);
-    navigate("/check-email");
+    toast.success(language === "en" ? "Welcome!" : "Bienvenue !");
+    navigate("/dashboard");
   };
 
   const studyLevels = t("signup.studyLevels") as Record<string, string>;
