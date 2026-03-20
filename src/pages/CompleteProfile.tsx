@@ -109,6 +109,8 @@ const CompleteProfile = () => {
   const isEn = language === "en";
   const { user, profile, refreshProfile } = useAuth();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const redirectAfter = searchParams.get("redirect");
   const [loading, setLoading] = useState(false);
   const [dontKnowProgram, setDontKnowProgram] = useState(false);
   const [otherProgram, setOtherProgram] = useState("");
