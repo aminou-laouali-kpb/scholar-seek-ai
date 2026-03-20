@@ -1,120 +1,87 @@
 
 
-# Plan: Fulbright Landing Page + Eligibility Test + Dashboard Module
+# Plan combiné : toutes les améliorations en attente
 
-## Overview
-
-3 new pages, 1 new dashboard component, 1 new test engine. Fully bilingual (FR/EN). Conversion-focused flow: landing → login gate → dashboard with Fulbright priority module → test → result.
+9 fichiers modifiés, 0 changement DB. 1 action auth config.
 
 ---
 
-## 1. New Files
+## 1. Désactiver la confirmation email
 
-| File | Purpose |
-|------|---------|
-| `src/pages/FulbrightLanding.tsx` | Public landing page at `/scholarships/fulbright` |
-| `src/pages/FulbrightTest.tsx` | Protected multi-step eligibility test at `/scholarships/fulbright/test` |
-| `src/components/dashboard/FulbrightModule.tsx` | Priority dashboard card |
-| `src/lib/fulbrightEngine.ts` | Rule-based scoring engine |
+**Action** : `cloud--configure_auth` pour activer auto-confirm email signups.
 
-## 2. Modified Files
-
-| File | Change |
-|------|--------|
-| `src/App.tsx` | Add 2 routes: `/scholarships/fulbright` (public), `/scholarships/fulbright/test` (ProtectedRoute) |
-| `src/pages/Dashboard.tsx` | Add `FulbrightModule` as first section (above recours/profile) |
-| `src/components/layout/Header.tsx` | No change needed — accessible via Scholarships nav or direct link |
+**Fichier** : `src/pages/SignUp.tsx` (ligne 176)
+- Remplacer `navigate("/check-email")` par `navigate("/dashboard")`
+- Ajouter `toast.success("Bienvenue !")`
 
 ---
 
-## 3. Landing Page (`/scholarships/fulbright`)
+## 2. Fulbright test : liste déroulante des filières
 
-Same pattern as `RecoursInfo.tsx`. Sections:
-
-1. **Hero** — gradient-hero, powerful bilingual headline, main CTA "Tester mon éligibilité Fulbright" / "Check my Fulbright eligibility", secondary CTA "Parler à un conseiller"
-2. **Value section** — 4 cards: know if your profile fits, identify strengths/gaps, get a clear plan, save time
-3. **Quick Fulbright overview** — concise: US govt funded, graduate level, prestigious, selective, leadership focus
-4. **"This test is for you if…"** — 6 bullet cards
-5. **What the test evaluates** — 7 dimensions listed with icons + disclaimer about country variations
-6. **What you get after** — result breakdown: fit level, strengths, gaps, action plan, KPB support
-7. **CTA repeat** — strong mid-page and bottom CTA
-8. **FAQ** — 6 questions bilingual accordion
-9. **Trust disclaimer** — "This is a KPB guidance tool, not official Fulbright selection"
-
-**CTA logic** (same as RecoursInfo): if not logged in → `/login?redirect=/scholarships/fulbright/test`, if profile incomplete → `/complete-profile?redirect=/scholarships/fulbright/test`, else → test page directly.
-
-## 4. Fulbright Test (`/scholarships/fulbright/test`)
-
-Protected route. Multi-step form (4 steps):
-
-**Step 1 — Profile**: country of citizenship, country of residence, degree level, graduation status, field of study
-**Step 2 — Academic**: academic performance level (GPA range), English readiness (self-assessed), clarity of study project (text)
-**Step 3 — Leadership**: leadership experience (select), community engagement (select), motivation for US study (text), clarity of future goals (text)
-**Step 4 — Readiness**: willingness to commit to strong application, timeline/urgency
-
-On submit: run `fulbrightEngine`, save result to localStorage (no new DB table for V1 — keeps it simple), show result inline.
-
-## 5. Fulbright Engine (`src/lib/fulbrightEngine.ts`)
-
-Weighted scoring across dimensions:
-
-| Dimension | Weight |
-|-----------|--------|
-| Academic level (master's ready) | 15% |
-| Study project clarity | 20% |
-| Leadership experience | 20% |
-| English readiness | 10% |
-| Community engagement | 15% |
-| Motivation / US fit | 10% |
-| Application readiness | 10% |
-
-**Output categories:**
-- **Strong potential** (score ≥ 75): "Profil prometteur pour Fulbright"
-- **Promising, needs work** (50-74): "Profil intéressant, des améliorations possibles"
-- **Early stage** (25-49): "Profil en développement, préparation nécessaire"
-- **Needs significant prep** (<25): "Profil à renforcer considérablement"
-
-Returns: `{ level, score, verdict_fr, verdict_en, strengths[], gaps[], nextSteps[] }`
-
-## 6. Result Display
-
-Inline on the test page after submission:
-- Color-coded badge (green/amber/orange/red)
-- Verdict summary
-- Strengths list with checkmarks
-- Gaps list with alert icons
-- Personalized next steps
-- CTA: "Obtenir un accompagnement KPB" / WhatsApp advisor
-- Trust disclaimer
-
-## 7. Dashboard Module (`FulbrightModule.tsx`)
-
-Card shown at top of Dashboard (before RecourStatusCard). Appears when:
-- User came from `/scholarships/fulbright` (tracked via URL param or localStorage flag)
-- OR always visible as a campaign highlight (configurable)
-
-Content:
-- 🇺🇸 Fulbright badge
-- "Testez votre éligibilité Fulbright" / "Check your Fulbright eligibility"
-- If test already taken: show result summary + "Voir mon plan" CTA
-- If not taken: "Commencer le test" CTA → `/scholarships/fulbright/test`
-
-## 8. No Database Changes for V1
-
-The Fulbright test result is stored in localStorage for simplicity. No new tables needed. If we want persistence later, we can add a `fulbright_submissions` table.
-
-## 9. Event Tracking
-
-Using existing `track()`:
-- `fulbright_page_viewed`
-- `fulbright_cta_clicked`
-- `fulbright_test_started`
-- `fulbright_test_completed` (with level)
-- `fulbright_result_cta_clicked`
+**Fichier** : `src/pages/FulbrightTest.tsx` (lignes 279-281)
+- Remplacer `<Input>` par `<Select>` avec `STUDY_PROGRAMS` de `src/data/countries.ts`
+- Ajouter option "Autre" avec champ libre conditionnel
+- Même pattern que `CompleteProfile.tsx`
 
 ---
 
-## Summary
+## 3. Fulbright WhatsApp CTA : message pré-rempli
 
-4 new files, 2 modified files, 0 database changes. Clean, conversion-focused, bilingual, mobile-first. Same patterns as existing RecoursInfo + ScholarshipTest pages.
+**Fichier** : `src/pages/FulbrightTest.tsx` (ligne 188)
+- Changer `WA_LINK` ou le `href` du CTA résultat en `https://wa.me/33768674292?text=Bonjour%2C%20je%20veux%20commencer%20mon%20accompagnement%20Fulbright`
+
+---
+
+## 4. CTA outils : auth gate "Login puis outil"
+
+Ajouter `useAuth` + `useNavigate` sur les CTAs principaux de 3 pages. Logic : si non connecté → `/login?redirect=[tool_path]`, sinon scroll ou rester.
+
+| Fichier | CTA actuel | Fix |
+|---------|-----------|-----|
+| `src/pages/FranceFinder.tsx` | `<Button>` sans action | `onClick` avec auth gate → `/login?redirect=/tools/france` |
+| `src/pages/BelgiumFinder.tsx` | `<Button>` sans action | `onClick` avec auth gate → `/login?redirect=/tools/belgium` |
+| `src/pages/ScholarshipTest.tsx` | `<Button>` sans action | `onClick` avec auth gate → `/login?redirect=/tools/scholarship-test` |
+
+---
+
+## 5. Page Partenaires : meilleur empty state
+
+**Fichier** : `src/pages/Partners.tsx`
+- Après les filtres, si `filteredGroups.length === 0` ET `dbPrograms.length === 0`, afficher un bloc informatif :
+  - "Nos écoles partenaires seront bientôt disponibles ici"
+  - CTA WhatsApp "Contactez-nous pour connaître nos écoles partenaires"
+- Distinguer "pas de données" vs "aucun résultat de filtre"
+
+---
+
+## 6. Profil : toast erreur/succès
+
+**Fichier** : `src/pages/CompleteProfile.tsx` (lignes 186-198)
+- Ajouter `toast.success("Profil enregistré !")` dans le bloc `if (!error)`
+- Ajouter `toast.error(error.message)` dans un bloc `else`
+- Ajouter `console.error` pour debug
+
+---
+
+## 7. Performance : DNS prefetch
+
+**Fichier** : `index.html`
+- Ajouter `<link rel="dns-prefetch" href="https://oxmrdmvitrpwtycnounp.supabase.co">`
+- Ajouter `<link rel="preconnect" href="https://oxmrdmvitrpwtycnounp.supabase.co">`
+
+---
+
+## Résumé
+
+| # | Quoi | Fichier(s) |
+|---|------|-----------|
+| 1 | Auto-confirm email | Auth config + `SignUp.tsx` |
+| 2 | Select filières Fulbright | `FulbrightTest.tsx` |
+| 3 | WhatsApp message Fulbright | `FulbrightTest.tsx` |
+| 4 | Auth gate CTA outils | `FranceFinder.tsx`, `BelgiumFinder.tsx`, `ScholarshipTest.tsx` |
+| 5 | Empty state partenaires | `Partners.tsx` |
+| 6 | Toast profil | `CompleteProfile.tsx` |
+| 7 | DNS prefetch | `index.html` |
+
+7 corrections, 7 fichiers modifiés, 1 auth config, 0 migration DB.
 
