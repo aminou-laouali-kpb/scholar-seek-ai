@@ -1,98 +1,48 @@
 
 
-# Plan: Restructuration du menu + Nouveau flow Recours Gracieux + Dashboard intelligent
+# Amélioration de la page Recours Gracieux : lisibilité + Hero + copywriting
 
-## Analyse de ta vision
+## Problèmes identifiés
 
-Tu veux 3 choses interconnectées :
+1. **Hero trop dense sur mobile (391px)** : le texte, le badge, le CTA et les indicateurs sont empilés dans un espace réduit avec peu de respiration
+2. **Contraste faible** : `text-white/75` et `text-white/50` sur un fond gradient sombre = lisibilité insuffisante sur mobile
+3. **Copywriting trop générique** : le hero ne crée pas assez d'urgence émotionnelle pour un étudiant stressé par un refus
+4. **Sections trop uniformes** : alternance `bg-background` / `bg-secondary/30` sans rupture visuelle forte
+5. **Padding serré** : `px-4` partout = texte trop près des bords sur petit écran
 
-1. **Simplifier le menu** — trop de liens actuellement (7 nav links + boutons auth)
-2. **Nouveau flow recours gracieux** — page d'information riche → CTA → login obligatoire → profil → outil
-3. **Dashboard intelligent** — si l'étudiant a utilisé l'outil recours, lui pousser écoles privées + bourses
+## Changements prévus
 
----
+### Hero — refonte complète
 
-## 1. Restructuration du Header
+- **Headline plus percutant** : passer de "Refusé sur Études en France ?" à un message en 2 temps qui crée de l'empathie puis de l'espoir
+- **Sous-titre plus clair** : expliquer concrètement ce que l'outil fait en une phrase
+- **Meilleur contraste** : `text-white` au lieu de `text-white/75`, sous-titre en `text-white/80`
+- **Plus de padding mobile** : `py-24 md:py-32` au lieu de `py-20 md:py-28`, `px-5` au lieu de `px-4`
+- **Indicateurs en badges plus lisibles** : fond `bg-white/15` au lieu de texte nu
+- **CTA plus grand sur mobile** avec texte plus gros
 
-**Actuellement** : Accueil, Outils, Services, Partenaires, Destinations, Blog, Contact (7 items)
+### Copywriting — amélioration de toutes les sections
 
-**Proposition** : Réduire à 5 items principaux + regrouper
+- **"C'est quoi un recours gracieux ?"** : rendre plus direct, moins académique
+- **"Comment ça marche ?"** : descriptions plus courtes et actionnables
+- **"Qui peut faire un recours ?"** : titre plus engageant ("Es-tu concerné(e) ?")
+- **Stats section** : remplacer "4 catégories" (pas parlant) par des métriques plus convaincantes
+- **CTA intermédiaire** : copywriting plus émotionnel
+- **Reassurance finale** : plus de chaleur
 
-| Item | Contenu |
-|------|---------|
-| Accueil | `/` |
-| Recours Gracieux | `/recours-gracieux` (nouvelle page info) — **mis en avant avec badge** |
-| Destinations | `/destinations` |
-| Services | `/services` (fusionner Partenaires dedans ou via dropdown) |
-| Blog | `/blog` |
+### Lisibilité mobile
 
-- **Retirer du menu** : "Outils" (accessible depuis Destinations/Dashboard), "Partenaires" (intégrer dans Services), "Contact" (déplacer dans le footer, déjà présent)
-- Le lien "Recours Gracieux" aura un style distinctif (badge "Gratuit" ou couleur accent) pour attirer l'attention
-- Mobile : même simplification, menu plus aéré
+- Augmenter `px-4` → `px-5 sm:px-6` sur toutes les sections
+- Augmenter les tailles de texte body : `text-sm` → `text-base` sur les descriptions
+- Augmenter `leading-relaxed` → `leading-relaxed` partout (déjà là, mais vérifier)
+- Cards : augmenter le padding interne `p-5` → `p-6`
+- FAQ : augmenter la taille du texte des questions
 
----
-
-## 2. Nouveau flow Recours Gracieux (2 pages)
-
-### Page A : `/recours-gracieux` (nouvelle page informative publique)
-
-Page de présentation riche et convaincante. Pas de formulaire ici. Sections :
-
-- **Hero** : titre fort, sous-titre rassurant, illustration
-- **C'est quoi un recours gracieux ?** : explication simple, sans jargon
-- **Comment ça marche avec KPB** : 3 étapes visuelles (1. Teste ton éligibilité, 2. On analyse ton dossier, 3. Tu reçois ton plan d'action)
-- **Qui peut faire un recours ?** : critères simples
-- **Témoignages / stats** : éléments de confiance
-- **FAQ détaillée** : questions courantes
-- **CTA principal** : "Tester gratuitement mon dossier" → redirige vers `/recours-gracieux/analyse`
-
-### Page B : `/recours-gracieux/analyse` (l'outil existant)
-
-**Modification du flow** : quand l'étudiant clique sur le CTA, au lieu de lancer directement le formulaire :
-
-1. Si **non connecté** → redirect vers `/login?redirect=/recours-gracieux/analyse`
-2. Si connecté mais **profil incomplet** → redirect vers `/complete-profile?redirect=/recours-gracieux/analyse`
-3. Si connecté + profil complet → accès direct au formulaire (et pré-remplir les champs depuis le profil)
-
-**Pré-remplissage** : nom, email, WhatsApp, pays, nationalité, niveau d'études → tirés du profil existant
-
----
-
-## 3. Dashboard intelligent post-recours
-
-Quand un étudiant a soumis une analyse recours gracieux :
-
-- **Nouveau composant** `RecoursStatusCard` sur le dashboard : résumé du résultat, CTA vers les prochaines étapes
-- **Boost écoles privées** : si `open_to_private = true` ou si le résultat est C/D, la section AdmissionOpportunities est mise en avant avec un titre contextuel ("Sécurise ton plan B")
-- **Boost bourses** : les bourses sont poussées plus haut avec un message adapté ("Pendant que tu attends ta réponse, explore ces bourses")
-- Logique : requête `recours_submissions` pour l'utilisateur connecté, ajuster l'ordre et le messaging du dashboard
-
----
-
-## Fichiers impactés
+## Fichier modifié
 
 | Fichier | Changement |
 |---------|-----------|
-| `src/components/layout/Header.tsx` | Réduire nav à 5 items, ajouter badge "Gratuit" sur Recours |
-| `src/pages/RecoursInfo.tsx` | **Nouveau** — page informative `/recours-gracieux` |
-| `src/pages/RecoursAnalyse.tsx` | Modifier flow : exiger login + profil avant accès au formulaire, pré-remplir depuis profil |
-| `src/components/recours/RecoursForm.tsx` | Accepter données pré-remplies en props |
-| `src/pages/Dashboard.tsx` | Ajouter section recours status + boost écoles privées conditionnelle |
-| `src/components/dashboard/RecoursStatusCard.tsx` | **Nouveau** — carte résumé recours sur le dashboard |
-| `src/App.tsx` | Ajouter route `/recours-gracieux` (page info) |
+| `src/pages/RecoursInfo.tsx` | Refonte hero, copywriting amélioré, meilleure lisibilité mobile |
 
----
-
-## Résumé du parcours utilisateur
-
-```text
-Menu "Recours Gracieux"
-  → /recours-gracieux (page info riche)
-    → CTA "Tester mon dossier"
-      → Pas connecté ? → /login → retour automatique
-      → Profil incomplet ? → /complete-profile → retour automatique  
-      → OK → /recours-gracieux/analyse (formulaire pré-rempli)
-        → Résultat
-          → Dashboard enrichi avec écoles privées + bourses
-```
+Un seul fichier modifié. Pas de changement de structure ni de DB.
 
