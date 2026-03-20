@@ -68,8 +68,7 @@ const RecoursInfo = () => {
       />
 
       {/* ─── HERO ─── */}
-      <section className="relative overflow-hidden py-24 md:py-32 px-5 sm:px-6">
-        <div className="absolute inset-0 bg-[var(--gradient-hero)] opacity-95" />
+      <section className="relative overflow-hidden gradient-hero py-24 md:py-32 px-5 sm:px-6">
         <motion.div
           variants={stagger}
           initial="hidden"
