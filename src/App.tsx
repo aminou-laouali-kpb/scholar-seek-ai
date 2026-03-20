@@ -47,6 +47,8 @@ const ResetPassword = lazy(() => import("./pages/ResetPassword"));
 const BlogPost = lazy(() => import("./pages/BlogPost"));
 const Privacy = lazy(() => import("./pages/Privacy"));
 const Terms = lazy(() => import("./pages/Terms"));
+const FulbrightLanding = lazy(() => import("./pages/FulbrightLanding"));
+const FulbrightTest = lazy(() => import("./pages/FulbrightTest"));
 
 const AdminLayout = lazy(() => import("./pages/admin/AdminLayout"));
 const AdminLogin = lazy(() => import("./pages/admin/AdminLogin"));
@@ -151,6 +153,8 @@ const App = () => (
                       <Route path="/scholarships" element={<Scholarships />} />
                       <Route path="/partners" element={<Partners />} />
                       <Route path="/recours-gracieux" element={<RecoursInfo />} />
+                      <Route path="/scholarships/fulbright" element={<FulbrightLanding />} />
+                      <Route path="/scholarships/fulbright/test" element={<ProtectedRoute redirectPath="/scholarships/fulbright/test"><FulbrightTest /></ProtectedRoute>} />
                       <Route path="/recours-gracieux/analyse" element={<ProtectedRoute redirectPath="/recours-gracieux/analyse"><RecoursAnalyse /></ProtectedRoute>} />
                       <Route path="/blog" element={<Blog />} />
                       <Route path="/blog/:slug" element={<BlogPost />} />

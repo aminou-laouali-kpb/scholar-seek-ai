@@ -13,6 +13,7 @@ import AdmissionOpportunities from "@/components/dashboard/AdmissionOpportunitie
 import SavedItems from "@/components/dashboard/SavedItems";
 import ApplicationModal from "@/components/dashboard/ApplicationModal";
 import RecoursStatusCard from "@/components/dashboard/RecoursStatusCard";
+import FulbrightModule from "@/components/dashboard/FulbrightModule";
 import { track } from "@/lib/analytics";
 import { useLeadScore } from "@/hooks/useLeadScore";
 
@@ -82,6 +83,9 @@ const Dashboard = () => {
             <NextSteps />
           </div>
         </div>
+
+        {/* Fulbright Campaign */}
+        <FulbrightModule />
 
         {/* Recours Status */}
         <RecoursStatusCard onRecoursData={setRecoursData} />
