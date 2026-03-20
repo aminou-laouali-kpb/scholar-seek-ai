@@ -23,8 +23,9 @@ const TOTAL_STEPS = 4;
 
 const FulbrightTest = () => {
   const { profile } = useAuth();
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
   const en = language === "en";
+  const programLabels = t("signup.programs") as Record<string, string>;
 
   const [step, setStep] = useState(1);
   const [result, setResult] = useState<FulbrightResult | null>(null);
