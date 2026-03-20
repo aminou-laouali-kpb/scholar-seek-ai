@@ -208,6 +208,7 @@ const RecoursForm = ({ onResult, prefillData, userId }: RecoursFormProps) => {
           result_category: result.category,
           result_details: result as any,
           refusal_document_url: docUrl,
+          user_id: userId || null,
         } as any)
         .select("id")
         .single();
