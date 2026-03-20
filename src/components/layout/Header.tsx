@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useAuth } from "@/contexts/AuthContext";
 import { useAdminRole } from "@/hooks/useAdminRole";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { Menu, X, Globe, LogOut, Shield, Sun, Moon } from "lucide-react";
 import { useTheme } from "next-themes";
 import kpbLogo from "@/assets/kpb-logo.png";
@@ -18,15 +19,13 @@ const Header = () => {
 
   const navLinks = [
     { path: "/", label: t("nav.home") },
-    { path: "/tools", label: t("nav.tools") },
-    { path: "/services", label: t("nav.services") },
-    { path: "/partners", label: language === "en" ? "Partners" : "Partenaires" },
+    { path: "/recours-gracieux", label: language === "en" ? "Appeal Tool" : "Recours Gracieux", badge: language === "en" ? "Free" : "Gratuit" },
     { path: "/destinations", label: t("nav.destinations") },
+    { path: "/services", label: t("nav.services") },
     { path: "/blog", label: t("nav.blog") },
-    { path: "/contact", label: t("nav.contact") },
   ];
 
-  const isActive = (path: string) => location.pathname === path;
+  const isActive = (path: string) => location.pathname === path || (path !== "/" && location.pathname.startsWith(path));
 
   const handleSignOut = async () => {
     await signOut();
@@ -46,11 +45,16 @@ const Header = () => {
               <Link
                 key={link.path}
                 to={link.path}
-                className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
+                className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors flex items-center gap-1.5 ${
                   isActive(link.path) ? "text-accent-foreground bg-accent/10" : "text-muted-foreground hover:text-foreground hover:bg-secondary"
                 }`}
               >
                 {link.label}
+                {"badge" in link && link.badge && (
+                  <Badge className="bg-accent/20 text-accent-foreground text-[10px] px-1.5 py-0 font-semibold border-0">
+                    {link.badge}
+                  </Badge>
+                )}
               </Link>
             ))}
           </nav>
@@ -109,8 +113,20 @@ const Header = () => {
           <div className="lg:hidden pb-4 border-t border-border pt-4">
             <nav className="flex flex-col gap-1">
               {navLinks.map((link) => (
-                <Link key={link.path} to={link.path} onClick={() => setMobileOpen(false)} className={`px-4 py-3 text-sm font-medium rounded-lg transition-colors ${isActive(link.path) ? "text-accent-foreground bg-accent/10" : "text-muted-foreground hover:text-foreground hover:bg-secondary"}`}>
+                <Link
+                  key={link.path}
+                  to={link.path}
+                  onClick={() => setMobileOpen(false)}
+                  className={`px-4 py-3 text-sm font-medium rounded-lg transition-colors flex items-center gap-2 ${
+                    isActive(link.path) ? "text-accent-foreground bg-accent/10" : "text-muted-foreground hover:text-foreground hover:bg-secondary"
+                  }`}
+                >
                   {link.label}
+                  {"badge" in link && link.badge && (
+                    <Badge className="bg-accent/20 text-accent-foreground text-[10px] px-1.5 py-0 font-semibold border-0">
+                      {link.badge}
+                    </Badge>
+                  )}
                 </Link>
               ))}
               <div className="flex gap-2 mt-3 px-4">
