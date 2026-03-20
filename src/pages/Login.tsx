@@ -30,8 +30,12 @@ const Login = () => {
     } else {
       const { data: { user } } = await supabase.auth.getUser();
       if (user) {
-        const { data: profile } = await supabase.from("profiles").select("profile_completed").eq("user_id", user.id).single();
-        navigate(profile?.profile_completed ? "/dashboard" : "/complete-profile");
+        const { data: prof } = await supabase.from("profiles").select("profile_completed").eq("user_id", user.id).single();
+        if (redirectTo) {
+          navigate(prof?.profile_completed ? redirectTo : `/complete-profile?redirect=${redirectTo}`);
+        } else {
+          navigate(prof?.profile_completed ? "/dashboard" : "/complete-profile");
+        }
       }
     }
     setLoading(false);
