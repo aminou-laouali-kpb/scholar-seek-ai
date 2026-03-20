@@ -280,14 +280,14 @@ const FulbrightTest = () => {
                     <Select value={form.fieldOfStudy} onValueChange={v => set("fieldOfStudy", v)}>
                       <SelectTrigger><SelectValue placeholder={en ? "Select a field" : "Sélectionnez un domaine"} /></SelectTrigger>
                       <SelectContent>
-                        {STUDY_PROGRAMS.map(p => (
-                          <SelectItem key={p.key} value={p.key}>{en ? p.labelEn : p.labelFr}</SelectItem>
+                        {STUDY_PROGRAMS.map(key => (
+                          <SelectItem key={key} value={key}>{programLabels[key] || key}</SelectItem>
                         ))}
                         <SelectItem value="other">{en ? "Other" : "Autre"}</SelectItem>
                       </SelectContent>
                     </Select>
                     {form.fieldOfStudy === "other" && (
-                      <Input className="mt-2" value={form.fieldOfStudyOther || ""} onChange={e => set("fieldOfStudyOther" as any, e.target.value)} placeholder={en ? "Specify your field" : "Précisez votre domaine"} />
+                      <Input className="mt-2" value={(form as any).fieldOfStudyOther || ""} onChange={e => set("fieldOfStudy", `other:${e.target.value}`)} placeholder={en ? "Specify your field" : "Précisez votre domaine"} />
                     )}
                   </Field>
                 </>
