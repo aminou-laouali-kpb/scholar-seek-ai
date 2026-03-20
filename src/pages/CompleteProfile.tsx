@@ -189,10 +189,10 @@ const CompleteProfile = () => {
       await refreshProfile();
       if (isEditMode) {
         track("profile_updated", { study_level: form.studyLevel });
-        navigate("/dashboard");
+        navigate(redirectAfter || "/dashboard");
       } else {
         track("onboarding_completed", { study_level: form.studyLevel, country: form.countryOfResidence, destinations: form.preferredDestinations });
-        navigate(dontKnowProgram ? "/orientation" : "/dashboard");
+        navigate(dontKnowProgram ? "/orientation" : (redirectAfter || "/dashboard"));
       }
     }
     setLoading(false);
