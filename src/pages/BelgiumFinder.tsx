@@ -1,4 +1,6 @@
+import { useNavigate } from "react-router-dom";
 import { useLanguage } from "@/i18n/LanguageContext";
+import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { Search, ArrowRight, CheckCircle2, MessageCircle } from "lucide-react";
@@ -9,6 +11,12 @@ const WA_LINK = "https://wa.me/33768674292";
 const BelgiumFinder = () => {
   const { t, language } = useLanguage();
   const isEn = language === "en";
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const handleCTA = () => {
+    if (!user) { navigate("/login?redirect=/tools/belgium"); return; }
+    navigate("/dashboard");
+  };
 
   const features = isEn
     ? ["Filter by language (French, Dutch, English)", "Search by field of study", "Compare tuition fees", "View admission requirements", "Save your favorites"]
@@ -38,7 +46,7 @@ const BelgiumFinder = () => {
             <h1 className="font-heading font-extrabold text-4xl md:text-5xl text-primary-foreground">{t("tools.belgium.title")}</h1>
             <p className="mt-4 text-primary-foreground/80 text-lg max-w-2xl mx-auto">{t("tools.belgium.description")}</p>
             <div className="mt-8">
-              <Button variant="hero" size="xl">{t("tools.belgium.cta")} <ArrowRight className="w-5 h-5" /></Button>
+              <Button variant="hero" size="xl" onClick={handleCTA}>{t("tools.belgium.cta")} <ArrowRight className="w-5 h-5" /></Button>
             </div>
           </motion.div>
         </div>

@@ -1,6 +1,7 @@
 import { useState, useMemo, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { track } from "@/lib/analytics";
+import { toast } from "sonner";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
@@ -187,6 +188,7 @@ const CompleteProfile = () => {
 
     if (!error) {
       await refreshProfile();
+      toast.success(language === "en" ? "Profile saved!" : "Profil enregistré !");
       if (isEditMode) {
         track("profile_updated", { study_level: form.studyLevel });
         navigate(redirectAfter || "/dashboard");
@@ -194,6 +196,9 @@ const CompleteProfile = () => {
         track("onboarding_completed", { study_level: form.studyLevel, country: form.countryOfResidence, destinations: form.preferredDestinations });
         navigate(dontKnowProgram ? "/orientation" : (redirectAfter || "/dashboard"));
       }
+    } else {
+      console.error("Profile save error:", error);
+      toast.error(error.message || (language === "en" ? "Failed to save profile" : "Échec de l'enregistrement du profil"));
     }
     setLoading(false);
   };
