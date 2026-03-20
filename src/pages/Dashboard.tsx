@@ -12,6 +12,7 @@ import ScholarshipRecommendations from "@/components/dashboard/ScholarshipRecomm
 import AdmissionOpportunities from "@/components/dashboard/AdmissionOpportunities";
 import SavedItems from "@/components/dashboard/SavedItems";
 import ApplicationModal from "@/components/dashboard/ApplicationModal";
+import RecoursStatusCard from "@/components/dashboard/RecoursStatusCard";
 import { track } from "@/lib/analytics";
 import { useLeadScore } from "@/hooks/useLeadScore";
 
