@@ -151,7 +151,7 @@ const App = () => (
                       <Route path="/scholarships" element={<Scholarships />} />
                       <Route path="/partners" element={<Partners />} />
                       <Route path="/recours-gracieux" element={<RecoursInfo />} />
-                      <Route path="/recours-gracieux/analyse" element={<ProtectedRoute><RecoursAnalyse /></ProtectedRoute>} />
+                      <Route path="/recours-gracieux/analyse" element={<ProtectedRoute redirectPath="/recours-gracieux/analyse"><RecoursAnalyse /></ProtectedRoute>} />
                       <Route path="/blog" element={<Blog />} />
                       <Route path="/blog/:slug" element={<BlogPost />} />
                       <Route path="/testimonials" element={<Testimonials />} />
