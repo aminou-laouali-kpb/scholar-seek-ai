@@ -83,11 +83,41 @@ const Dashboard = () => {
           </div>
         </div>
 
+        {/* Recours Status */}
+        <RecoursStatusCard onRecoursData={setRecoursData} />
+
+        {/* Admission Opportunities — boosted if recours user open to private */}
+        {boostPrivate && (
+          <div>
+            <h2 className="font-heading font-bold text-xl text-foreground mb-1">
+              {isEn ? "🔒 Secure Your Plan B" : "🔒 Sécurise ton plan B"}
+            </h2>
+            <p className="text-muted-foreground text-sm mb-5">
+              {isEn
+                ? "While waiting for your appeal result, secure a spot in a private school."
+                : "Pendant l'attente de ton recours, sécurise une place en école privée."}
+            </p>
+            <AdmissionOpportunities onApply={handleApply} />
+          </div>
+        )}
+
         {/* Scholarship Recommendations */}
+        {recoursData.hasRecours && (
+          <div>
+            <h2 className="font-heading font-bold text-xl text-foreground mb-1">
+              {isEn ? "💡 Explore Scholarships While You Wait" : "💡 Explore les bourses en attendant"}
+            </h2>
+            <p className="text-muted-foreground text-sm mb-5">
+              {isEn
+                ? "Don't wait — start applying to scholarships now to maximize your options."
+                : "N'attends pas — commence à postuler aux bourses dès maintenant pour maximiser tes options."}
+            </p>
+          </div>
+        )}
         <ScholarshipRecommendations onApply={handleApply} />
 
-        {/* Admission Opportunities */}
-        <AdmissionOpportunities onApply={handleApply} />
+        {/* Admission Opportunities (normal order if not boosted) */}
+        {!boostPrivate && <AdmissionOpportunities onApply={handleApply} />}
 
         {/* Destinations & Tools */}
         <div>
