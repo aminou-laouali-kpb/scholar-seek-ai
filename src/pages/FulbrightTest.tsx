@@ -84,7 +84,7 @@ const FulbrightTest = () => {
 
   const slideVariants = {
     enter: { opacity: 0, x: 40 },
-    center: { opacity: 1, x: 0, transition: { duration: 0.35, ease: [0.16, 1, 0.3, 1] } },
+    center: { opacity: 1, x: 0, transition: { duration: 0.35, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] } },
     exit: { opacity: 0, x: -40, transition: { duration: 0.25 } },
   };
 
@@ -246,13 +246,13 @@ const FulbrightTest = () => {
                   <Field label={en ? "Country of citizenship" : "Pays de citoyenneté"}>
                     <Select value={form.countryOfCitizenship} onValueChange={v => set("countryOfCitizenship", v)}>
                       <SelectTrigger><SelectValue placeholder={en ? "Select country" : "Sélectionnez"} /></SelectTrigger>
-                      <SelectContent>{countries.map(c => <SelectItem key={c.code} value={c.code}>{c.name}</SelectItem>)}</SelectContent>
+                      <SelectContent>{countries.map(c => <SelectItem key={c.code} value={c.code}>{en ? c.nameEn : c.nameFr}</SelectItem>)}</SelectContent>
                     </Select>
                   </Field>
                   <Field label={en ? "Country of residence" : "Pays de résidence"}>
                     <Select value={form.countryOfResidence} onValueChange={v => set("countryOfResidence", v)}>
                       <SelectTrigger><SelectValue placeholder={en ? "Select country" : "Sélectionnez"} /></SelectTrigger>
-                      <SelectContent>{countries.map(c => <SelectItem key={c.code} value={c.code}>{c.name}</SelectItem>)}</SelectContent>
+                      <SelectContent>{countries.map(c => <SelectItem key={c.code} value={c.code}>{en ? c.nameEn : c.nameFr}</SelectItem>)}</SelectContent>
                     </Select>
                   </Field>
                   <Field label={en ? "Current degree level" : "Niveau de diplôme actuel"}>
