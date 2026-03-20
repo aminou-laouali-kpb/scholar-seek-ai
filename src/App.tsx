@@ -80,10 +80,13 @@ const AuthRoute = ({ children }: { children: React.ReactNode }) => {
   return <>{children}</>;
 };
 
-const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+const ProtectedRoute = ({ children, redirectPath }: { children: React.ReactNode; redirectPath?: string }) => {
   const { user, loading } = useAuth();
   if (loading) return null;
-  if (!user) return <Navigate to="/login" replace />;
+  if (!user) {
+    const loginUrl = redirectPath ? `/login?redirect=${encodeURIComponent(redirectPath)}` : "/login";
+    return <Navigate to={loginUrl} replace />;
+  }
   return <>{children}</>;
 };
 
